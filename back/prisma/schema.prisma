@@ -21,6 +21,7 @@ model user {
   password String 
   age Int
   gender String
+  profile_image String?
   gdpr DateTime @default(now())
   token  String?
   isActive Boolean @default(false)
@@ -29,7 +30,7 @@ model user {
   updatedAt DateTime @updatedAt
 
   confidentialityId  String
-  roleId String
+  roleId String  
 
   followers followers[]
   confidentiality confidentiality @relation(fields: [confidentialityId], references: [id])
