@@ -3,7 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as argon from 'argon2';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { RegisterDto } from './dto/auth.register.dto';
+import { loginDto, RegisterDto } from './dto';
+
 
 @Injectable()
 export class AuthService {
@@ -51,14 +52,29 @@ export class AuthService {
         return this.signToken(user.id)
     };
 
-
-
-
+    async login(dto: loginDto) {
+        const user = await this.prisma.user.findUnique({
+            where:{
+                email:dto.email
+            }
+        });
+        if(!user){
+            throw new ForbiddenException('this email does not correspond to any account')
+        }
+        const isValidPassword=await argon.verify(user.password, dto.password);
+        if(!isValidPassword){
+            throw new ForbiddenException('incorrect password')
+        }
+        const isValidAccount= user.isActive
+        if(isValidAccount !== true ){
+            throw new ForbiddenException('your account is invalid')
+        }
+        return this.signToken(user.id)
+    }
 
     async signToken(userId: string): Promise<{ access_token: string }> {
         const payload= {
             sub: userId,
-            //rajouter le reste 
         };
         const secret= this.config.get('JWT_SECRET');
         const token= await this.jwt.signAsync(payload,{

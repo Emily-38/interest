@@ -1,5 +1,5 @@
-import { IsEmail, IsInt, IsNotEmpty, IsString, IsStrongPassword, Min } from "class-validator";
 
+import { IsEmail, IsInt, IsNotEmpty, IsString, IsStrongPassword, Min } from "class-validator"
 
 export class RegisterDto {
 
@@ -13,7 +13,7 @@ export class RegisterDto {
 
     @IsNotEmpty()
     @IsInt()
-    @Min(18) // ne marche pas
+    @Min(18) 
     age: number
     
     @IsNotEmpty()
@@ -21,12 +21,7 @@ export class RegisterDto {
     gender: string
 
     @IsNotEmpty()
-    @IsStrongPassword({
-        minLength: 8,
-        minLowercase: 1,
-        minNumbers: 1,
-        minUppercase: 1
-    })
+    @IsStrongPassword()
     password: string
 
     @IsNotEmpty()
