@@ -9,7 +9,7 @@ export class ConfidentialityController {
   constructor(private readonly confidentialityService: ConfidentialityService) {}
 
   @Get('/')
-  getAllRentals() {
+  getAllConfidentiality() {
     return this.confidentialityService.getAllConfidentiality();
   }
 

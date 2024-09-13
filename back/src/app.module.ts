@@ -9,6 +9,7 @@ import { PostModule } from './post/post.module';
 import { InterestModule } from './interest/interest.module';
 import { CommentModule } from './comment/comment.module';
 import { ConfidentialityModule } from './confidentiality/confidentiality.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { ConfidentialityModule } from './confidentiality/confidentiality.module'
     PostModule,
     InterestModule,
     CommentModule,
-    ConfidentialityModule
+    ConfidentialityModule,
+    RoleModule
   ],
   controllers: [AppController],
   providers: [AppService],
