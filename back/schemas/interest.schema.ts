@@ -7,7 +7,5 @@ export class interest {
     @Prop({unique: true})
     name: string
 
-    @Prop()
-    userId: string
 }
-export const commentSchema= SchemaFactory.createForClass(interest)
+export const interestSchema= SchemaFactory.createForClass(interest)
