@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { PostModule } from './post/post.module';
 import { InterestModule } from './interest/interest.module';
 import { CommentModule } from './comment/comment.module';
+import { ConfidentialityModule } from './confidentiality/confidentiality.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { CommentModule } from './comment/comment.module';
     AuthModule,
     PostModule,
     InterestModule,
-    CommentModule
+    CommentModule,
+    ConfidentialityModule
   ],
   controllers: [AppController],
   providers: [AppService],
