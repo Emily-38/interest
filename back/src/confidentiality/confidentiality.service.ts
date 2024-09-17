@@ -28,11 +28,7 @@ export class ConfidentialityService {
     if(existingName) {
         throw new ForbiddenException('this name already existing')
     }
-    return await this.prisma.confidentiality.create({
-       data:{
-        name:dto.name
-     }
-    })  
+    
   }
 
   async updateConfidentiality(id : string , dto : confidentialityDto){

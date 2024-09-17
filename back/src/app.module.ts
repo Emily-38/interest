@@ -10,6 +10,7 @@ import { InterestModule } from './interest/interest.module';
 import { CommentModule } from './comment/comment.module';
 import { ConfidentialityModule } from './confidentiality/confidentiality.module';
 import { RoleModule } from './role/role.module';
+import { FollowersModule } from './followers/followers.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { RoleModule } from './role/role.module';
     InterestModule,
     CommentModule,
     ConfidentialityModule,
-    RoleModule
+    RoleModule,
+    FollowersModule
   ],
   controllers: [AppController],
   providers: [AppService],

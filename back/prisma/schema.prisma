@@ -32,7 +32,10 @@ model user {
   confidentialityId  String
   roleId String  
 
-  followers followers[]
+  followers   followers[] @relation("UserFollowers")
+  
+  following   followers[] @relation("UserFollowing")
+
   confidentiality confidentiality @relation(fields: [confidentialityId], references: [id])
   role role @relation(fields: [roleId], references: [id])
 
@@ -68,9 +71,12 @@ model followers {
   updatedAt DateTime @updatedAt
 
   userId String
-  userFollowId String
+  followerId String
 
-  user user @relation(fields: [userFollowId], references: [id])
+  user        user     @relation("UserFollowers", fields: [userId], references: [id])
+  follower    user     @relation("UserFollowing", fields: [followerId], references: [id])
 
+  @@unique([userId, followerId])
+  
 }
 
