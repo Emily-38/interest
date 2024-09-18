@@ -21,6 +21,7 @@ model user {
   password String 
   age Int
   gender String
+  
   profile_image String?
   gdpr DateTime @default(now())
   token  String?
@@ -29,6 +30,7 @@ model user {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  interestId Json? 
   confidentialityId  String
   roleId String  
 
@@ -70,11 +72,14 @@ model followers {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userId String
-  followerId String
+   // User being followed
+  userId        String
+  user          user   @relation("UserFollowers", fields: [userId], references: [id])
 
-  user        user     @relation("UserFollowers", fields: [userId], references: [id])
-  follower    user     @relation("UserFollowing", fields: [followerId], references: [id])
+  // Follower
+  followerId    String
+  follower      user   @relation("UserFollowing", fields: [followerId], references: [id])
+  
 
   @@unique([userId, followerId])
   

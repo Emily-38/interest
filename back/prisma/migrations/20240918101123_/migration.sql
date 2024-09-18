@@ -6,18 +6,20 @@ CREATE TABLE `user` (
     `password` VARCHAR(191) NOT NULL,
     `age` INTEGER NOT NULL,
     `gender` VARCHAR(191) NOT NULL,
+    `profile_image` VARCHAR(191) NULL,
     `gdpr` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `token` VARCHAR(191) NULL,
     `isActive` BOOLEAN NOT NULL DEFAULT false,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
+    `interestId` JSON NOT NULL,
     `confidentialityId` VARCHAR(191) NOT NULL,
     `roleId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `user_email_key`(`email`),
     UNIQUE INDEX `user_pseudo_key`(`pseudo`),
     PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+) ENGINE = InnoDB  DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
 
 -- CreateTable
 CREATE TABLE `confidentiality` (
@@ -28,7 +30,7 @@ CREATE TABLE `confidentiality` (
 
     UNIQUE INDEX `confidentiality_name_key`(`name`),
     PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+) ENGINE = InnoDB  DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
 
 -- CreateTable
 CREATE TABLE `role` (
@@ -39,7 +41,7 @@ CREATE TABLE `role` (
 
     UNIQUE INDEX `role_name_key`(`name`),
     PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+) ENGINE = InnoDB  DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
 
 -- CreateTable
 CREATE TABLE `followers` (
@@ -47,10 +49,11 @@ CREATE TABLE `followers` (
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `userId` VARCHAR(191) NOT NULL,
-    `userFollowId` VARCHAR(191) NOT NULL,
+    `followerId` VARCHAR(191) NOT NULL,
 
+    UNIQUE INDEX `followers_userId_followerId_key`(`userId`, `followerId`),
     PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+) ENGINE = InnoDB  DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
 
 -- AddForeignKey
 ALTER TABLE `user` ADD CONSTRAINT `user_confidentialityId_fkey` FOREIGN KEY (`confidentialityId`) REFERENCES `confidentiality`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -59,4 +62,7 @@ ALTER TABLE `user` ADD CONSTRAINT `user_confidentialityId_fkey` FOREIGN KEY (`co
 ALTER TABLE `user` ADD CONSTRAINT `user_roleId_fkey` FOREIGN KEY (`roleId`) REFERENCES `role`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `followers` ADD CONSTRAINT `followers_userFollowId_fkey` FOREIGN KEY (`userFollowId`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `followers` ADD CONSTRAINT `followers_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `followers` ADD CONSTRAINT `followers_followerId_fkey` FOREIGN KEY (`followerId`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
