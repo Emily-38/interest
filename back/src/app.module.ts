@@ -12,6 +12,7 @@ import { RoleModule } from './role/role.module';
 import { FollowersModule } from './followers/followers.module';
 import { UserModule } from './user/user.module';
 import { InterestModule } from './interest/interest.module';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { InterestModule } from './interest/interest.module';
     RoleModule,
     FollowersModule,
     UserModule,
-    InterestModule
+    InterestModule,
+    ImageModule
   ],
   controllers: [AppController],
   providers: [AppService],
