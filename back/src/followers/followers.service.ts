@@ -3,7 +3,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class FollowersService {
-    constructor(private readonly prisma: PrismaService,) {}
+    constructor(private readonly prisma: PrismaService) {}
+    
         async getAllFollowerById(id: string){
             const existingUser= await this.prisma.followers.findMany({
                 where:{

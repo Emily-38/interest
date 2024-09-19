@@ -30,7 +30,7 @@ model user {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  interestId Json? 
+  
   confidentialityId  String
   roleId String  
 
@@ -38,9 +38,21 @@ model user {
   
   following   followers[] @relation("UserFollowing")
 
+  interestId interest[] @relation("InterestId")
+  
   confidentiality confidentiality @relation(fields: [confidentialityId], references: [id])
   role role @relation(fields: [roleId], references: [id])
 
+}
+
+model interest {
+
+  id String  @id @default(uuid())
+  name String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user user[] @relation("InterestId")
 }
 
 model confidentiality {
@@ -49,7 +61,6 @@ model confidentiality {
   name String @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   user user[]
 
 }
@@ -72,11 +83,9 @@ model followers {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-   // User being followed
   userId        String
   user          user   @relation("UserFollowers", fields: [userId], references: [id])
 
-  // Follower
   followerId    String
   follower      user   @relation("UserFollowing", fields: [followerId], references: [id])
   

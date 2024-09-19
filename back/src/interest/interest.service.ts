@@ -1,46 +1,84 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { interest } from 'schemas/interest.schema';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { interestDto } from './dto';
 
 @Injectable()
 export class InterestService {
-    constructor(
-        @InjectModel(interest.name) private interestModel:Model<interest>) {}
+    constructor(private readonly prisma: PrismaService,) {}
 
-        getAllInterest(){
-            return this.interestModel.find()
-        }
     
-        getInterestById(id: string){
-            return this.interestModel.findById(id)
+    async getAllInterest() {
+      return this.prisma.interest.findMany({
+        orderBy: {
+          name: 'asc',
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
+    }
+
+    async getInterestById(id: string) {
+        return this.prisma.interest.findUnique({
+          where: {
+            id:id
+          },
+          select: {
+            id: true,
+            name: true,
+          },
+        });
+      }
+  
+    async createInterest( dto: interestDto){
+      const existingName= await this.prisma.interest.findUnique({
+          where:{
+              name: dto.name,
+          }
+      });
+      if(existingName) {
+          throw new ForbiddenException('this name already existing')
+      }
+      return this.prisma.interest.create({
+        data:{
+          name: dto.name
         }
-
-        createInterest(dto: interestDto){
-            const newInterest= new this.interestModel(dto)
-            return newInterest.save()
-        }
-
-        async updateInterest( id: string,  dto: interestDto){
-
-            const existingInterest= await this.interestModel.findById(id)
-    
-            if(!existingInterest){
-                throw new ForbiddenException('Interest not found')
-            }
-    
-            return this.interestModel.findByIdAndUpdate(id,dto)
-        }
-
-        async deleteInterest( id: string){
-
-            const existingInterest= await this.interestModel.findById(id)
-    
-            if(!existingInterest){
-                throw new ForbiddenException('Interest not found')
-            }
-    
-            return this.interestModel.findByIdAndDelete(id)
-        }
+      })
+    }
+  
+    async updateInterest(id : string , dto : interestDto){
+      const existingInterest= this.prisma.interest.findUnique({
+          where:{
+              id: id
+          }
+      })
+      if(!existingInterest){
+          throw new ForbiddenException('this interest does not exist')
+      }
+      return await this.prisma.interest.update({
+          where:{
+              id: id
+          },
+          data: {
+              name:dto.name
+          }
+      })
+    }
+  
+    async deleteInterest(id: string){
+      const existingInterest= this.prisma.interest.findUnique({
+          where:{
+              id: id
+          }
+      })
+      if(!existingInterest){
+          throw new ForbiddenException('this interest does not exist')
+      }
+      return await this.prisma.interest.delete({
+          where:{
+              id :id
+          }
+      })
+    }
 }

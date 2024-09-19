@@ -6,11 +6,12 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { PostModule } from './post/post.module';
-import { InterestModule } from './interest/interest.module';
 import { CommentModule } from './comment/comment.module';
 import { ConfidentialityModule } from './confidentiality/confidentiality.module';
 import { RoleModule } from './role/role.module';
 import { FollowersModule } from './followers/followers.module';
+import { UserModule } from './user/user.module';
+import { InterestModule } from './interest/interest.module';
 
 @Module({
   imports: [
@@ -19,11 +20,12 @@ import { FollowersModule } from './followers/followers.module';
     ConfigModule.forRoot({isGlobal:true,}),
     AuthModule,
     PostModule,
-    InterestModule,
     CommentModule,
     ConfidentialityModule,
     RoleModule,
-    FollowersModule
+    FollowersModule,
+    UserModule,
+    InterestModule
   ],
   controllers: [AppController],
   providers: [AppService],

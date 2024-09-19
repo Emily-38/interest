@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@n
 import { RoleService } from './role.service';
 import { AdminGuard, JwtGuard } from 'src/auth/guards';
 import { roleDto } from './dto/role.dto';
-import { role } from '@prisma/client';
+
 
 @UseGuards(JwtGuard)
 
@@ -28,7 +28,7 @@ export class RoleController {
     return this.roleService.updateRole( id, dto)
   }
 
-  @UseGuards(AdminGuard)
+  
   @UseGuards(AdminGuard)
   @Delete('/delete/:id')
   deleteRole(@Param('id') id :string){

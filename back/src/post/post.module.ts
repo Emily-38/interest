@@ -4,6 +4,7 @@ import { PostController } from './post.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { post, postSchema } from 'schemas/post.schema';
 
+
 @Module({
   imports: [
     MongooseModule.forFeature([{
