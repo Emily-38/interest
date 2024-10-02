@@ -13,13 +13,13 @@ export const Publication = () => {
     }
 
   return (
-    <div className=' bg-white m-10 w-full col-span-2 rounded-md'>
+    <div className=' bg-white w-full col-span-2 rounded-md mt-10'>
         <div className='flex justify-between items-center pl-3 pr-3 m-2'>
-            <div className='flex items-center gap-3 '>
-                <Image width={50} height={50} alt='Profile User' src='/profil_user.jpg' className='rounded-full'/>
+            <div className='flex items-center gap-3 p-3 cursor-pointer'>
+                <Image width={50} height={50} alt='Profile User' src='/chat.jpg' className='rounded-full h-10 w-10 object-cover'/>
                 <p> Nom Utilisateur</p>
             </div>
-            <SlOptions />
+            <SlOptions className='cursor-pointer'/>
         </div>
         <Image src={'/chat.jpg'} alt='Image de publication' width={1000} height={1000} className='mt-2 w-full'/>
         <div className='flex gap-4 ml-3'>

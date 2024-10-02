@@ -34,13 +34,13 @@ export const Navbar = () => {
         </ul>
     </aside>
     <aside className={`${isActive ? 'block translate-x-0' : 'translate-x-[-100%]'} z-10 flex flex-col items-center bg-white text-black h-lvh w-1/5 fixed transform duration-300`}>
-    <p className='flex items-center gap-2 p-3 self-start' onClick={()=>{
+    <p className='flex items-center gap-2 p-3 self-start cursor-pointer' onClick={()=>{
         search()
     }}><FaArrowLeftLong/>Retour</p>
     <input placeholder='recherche' className='rounded-md border border-black p-1 text-center outline-none'></input>
         <div className='flex flex-col gap-3 m-4'>
-            <ProfileUser/>
-            <ProfileUser/>
+            <ProfileUser button={false}/>
+            <ProfileUser button={false}/>
         </div>
     </aside>
   </div>)
