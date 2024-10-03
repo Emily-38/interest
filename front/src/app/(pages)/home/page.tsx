@@ -1,6 +1,6 @@
 'use client'
-import { BlockShadow } from '@/components/BlockShadow'
 import { CardProfil } from '@/components/CardProfil'
+import { MenuMobile } from '@/components/MenuMobile'
 import { Navbar } from '@/components/Navbar'
 import ProfileUser from '@/components/ProfileUser'
 import { Publication } from '@/components/Publication'
@@ -8,8 +8,9 @@ import React from 'react'
 
 const home = () => {
   return (
-    <div className='grid grid-cols-4 '>
-       <Navbar/> 
+    <div className='md:grid grid-cols-4 '>
+       <Navbar/>
+       <MenuMobile/>
        <div className='col-span-2'>
         <Publication/>
         <Publication/>

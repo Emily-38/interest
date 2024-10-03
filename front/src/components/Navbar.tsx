@@ -14,8 +14,7 @@ export const Navbar = () => {
     }
   return (
     <div>
-    
-    <aside className='bg-white text-black h-lvh w-1/5 fixed  '>
+    <aside className='hidden bg-white text-black h-lvh w-1/5 fixed md:block '>
         <ul className='flex flex-col justify-around items-center h-lvh  '>
             <Image width={100} height={100} src={'/logo_interest.png'} alt={'logo'} />
             <li className='cursor-pointer' onClick={()=>{
@@ -33,7 +32,7 @@ export const Navbar = () => {
             <li className='cursor-pointer'>Déconnexion</li>
         </ul>
     </aside>
-    <aside className={`${isActive ? 'block translate-x-0' : 'translate-x-[-100%]'} z-10 flex flex-col items-center bg-white text-black h-lvh w-1/5 fixed transform duration-300`}>
+    <aside className={`hidden md:block ${isActive ? 'block translate-x-0' : 'translate-x-[-100%]'} z-10 flex flex-col items-center bg-white text-black h-lvh w-1/5 fixed transform duration-300`}>
     <p className='flex items-center gap-2 p-3 self-start cursor-pointer' onClick={()=>{
         search()
     }}><FaArrowLeftLong/>Retour</p>

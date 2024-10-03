@@ -7,13 +7,13 @@ import { FaArrowLeftLong } from 'react-icons/fa6'
 const register = () => {
   return (<div className='flex flex-col items-center h-lvh'> 
     <Link className='m-3 flex items-center gap-3 self-start  text-xl' href={'/'} ><FaArrowLeftLong /> Retour</Link>
-    <Image src={'/logo_interest.png'} alt={'logo black'} width={100} height={100} className='md:hidden'/>
-    <p className='font-bold '>Incription</p>
+    <Image src={'/logo_interest.png'} alt={'logo black'} width={130} height={130} className='md:hidden'/>
+    <p className='font-bold text-xl p-3 '>Inscription</p>
     <BlockShadow> 
-    <Image src={'/logo_interest.png'} alt={'logo black'} width={100} height={100}className='hidden md:block'/>
-        <form className=' justify-center items-center m-4 grid grid-cols-2 grid-rows-6 w-5/6 place-items-center gap-4'>
-        <input type="email" placeholder="Adresse e-mail" className=" border border-black rounded-md p-3 pl-4 w-full col-span-2"/>
-        <input type="text" placeholder="Pseudo" className=" border border-black rounded-md p-3 pl-4 w-full col-span-2"/>
+    <Image src={'/logo_interest.png'} alt={'logo black'} width={130} height={130}className='hidden md:block'/>
+        <form className=' flex flex-col justify-center items-center w-5/6 gap-4 m-4 md:grid md:grid-cols-2 md:grid-rows-6 md:place-items-center'>
+        <input type="email" placeholder="Adresse e-mail" className=" border border-black rounded-md p-3 pl-4 w-full md:col-span-2"/>
+        <input type="text" placeholder="Pseudo" className=" border border-black rounded-md p-3 pl-4 w-full md:col-span-2"/>
         
             <input type="number" placeholder="Age" className=" border border-black rounded-md p-3 pl-4 w-full"/>
                 <select className='bg-white border border-black rounded-md p-3 pl-4 w-full '>
@@ -49,7 +49,7 @@ const register = () => {
           
         >
           <p className=" font-sans text-sm font-normal w-full ">
-          j'accepte les <span className='font-bold text-sm hover:underline hover:text-primary'>Conditions d'utilisations</span>
+          J'accepte les <span className='font-bold text-sm hover:underline hover:text-primary'>Conditions d'utilisations</span>
           </p>
           
         </label>
