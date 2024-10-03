@@ -38,8 +38,8 @@ export const Navbar = () => {
     }}><FaArrowLeftLong/>Retour</p>
     <input placeholder='recherche' className='rounded-md border border-black p-1 text-center outline-none'></input>
         <div className='flex flex-col gap-3 m-4'>
-            <ProfileUser button={false}/>
-            <ProfileUser button={false}/>
+            <ProfileUser button={false} col={false}/>
+            <ProfileUser button={false} col={false}/>
         </div>
     </aside>
   </div>)
