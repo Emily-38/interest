@@ -7,7 +7,7 @@ import ProfileUser from './ProfileUser'
 export const CardProfil = () => {
   return (
     <div className='bg-white shadow-md p-3 h-20'>
-        <ProfileUser button={false}/>
+        <ProfileUser button={false} col={false}/>
     </div>
   )
 }

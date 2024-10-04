@@ -10,7 +10,6 @@ export const Navbar = () => {
     const[isActive, setIsActive]=useState(false)
     async function search(){
             setIsActive(!isActive)
-       
     }
   return (
     <div>
@@ -19,20 +18,27 @@ export const Navbar = () => {
             <Image width={100} height={100} src={'/logo_interest.png'} alt={'logo'} />
             <li className='cursor-pointer' onClick={()=>{
                 router.push('#')
-            }}>Crée une publication</li>
-
-            <li className='cursor-pointer' onClick={()=>{
-                router.push('#')
             }}>Notification</li>
             <li className='cursor-pointer' onClick={()=>{
                 search()
             }}>
                 Recherche</li>
+            <li className='cursor-pointer' onClick={()=>{
+                router.push('#')
+            }}>Crée une publication</li>
             <li className='cursor-pointer'>Profile</li>
+            <li className='cursor-pointer' onClick={()=>{
+                router.push('#')
+                }}>Parametre</li>
             <li className='cursor-pointer'>Déconnexion</li>
+            <li className='text-sm text-gray-400 flex justify-center gap-5 flex-wrap'>
+                <p >Confidentialité</p> <p>Condition générales</p>
+                <p>Contact</p> <p>© Copyright 2024</p>
+            </li>
         </ul>
+       
     </aside>
-    <aside className={`hidden md:block ${isActive ? 'block translate-x-0' : 'translate-x-[-100%]'} z-10 flex flex-col items-center bg-white text-black h-lvh w-1/5 fixed transform duration-300`}>
+    <aside className={`hidden md:flex ${isActive ? 'block' : 'translate-x-[-100%]'} z-10 flex flex-col items-center bg-white text-black h-lvh w-1/5 fixed transform duration-300`}>
     <p className='flex items-center gap-2 p-3 self-start cursor-pointer' onClick={()=>{
         search()
     }}><FaArrowLeftLong/>Retour</p>

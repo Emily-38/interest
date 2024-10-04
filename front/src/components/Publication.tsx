@@ -34,16 +34,16 @@ export const Publication = () => {
             <BiCommentDetail />
             <FaRegBookmark />
         </div>
-        <p className='text-center'>OH LE CHAT !!!</p>
+        <p className='text-center'> OH LE CHAT !!!</p>
         <p className='text-gray-400 pl-3 '>Dernier commentaire:</p>
         <div className='flex flex-row items-center gap-2  md:text-base'>
             <Image width={50} height={50} alt='Profile User' src='/profil_user.jpg' className='rounded-full h-10 w-10  md:h-12 md:w-12'/>
             <p className='font-semibold'> Nom Utilisateur </p>
-            <p> OH ! la chatte tu veux dire ? </p>
+            <p className='truncate ... pr-5'> test test test test test test test test test </p>
         </div>
         <div className='border border-black rounded-b-md flex'>
             <input type="text" placeholder='Ecrire un commentaire' className='md:p-3 p-2 flex w-full outline-none '></input>
-            <button type='submit' className='md:p-3 p-2 bg-primary'>Envoyer</button>
+            <button type='submit' className='md:p-3 p-2 bg-primary text-white'>Envoyer</button>
         </div>   
     </div>
   )

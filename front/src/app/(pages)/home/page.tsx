@@ -24,7 +24,7 @@ const home = () => {
        <div className='justify-self-end m-5 hidden md:block'>
             <CardProfil/>
             <div className='flex flex-col gap-4 p-5'>
-                <p className='text-gray-400 m-3 text-center'>suggestion de profile</p>
+                <p className='text-gray-400 m-3 text-center'>Suggestion de profile</p>
                 <ProfileUser button={true} col={false}/>
                 <ProfileUser button={true} col={false} />
             </div>
