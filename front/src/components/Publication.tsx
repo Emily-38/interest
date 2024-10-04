@@ -12,7 +12,7 @@ export const Publication = () => {
         setIsActive(!isActive)
     }
   return (
-    <div className='w-11/12 md:w-full md:mt-10 bg-white  mx-auto col-span-2 rounded-md  mt-5'>
+    <div className='w-full md:w-full md:mt-10 bg-white  mx-auto col-span-2 rounded-md  mt-5'>
         <div className='flex justify-between items-center pl-3 pr-3 m-2'>
             <div className='flex items-center gap-3 p-3 cursor-pointer'>
                 <Image width={50} height={50} alt='Profile User' src='/chat.jpg' className='rounded-full h-10 w-10 object-cover'/>

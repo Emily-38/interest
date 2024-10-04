@@ -15,7 +15,7 @@ const home = () => {
           <ProfileUser button={false} col={true} pseudo='d'/>
           <ProfileUser button={false} col={true} pseudo='idée'/>
        </div>
-       <div className=''>
+       <div className='w-11/12 mx-auto'>
           <Publication/>
           <Publication/>
        </div>
