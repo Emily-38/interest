@@ -20,8 +20,7 @@ export const Publication = () => {
             </div>
             <SlOptions className='cursor-pointer'/>
         </div>
-        <Image src={'/chat.jpg'} alt='Image de publication' width={1000} height={1000} className='mt-2 w-full h-98
-'/>
+        <Image src={'/chat.jpg'} alt='Image de publication' width={1000} height={1000} className='mt-2 w-full'/>
         <div className='flex gap-4 ml-3'>
             <p>10</p>
             <p>20</p>

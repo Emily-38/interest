@@ -4,7 +4,9 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 
 export const MenuMobile = () => {
 const[isActive,setIsActive]=useState(false)
-  return (<div className='relative md:hidden '>
+
+  return (
+  <div className='relative md:hidden '>
     <div className='bg-white z-20 flex justify-between items-center w-full p-4 static'>
         <GiHamburgerMenu className='text-4xl cursor-pointer' onClick={()=>{
             setIsActive(!isActive)

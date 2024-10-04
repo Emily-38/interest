@@ -16,7 +16,8 @@ export const ModalCreatePublication= () => {
 
   
 
-  return (<>
+  return (
+  <>
 <p className={`${open === true? 'font-semibold':''}`} onClick={handleOpen}>
   Crée une publication
 </p>
@@ -30,12 +31,10 @@ export const ModalCreatePublication= () => {
     </div> 
         <h1 className='font-semibold text-xl p-4'> Crée une publication </h1>
        <form action="" className='flex flex-col gap-4'>
-
        <input type="file" className=' border border-black text-center rounded-md p-2'/>
        <textarea maxLength={500} id="" placeholder='Ecrivez votre description...' className='border border-black rounded-md p-2'></textarea>
        <div className='border border-black p-2 rounded-md flex flex-row'>
-
-        <div className='p-3 grid grid-cols-2 gap-4'><Badge/> <Badge/> <Badge/> </div>
+        <div className='p-3 grid grid-cols-2 gap-4'><Badge content={false}/> <Badge content={false}/> <Badge content={false}/> </div>
         <div className='self-end'>
        <input type="text" placeholder="Ajoute ton centre d'interet" className='appearance-none border-b-2 text-center outline-none border-b-gray-300'/>
        <button type='submit' className='bg-primary  text-white rounded-md p-1'>Ajouter</button></div>
