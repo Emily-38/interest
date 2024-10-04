@@ -11,17 +11,17 @@ export const Publication = () => {
         console.log(isActive)
         setIsActive(!isActive)
     }
-
   return (
-    <div className=' bg-white w-11/12 mx-auto col-span-2 rounded-md md:mt-10 mt-5 md:w-full'>
+    <div className='w-11/12 md:w-full md:mt-10 bg-white  mx-auto col-span-2 rounded-md  mt-5'>
         <div className='flex justify-between items-center pl-3 pr-3 m-2'>
             <div className='flex items-center gap-3 p-3 cursor-pointer'>
                 <Image width={50} height={50} alt='Profile User' src='/chat.jpg' className='rounded-full h-10 w-10 object-cover'/>
-                <p> Nom Utilisateur</p>
+                <p> Nom Utilisateur </p>
             </div>
             <SlOptions className='cursor-pointer'/>
         </div>
-        <Image src={'/chat.jpg'} alt='Image de publication' width={1000} height={1000} className='mt-2 w-full'/>
+        <Image src={'/chat.jpg'} alt='Image de publication' width={1000} height={1000} className='mt-2 w-full h-98
+'/>
         <div className='flex gap-4 ml-3'>
             <p>10</p>
             <p>20</p>

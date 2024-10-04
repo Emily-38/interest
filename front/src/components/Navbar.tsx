@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import ProfileUser from './ProfileUser'
+import {  ModalCreatePublication } from './ModaleCreatePublication'
 
 export const Navbar = () => {
     const router = useRouter() 
@@ -23,9 +24,8 @@ export const Navbar = () => {
                 search()
             }}>
                 Recherche</li>
-            <li className='cursor-pointer' onClick={()=>{
-                router.push('#')
-            }}>Crée une publication</li>
+            <li className='cursor-pointer'>
+                <ModalCreatePublication/></li>
             <li className='cursor-pointer'>Profile</li>
             <li className='cursor-pointer' onClick={()=>{
                 router.push('#')

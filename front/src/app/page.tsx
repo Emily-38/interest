@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter()
   return (
-    <div className="flex flex-col items-center h-lvh md:flex-row md:justify-around">
+    <div className=" relative flex flex-col items-center h-lvh md:flex-row md:justify-around">
       <div className="hidden w-2/5 md:block">
         <Image src={"/image_home.jpg"} alt={"téléphone avec differents ecran "} width={1000} height={1000} className="rounded-md"/>
       </div>
