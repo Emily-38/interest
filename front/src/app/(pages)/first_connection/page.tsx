@@ -46,10 +46,10 @@ const router= useRouter()
             <h1 className='font-semibold text-2xl'>Bienvenue sur Interest</h1>
             <p className='md:self-start text-lg'>Choisis tes centres d'intérets: </p> 
             <div className='flex flex-row flex-wrap gap-10'>
-              <Badge/>
-              <Badge/>
-              <Badge/>
-              <Badge/>
+              <Badge content={false}/>
+              <Badge content={false}/>
+              <Badge content={false}/>
+              <Badge content={false}/>
             </div>
             <div className='flex flex-row gap-2 m-4'>
               <input type="text" placeholder="Ajoute ton centre d'interet" className='appearance-none border-b-2 text-center outline-none border-b-gray-300'/>

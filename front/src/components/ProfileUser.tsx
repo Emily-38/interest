@@ -7,11 +7,11 @@ const ProfileUser = ({button,col,pseudo}:{button:boolean,col:boolean,pseudo:stri
     
 const router= useRouter()
     return (
-    <div className={`flex ${col === true ?'flex-col flex-shrink-0 p-3':''} justify-center items-center gap-3 flex-nowrap cursor-pointer `} onClick={()=>{
+    <div className={`flex ${col === true ?'flex-col flex-shrink-0 p-3':'w-full'} justify-between items-center gap-3 flex-nowrap cursor-pointer `} onClick={()=>{
         router.push('/profil/id')
     }}>
         <Image width={1000} height={1000} alt='Profile user' src={'/chat.jpg'} className={`object-cover rounded-full h-12 w-12 ${col === true? 'md:w-32 md:h-32':''} `}/>
-        <p>{pseudo}</p>
+        <p className='mx-auto'>{pseudo}</p>
     {button === true ?
      <button className='bg-primary text-white rounded-md p-1'>Suivre</button>
     :''}
