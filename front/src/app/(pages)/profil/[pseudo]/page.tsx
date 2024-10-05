@@ -56,9 +56,9 @@ const page = ({params}:ParamsType) => {
                 <button className=' bg-primary text-center rounded-md w-1/4 text-white p-1'>Suivre</button>
         </div>
         <div className='w-10/12 md:w-2/3 mx-auto'>
-          <Publication/>
-          <Publication/>
-          <Publication/>
+          <Publication full={false}/>
+          <Publication full={false}/>
+          <Publication full={false}/>
         </div>
     </div>
   )

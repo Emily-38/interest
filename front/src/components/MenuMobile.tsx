@@ -39,11 +39,16 @@ const router = useRouter()
                 setIsActive(false)
             }}>Profil</li>
             <hr className='w-4/5'/>
-            <li>Parametre</li>
+            <li className='cursor-pointer' onClick={()=>{
+                router.push('/setting/updateProfile')
+                setIsActive(false)
+            }}>Parametre</li>
             <hr className='w-4/5'/>
             <li>A propos</li>
             <hr className='w-4/5'/>
-            <li className='pb-6'>Deconnexion</li>
+            <li className='pb-6 cursor-pointer' onClick={()=>{
+                router.push('/')
+            }}>Deconnexion</li>
         </ul>
     </div>)
 }

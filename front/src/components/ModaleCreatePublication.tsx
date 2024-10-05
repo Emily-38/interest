@@ -41,8 +41,9 @@ export const ModalCreatePublication= () => {
             </div>
             <div className='self-end'>
                 <input type="text" placeholder="Ajoute ton centre d'interet" className='appearance-none border-b-2 text-center outline-none border-b-gray-300'/>
-                <button type='submit' className='bg-primary  text-white rounded-md p-1'>Ajouter</button></div>
+                <button type='submit' className='bg-primary  text-white rounded-md p-1'>Ajouter</button>
             </div>
+        </div>
             <p className='bg-primary rounded-md text-white text-center p-3 w-1/2 mx-auto md:hidden'onClick={()=>{
               setIsActive(true)
             }}>Suivant</p>
