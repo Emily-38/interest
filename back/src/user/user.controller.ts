@@ -16,7 +16,7 @@ export class UserController {
   }
 
   @Get('/byId/:id')
-  getUserById(@Param('id') id: string){
+  getUserById(@Param('id') id: string ){
     return this.userService.getUserById(id)
   }
 

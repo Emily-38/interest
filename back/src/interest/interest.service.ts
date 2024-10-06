@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { interestDto } from './dto';
+import { interest } from '@prisma/client';
 
 @Injectable()
 export class InterestService {
@@ -8,15 +9,12 @@ export class InterestService {
 
     
     async getAllInterest() {
-      return this.prisma.interest.findMany({
-        orderBy: {
-          name: 'asc',
-        },
-        select: {
-          id: true,
-          name: true,
-        },
-      });
+      return this.prisma.$queryRaw<interest[]>
+      ` SELECT *
+        FROM interest
+        ORDER BY RAND()
+        LIMIT 10 
+      `  
     }
 
     async getInterestById(id: string) {
@@ -38,13 +36,14 @@ export class InterestService {
           }
       });
       if(existingName) {
-          throw new ForbiddenException('this name already existing')
+        return existingName
+      }else{ 
+        return this.prisma.interest.create({
+          data:{
+            name: dto.name
+          }
+        })
       }
-      return this.prisma.interest.create({
-        data:{
-          name: dto.name
-        }
-      })
     }
   
     async updateInterest(id : string , dto : interestDto){
