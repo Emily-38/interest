@@ -24,7 +24,7 @@ export const Navbar = () => {
     <div >
     <aside className='hidden bg-white text-black  h-lvh w-1/5 fixed md:block '>
         <ul className='flex flex-col justify-around items-center h-lvh'>
-            <Image width={1000} height={1000} src={'/logo_interest.png'} alt={'logo'}  className='w-52'/>
+            <Image width={1000} height={1000} src={'/logo_interest.png'} alt={'logo'} priority={true} className='w-52'/>
             
             <li className={`${activePage ==='home'?'font-semibold':''} cursor-pointer`} onClick={()=>{
                 router.push('/home')
