@@ -5,7 +5,6 @@ import { roleDto } from './dto/role.dto';
 
 
 @UseGuards(JwtGuard)
-
 @Controller('role')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}

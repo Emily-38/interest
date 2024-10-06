@@ -7,3 +7,7 @@ export type RegisterType={
     confirmPassword: string 
     checkbox: boolean
 }
+export type LoginType={
+    email:string
+    password:string
+}

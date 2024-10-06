@@ -27,7 +27,6 @@ const register = () => {
       toast.error(e.response.data.message)
     )
   )}
-  
 
 return (
   <div className='flex flex-col items-center h-lvh'> 
@@ -36,6 +35,7 @@ return (
     <p className='font-bold text-xl p-3 '>Inscription</p>
     <BlockShadow> 
       <Image src={'/logo_interest.png'} alt={'logo black'} width={130} height={130}className='hidden md:block'/>
+
       <form className=' flex flex-col justify-center items-center w-5/6 gap-4 m-4 md:grid md:grid-cols-2 md:grid-rows-6 md:place-items-center' onSubmit={handleSubmit(onSubmit)}>
         
         <div>

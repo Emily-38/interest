@@ -18,7 +18,7 @@ export class AuthService {
         const existingEmail= await this.prisma.user.findUnique({
             where:{
                 email: dto.email,
-            }
+            },
         });
         if(existingEmail) {
             throw new ForbiddenException('this email already existing')
@@ -45,8 +45,8 @@ export class AuthService {
                 pseudo: dto.pseudo,
                 gender: dto.gender,
                 age: dto.age,
-                confidentialityId:'c8a2e0ab-19f3-443d-8809-90c62741fc9e',
-                roleId:'8f5a6b80-1781-4a8b-a5d7-d87345f431c0',
+                confidentialityId:'b22d3b53-c8fc-4eca-a5a6-faa0bba5db6c',
+                roleId:'7a6f26c0-6f87-4953-8bc1-eb923d18631c',
             }
         })
         return this.signToken(user.id)
@@ -56,20 +56,27 @@ export class AuthService {
         const user = await this.prisma.user.findUnique({
             where:{
                 email:dto.email
+            },
+            select:{
+                id:true,
+                isActive:true,
+                password:true,
+                interestId: true
             }
         });
         if(!user){
-            throw new ForbiddenException('this email does not correspond to any account')
+            throw new ForbiddenException('l\'email est incorrect')
         }
         const isValidPassword=await argon.verify(user.password, dto.password);
         if(!isValidPassword){
-            throw new ForbiddenException('incorrect password')
+            throw new ForbiddenException('le mot de passe est incorrect')
         }
         const isValidAccount= user.isActive
         if(isValidAccount !== true ){
-            throw new ForbiddenException('your account is invalid')
+            throw new ForbiddenException('votre compte n\'est pas activer merci de verifier vos mail')
         }
-        return this.signToken(user.id)
+        
+        return{ interest:user.interestId, token: await this.signToken(user.id)} 
     }
 
     async signToken(userId: string): Promise<{ access_token: string }> {
