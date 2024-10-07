@@ -1,4 +1,4 @@
-import { IsArray, isArray, IsNotEmpty, IsOptional, IsString } from "class-validator"
+import { IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator"
 
 export class createPostDto {
 
@@ -6,7 +6,7 @@ export class createPostDto {
     description: string
     
     @IsOptional()
-    image : string
+    image? : string
 
     @IsArray()
     @IsString({ each: true })

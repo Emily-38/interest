@@ -19,7 +19,7 @@ export class PostService {
     }
 
     createPost(createPost: createPostDto, userId: string){
-        const newPost= new this.postModel({description:createPost.description, userId, interestId:createPost.interestId})
+        const newPost= new this.postModel({...createPost, userId, interestId:createPost.interestId})
        return newPost.save()       
     }
 

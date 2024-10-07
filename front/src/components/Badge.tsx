@@ -11,15 +11,14 @@ export const Badge = ({content,interest,setInterestUser}:{content:boolean,intere
       }
     
     }, [isActive])
-    
    
   return (
-    <div  className={`${isActive === true ? 'bg-primary text-white':''} ${content === true? '':'border border-black'} cursor-pointer rounded-md p-1`} onClick={()=>{
+    <div  className={`${isActive === true ? 'bg-primary text-white':''} ${content === true? '':'border border-black'} cursor-pointer rounded-md  p-1`} onClick={()=>{
       if(content !== true){
         setIsActive(!isActive)
       }
     }}>
-       {interest.name}
+       <span className='whitespace-nowrap'>{interest.name}</span>
     </div>
   )
 }

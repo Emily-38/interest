@@ -1,7 +1,5 @@
 'use client'
 import { CardProfil } from '@/components/CardProfil'
-import { MenuMobile } from '@/components/MenuMobile'
-import { Navbar } from '@/components/Navbar'
 import ProfileUser from '@/components/ProfileUser'
 import { Publication } from '@/components/Publication'
 import React from 'react'

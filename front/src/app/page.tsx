@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { GiConsoleController } from "react-icons/gi";
 import { toast } from "react-toastify";
 
 
@@ -19,9 +20,8 @@ export default function Home() {
       if(res.status=== 201){
         localStorage.setItem('token', res.data.token.access_token)
         toast.success('Bienvenue sur interest')
-
-        if(interests.lenght > 0){ 
-          router.push('/')
+        if(interests.length > 0){ 
+          router.push('/home')
         }else{
           router.push('/first_connection')
         }

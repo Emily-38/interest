@@ -24,7 +24,6 @@ const first_connection = () => {
 
   const router= useRouter()
 
-
   useEffect(() => {
     getInterest().then((res)=>{
       setInterestList(res.data)
@@ -37,7 +36,7 @@ const first_connection = () => {
   
 const {register,handleSubmit}=useForm<InterestCreate>({mode:'onSubmit', resolver:yupResolver(schemaInterest)})
 const onSubmit: SubmitHandler<InterestCreate> = (data) => {
- createInterest(data).then((res)=>{
+ createInterest(data.name).then((res)=>{
   if(res.status === 201){
     setInterestAdd((prev) => {
       return [...prev, res.data];

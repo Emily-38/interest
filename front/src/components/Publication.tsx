@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import { BiCommentDetail, BiSolidCommentDetail } from 'react-icons/bi'
+import {  BiSolidCommentDetail } from 'react-icons/bi'
 import { FaBookmark, FaHeart } from 'react-icons/fa6'
 import { Badge } from './Badge'
 import { MenuSettingPublication } from './MenuSettingPublication'
@@ -40,9 +40,24 @@ export const Publication = ({full}:{full:boolean}) => {
             </div>
             { full === true ? 
             <ul className='flex'>
-                <li className='text-gray-400'><Badge content={true}/></li>
-                <li className='text-gray-400'><Badge content={true}/></li>
-                <li className='text-gray-400'><Badge content={true}/></li>
+                <li className='text-gray-400'><Badge content={true} interest={{
+                          id: '',
+                          name: ''
+                      }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
+                          throw new Error('Function not implemented.')
+                      } }/></li>
+                <li className='text-gray-400'><Badge content={true} interest={{
+                          id: '',
+                          name: ''
+                      }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
+                          throw new Error('Function not implemented.')
+                      } }/></li>
+                <li className='text-gray-400'><Badge content={true} interest={{
+                          id: '',
+                          name: ''
+                      }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
+                          throw new Error('Function not implemented.')
+                      } }/></li>
             </ul>
             :''}
         </div>

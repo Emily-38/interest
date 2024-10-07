@@ -25,15 +25,30 @@ const page = ({params}:ParamsType) => {
                 </ul>
                 <ul className='hidden md:flex gap-5 text-center'>
                   <li>
-                    <Badge content={true}/>
+                    <Badge content={true} interest={{
+                id: '',
+                name: ''
+              }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
+                throw new Error('Function not implemented.')
+              } }/>
                   </li> 
                   <FaCircle className='self-center text-xs'/>
                   <li>
-                    <Badge content={true}/>
+                    <Badge content={true} interest={{
+                id: '',
+                name: ''
+              }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
+                throw new Error('Function not implemented.')
+              } }/>
                   </li>
                   <FaCircle className='self-center text-xs'/>
                   <li>
-                    <Badge content={true}/>
+                    <Badge content={true} interest={{
+                id: '',
+                name: ''
+              }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
+                throw new Error('Function not implemented.')
+              } }/>
                   </li>
                 </ul>
             </div>
@@ -42,15 +57,30 @@ const page = ({params}:ParamsType) => {
         <div className="md:hidden flex justify-between">
         <ul className='flex text-center'>
                   <li>
-                    <Badge content={true}/>
+                    <Badge content={true} interest={{
+              id: '',
+              name: ''
+            }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
+              throw new Error('Function not implemented.')
+            } }/>
                   </li> 
                   <FaCircle className='self-center text-xs'/>
                   <li>
-                    <Badge content={true}/>
+                    <Badge content={true} interest={{
+              id: '',
+              name: ''
+            }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
+              throw new Error('Function not implemented.')
+            } }/>
                   </li>
                   <FaCircle className='self-center text-xs'/>
                   <li>
-                    <Badge content={true}/>
+                    <Badge content={true} interest={{
+              id: '',
+              name: ''
+            }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
+              throw new Error('Function not implemented.')
+            } }/>
                   </li>
                 </ul>
                 <button className=' bg-primary text-center rounded-md w-1/4 text-white p-1'>Suivre</button>

@@ -1,4 +1,4 @@
-import { InterestCreate } from "@/utils/interest"
+
 import axios from "axios"
 
 export async function getInterest(){
@@ -15,7 +15,7 @@ export async function getInterest(){
         url,axiosConfig
     )
 }
-export async function createInterest(data:InterestCreate){
+export async function createInterest(name:string){
     let axiosConfig = {
         headers: {
             'content-type': 'application/json;charset=utf-8',
@@ -27,7 +27,7 @@ export async function createInterest(data:InterestCreate){
     const url = `${process.env.NEXT_PUBLIC_URL_API}interest/create`
     return axios.post(
         url,{
-            name: data.name
+            name: name
         },axiosConfig
     )
 }
