@@ -27,6 +27,19 @@ export async function createPubliction(data: CreatePublication){
             interestId: data.interestId
         },axiosConfig
     )
+    }
 }
+
+export async function getPubliction(){
+    let axiosConfig = {
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+    }
+    const url = `${process.env.NEXT_PUBLIC_URL_API}post`
     
+        return axios.get( url,axiosConfig )  
 }

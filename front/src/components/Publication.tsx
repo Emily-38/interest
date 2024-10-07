@@ -5,8 +5,9 @@ import { FaBookmark, FaHeart } from 'react-icons/fa6'
 import { Badge } from './Badge'
 import { MenuSettingPublication } from './MenuSettingPublication'
 import { MenuLikePublication } from './MenuLikePublication'
+import { PublicationType } from '@/utils/publication'
 
-export const Publication = ({full}:{full:boolean}) => {
+export const Publication = ({full,publication}:{full:boolean,publication:PublicationType}) => {
     const[isLike,setIsLike]= useState(false)
     const[isSave,setIsSave]= useState(false)
   return (
@@ -19,8 +20,8 @@ export const Publication = ({full}:{full:boolean}) => {
             </div>
             <MenuSettingPublication/>
         </div>
-
-        <Image src={'/chat.jpg'} alt='Image de publication' width={1000} height={1000} className='mt-2 w-full'/>
+        {publication.image && 
+        <Image src={`http://localhost:3000/image/view/${publication.image}`} alt='Image de publication' width={1000} height={1000} className='mt-2 w-full' property='true'/>}
         <div className='flex justify-between p-3'>
             <div>
                 <ul className='flex gap-5 ml-4'>
@@ -61,14 +62,15 @@ export const Publication = ({full}:{full:boolean}) => {
             </ul>
             :''}
         </div>
-        <p className='text-center'> OH LE CHAT !!!</p>
+        <p className='text-center'> {publication.description}</p>
         <p className='text-gray-400 text-xs text-right pr-3'>03/04/24 10:30</p>
         { full === true ? 
         <>
             <p className='text-gray-400 pl-3 '>Commentaires:</p>
-            {}
+            
             <div className='overflow-y-scroll max-w-full max-h-60'>
-                <div className='flex justify-between md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
+               {} 
+               <div className='flex justify-between md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
                     <div className='flex flex-row items-center gap-2 md:text-base'>
                         <Image width={50} height={50} alt='Profile User' src='/profil_user.jpg' className='rounded-full h-10 w-10  md:h-12 md:w-12'/>
                         <p className='font-semibold'> Nom Utilisateur </p>
@@ -76,7 +78,7 @@ export const Publication = ({full}:{full:boolean}) => {
                     </div>
                     <p className='text-gray-400 text-xs text-right pr-3'>03/04/24 10:30</p>
                 </div>
-
+                  
                 <div className='flex justify-between md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
                     <div className='flex flex-row items-center gap-2  md:text-base'>
                         <Image width={50} height={50} alt='Profile User' src='/profil_user.jpg' className='rounded-full h-10 w-10  md:h-12 md:w-12'/>

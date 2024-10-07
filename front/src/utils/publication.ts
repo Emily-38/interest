@@ -1,7 +1,8 @@
 import { InterestType } from "./interest"
 
 export type PublicationType ={
-    file?: string
+    id:string
+    image?: string
     description:string
     createdAt:Date
     interestId: InterestType[]

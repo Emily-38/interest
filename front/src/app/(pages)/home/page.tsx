@@ -2,9 +2,19 @@
 import { CardProfil } from '@/components/CardProfil'
 import ProfileUser from '@/components/ProfileUser'
 import { Publication } from '@/components/Publication'
-import React from 'react'
+import { getPubliction } from '@/services/publication'
+import { PublicationType } from '@/utils/publication'
+import React, { useEffect, useState } from 'react'
 
 const home = () => {
+  const [publicationList, setPublicationList]=useState<PublicationType[]>()
+  useEffect(() => {
+    getPubliction().then((res)=>{
+      setPublicationList(res.data)
+    })
+    
+  }, [])
+  
   return (
     <div className='flex justify-center flex-col place-self-center md:gap-5 text-sm md:text-base md:flex-row'>
         <div className='flex overflow-x-scroll md:hidden'>
@@ -14,8 +24,11 @@ const home = () => {
           <ProfileUser button={false} col={true} pseudo='idée'/>
         </div>
         <div className='w-11/12 md:w-2/3 mx-auto'>
-          <Publication full={false}/>
-          <Publication full={false}/>
+         {publicationList && publicationList.map((publication)=>{
+          return(
+            <Publication key={publication.id} full={false} publication={publication} />
+          )
+         })}
         </div>
        <div className=' m-5 hidden md:block md:w-1/5'>
           <CardProfil/>
