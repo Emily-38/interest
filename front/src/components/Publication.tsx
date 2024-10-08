@@ -13,6 +13,7 @@ import { createComment, getCommentByIdPost } from '@/services/comment'
 import { comment } from 'postcss'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { likePubliction, savePubliction } from '@/services/publication'
 
 export const Publication = ({full,publication}:{full:boolean, publication:PublicationType}) => {
     const[isLike,setIsLike]= useState(false)
@@ -32,8 +33,6 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
         })
     }
 
-
-
     useEffect(() => {
         getAllUser().then((res)=>{
             setUserList(res.data)
@@ -43,6 +42,12 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
              console.log('comment',res.data)
             setCommentList(res.data)
           })
+          if(publication.like.includes(publication.user.id)){
+            setIsLike(true)
+          }
+          if(publication.save.includes(publication.user.id)){
+            setIsSave(true)
+          }
          
     }, [])
     
@@ -50,14 +55,15 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
         if(commentList){  
             setLastComment(commentList[0])
         }
+        
      }, [commentList])
 
   return (
+
     <div className=' w-full md:w-full md:mt-10 bg-white  mx-auto col-span-2 rounded-md mt-5'>
         <div className='flex justify-between items-center pl-3 pr-3 m-2'>
           {userList && userList.map((user)=>{
             if(user.id === publication.userId){ 
-               
                 return( <div key={user.id}>
                         <div className='flex items-center gap-3 p-3 cursor-pointer'>
                             <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${user.profile_image}`} property='true' className='rounded-full h-10 w-10 object-cover'/>
@@ -76,24 +82,25 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             <div className='flex justify-between p-3'>
                 <div>
                     <ul className='flex gap-5 ml-4'>
-                        <MenuLikePublication/>
-                        <li>20</li>
-                        <li>1</li>
+                        <MenuLikePublication publication={publication} isLike={isLike}/>
+                        <li>{commentList?.length}</li>  
                     </ul>
                 <div className='flex gap-3 ml-3 text-xl'>
-                    <button onClick={()=>{setIsLike(!isLike)}}>
+                    <button onClick={()=>{ likePubliction(publication._id)
+                        setIsLike(!isLike)
+                    
+                    }}>
                         <FaHeart className={`${isLike === true? 'text-red-600': 'text-red-300'}`}  />
                     </button>
                     <BiSolidCommentDetail />
-                    <button onClick={()=>{setIsSave(!isSave)}}>
+                    <button onClick={()=>{savePubliction(publication._id)
+                        setIsSave(!isSave)}}>
                         <FaBookmark className={`${isSave === true? 'text-primary': 'text-sky-300'}`} />
                     </button>
                 </div>
                 </div>
             </div>
         </>}
-
-
             <div>             
             { full === true ? 
             <ul className='flex'>
@@ -119,19 +126,23 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             :''}
         </div>
         <p className='text-center'> {publication.description}</p>
-        {!publication.image && <><div className='flex justify-between p-3'>
+        {!publication.image && <>
+            <div className='flex justify-between p-3'>
                 <div>
                     <ul className='flex gap-5 ml-4'>
-                        <MenuLikePublication/>
-                        <li>20</li>
-                        <li>1</li>
+                        <MenuLikePublication publication={publication} isLike={isLike}/>
+                        <li>{commentList?.length}</li>
+                        
                     </ul>
                 <div className='flex gap-3 ml-3 text-xl'>
-                    <button onClick={()=>{setIsLike(!isLike)}}>
+                    <button onClick={()=>{likePubliction(publication._id)
+                         setIsLike(!isLike)
+                    }}>
                         <FaHeart className={`${isLike === true? 'text-red-600': 'text-red-300'}`}  />
                     </button>
                     <BiSolidCommentDetail />
-                    <button onClick={()=>{setIsSave(!isSave)}}>
+                    <button onClick={()=>{ savePubliction(publication._id)
+                        setIsSave(!isSave)}}>
                         <FaBookmark className={`${isSave === true? 'text-primary': 'text-sky-300'}`} />
                     </button>
                 </div>

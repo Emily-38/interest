@@ -8,6 +8,8 @@ export type PublicationType ={
     createdAt:Date
     userId:string
     interestId: InterestType[]
+    like: string[]
+    save:string[]
     user: UserType
 }
 export type CreatePublication={

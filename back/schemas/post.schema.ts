@@ -15,6 +15,12 @@ export class post {
     userId: string
 
     @Prop()
+    like:string[]
+
+    @Prop()
+    save:string[]
+
+    @Prop()
     interestId:string[]
 
 

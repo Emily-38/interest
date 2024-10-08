@@ -33,7 +33,6 @@ export async function createPubliction(data: CreatePublication){
 export async function getPubliction(){
     let axiosConfig = {
         headers: {
-            'content-type': 'application/json;charset=utf-8',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
             Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -42,4 +41,30 @@ export async function getPubliction(){
     const url = `${process.env.NEXT_PUBLIC_URL_API}post`
     
         return axios.get( url,axiosConfig )  
+}
+
+export async function likePubliction(id:string){
+    let axiosConfig = {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+    }
+    const url = `${process.env.NEXT_PUBLIC_URL_API}post/like/${id}`
+    
+        return axios.put( url,{},axiosConfig )  
+}
+
+export async function savePubliction(id:string){
+    let axiosConfig = {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+    }
+    const url = `${process.env.NEXT_PUBLIC_URL_API}post/save/${id}`
+    
+        return axios.put( url,{},axiosConfig )  
 }

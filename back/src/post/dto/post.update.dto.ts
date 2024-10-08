@@ -10,4 +10,14 @@ export class updatePostDto {
     @IsOptional()
     interestId: string[]
 
+    @IsArray()
+    @IsString({ each: true })
+    @IsOptional()
+    like: string[]
+
+    @IsArray()
+    @IsString({ each: true })
+    @IsOptional()
+    save: string[]
+
 }

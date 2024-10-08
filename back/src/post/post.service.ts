@@ -38,7 +38,55 @@ export class PostService {
             throw new ForbiddenException('update unauthorized')
         }
 
-        return this.postModel.findByIdAndUpdate( id,{updatePostDto,interestId:updatePostDto.interestId},{new:true})
+        return this.postModel.findByIdAndUpdate( 
+            id,
+            {   updatePostDto,
+                interestId:updatePostDto.interestId
+            },{new:true})
+    }
+
+    async likePost( id: string, userId: string){
+        const existingPost= await this.postModel.findById(id)
+
+        if(!existingPost){
+            throw new ForbiddenException('post not found')
+        }
+
+        let updateOperation: any = {};
+        if( existingPost.like.includes(userId)){
+            
+            updateOperation = { $pull: { like: userId } };
+        } else {
+            updateOperation= {$addToSet: { like: userId }}; 
+          }
+
+          return this.postModel.findByIdAndUpdate(
+            id,
+            updateOperation,  
+            { new: true }  
+          );
+    }
+
+    async savePost( id: string, userId: string){
+        const existingPost= await this.postModel.findById(id)
+
+        if(!existingPost){
+            throw new ForbiddenException('post not found')
+        }
+
+        let updateOperation: any = {};
+        if( existingPost.save.includes(userId)){
+            
+            updateOperation = { $pull: { save: userId } };
+        } else {
+            updateOperation= { $addToSet: { save: userId }}; 
+          }
+
+          return this.postModel.findByIdAndUpdate(
+            id,
+            updateOperation,  
+            { new: true }  
+          );
     }
 
     async deletePost( id: string, userId: string){
