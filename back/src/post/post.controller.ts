@@ -17,8 +17,8 @@ export class PostController {
   }
 
   @Get('/byId/:id')
-  getPostById(@Param('id') id: string){
-    return this.postService.getPostById(id)
+  getPostById(@Param('id') id: string, @GetUser() user:user){
+    return this.postService.getPostById(id,user)
   }
   
   @Post('/create')

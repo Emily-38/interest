@@ -43,6 +43,19 @@ export async function getPubliction(){
         return axios.get( url,axiosConfig )  
 }
 
+export async function getPublictionById(id:string){
+    let axiosConfig = {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+    }
+    const url = `${process.env.NEXT_PUBLIC_URL_API}post/byId/${id}`
+    
+        return axios.get( url,axiosConfig )  
+}
+
 export async function likePubliction(id:string){
     let axiosConfig = {
         headers: {

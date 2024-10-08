@@ -17,8 +17,11 @@ export class PostService {
       }));
     }
 
-    getPostById(id: string){
-        return this.postModel.findById(id).populate('comment').exec()
+    async getPostById(id: string, user:user){
+        const post= await this.postModel.findById(id).populate('comment').exec()
+        return {
+            ...post.toObject(),  
+            user: user}
     }
 
     createPost(createPost: createPostDto, userId: string){
