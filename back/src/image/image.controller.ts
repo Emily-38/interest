@@ -18,11 +18,12 @@ import { createReadStream, existsSync, unlink } from 'fs';
 import { Response } from 'express';
 import { JwtGuard } from 'src/auth/guards';
 
-@UseGuards(JwtGuard)
+
 @Controller('image')
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
+  @UseGuards(JwtGuard)
   @Post('/upload')
   @UseInterceptors(
     FileInterceptor('file', {

@@ -14,6 +14,7 @@ export class UserService {
               select: {
                 id: true,
                 age: true,
+                pseudo:true,
                 gender:true,
                 profile_image: true,
                 interestId:true

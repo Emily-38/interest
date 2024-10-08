@@ -1,11 +1,14 @@
 import { InterestType } from "./interest"
+import { UserType } from "./user"
 
 export type PublicationType ={
-    id:string
+    _id:string
     image?: string
     description:string
     createdAt:Date
+    userId:string
     interestId: InterestType[]
+    user: UserType
 }
 export type CreatePublication={
     file?: File[]

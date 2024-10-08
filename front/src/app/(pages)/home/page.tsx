@@ -26,7 +26,7 @@ const home = () => {
         <div className='w-11/12 md:w-2/3 mx-auto'>
          {publicationList && publicationList.map((publication)=>{
           return(
-            <Publication key={publication.id} full={false} publication={publication} />
+            <Publication key={publication._id} full={false} publication={publication} />
           )
          })}
         </div>

@@ -1,21 +1,24 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Mongoose, Types } from 'mongoose';
+import { Model,  Types } from 'mongoose';
 import { post } from 'schemas/post.schema';
 import { createPostDto, updatePostDto } from './dto';
-
-
+import { user } from '@prisma/client';
 
 @Injectable()
 export class PostService {
     constructor(@InjectModel(post.name) private postModel:Model<post>,) {}
     
-    getAllPost(){
-        return this.postModel.find()
+    async getAllPost(user:user){
+     const posts = await this.postModel.find().populate('comment').exec()
+     return posts.map(post => ({
+        ...post.toObject(), 
+        user, 
+      }));
     }
 
     getPostById(id: string){
-        return this.postModel.findById(id)
+        return this.postModel.findById(id).populate('comment').exec()
     }
 
     createPost(createPost: createPostDto, userId: string){

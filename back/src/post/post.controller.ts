@@ -11,8 +11,8 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
  @Get()
-  getAllPost(){
-  return this.postService.getAllPost()
+  getAllPost(@GetUser() user :user){
+  return this.postService.getAllPost( user )
   }
 
   @Get('/byId/:id')

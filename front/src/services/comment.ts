@@ -1,7 +1,7 @@
-import { InterestType } from "@/utils/interest"
+import { createCommentType } from "@/utils/comment"
 import axios from "axios"
 
-export async function updateUser(data:string[],confidentiality:string){
+export async function getCommentByIdPost(id :string){
     let axiosConfig = {
         headers: {
             'content-type': 'application/json;charset=utf-8',
@@ -10,16 +10,12 @@ export async function updateUser(data:string[],confidentiality:string){
             Authorization: `Bearer ${localStorage.getItem("token")}`
         },
     }
-    const url = `${process.env.NEXT_PUBLIC_URL_API}user/update/add/interest`
-    return axios.patch(
-        url,{
-            confidentialityId:confidentiality,
-           interestId: data
-        },axiosConfig
-    )
+    const url = `${process.env.NEXT_PUBLIC_URL_API}comment/bypostId/${id}`
+    
+        return axios.get( url,axiosConfig )  
 }
 
-export async function getAllUser(){
+export async function createComment(id:string,data:createCommentType,){
     let axiosConfig = {
         headers: {
             'content-type': 'application/json;charset=utf-8',
@@ -28,8 +24,9 @@ export async function getAllUser(){
             Authorization: `Bearer ${localStorage.getItem("token")}`
         },
     }
-    const url = `${process.env.NEXT_PUBLIC_URL_API}user`
-    return axios.get(
-        url,axiosConfig
-    )
+    const url = `${process.env.NEXT_PUBLIC_URL_API}comment/create/${id}`
+    
+        return axios.post( url,
+            {description: data.description}
+            ,axiosConfig )  
 }
