@@ -2,7 +2,7 @@
 import { InterestCreate, InterestType } from '@/utils/interest'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Badge } from './Badge'
-import { createInterest, getInterest } from '@/services/interest'
+import { createInterest, getRandomInterest } from '@/services/interest'
 import { toast } from 'react-toastify'
 
 
@@ -11,7 +11,7 @@ export const InterestForm = ({setInterestUser}:{setInterestUser: Dispatch<SetSta
     const[interestAdd,setInterestAdd]=useState<InterestType[]>([])
     const[interestNew,setInterestNew]=useState('')
     useEffect(() => {
-        getInterest().then((res)=>{
+        getRandomInterest().then((res)=>{
             setInterestList(res.data)
           })
     }, [])

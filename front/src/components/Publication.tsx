@@ -206,8 +206,6 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
        }
                )} 
 
-               
-                   
                     {lastComment && full === false ? <>
                         <p className='text-gray-400 pl-3 '>Dernier commentaire:</p>
                     <div className='flex justify-between md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
