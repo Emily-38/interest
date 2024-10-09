@@ -20,8 +20,8 @@ export type UserType={
     age: number
     gender: string
     profile_image: string
-    password: string
-    confirmPassword: string 
+    confidentialityId: string
     checkbox: boolean
     interestId: InterestType[]
+    user:UserType
 }

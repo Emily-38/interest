@@ -16,8 +16,8 @@ export class UserController {
   }
 
   @Get('/byPseudo/:pseudo')
-  getUserByPseudo(@Param('pseudo') pseudo: string ){
-    return this.userService.getUserByPseudo(pseudo)
+  getUserByPseudo(@Param('pseudo') pseudo: string , @GetUser() user:user){
+    return this.userService.getUserByPseudo(pseudo,user)
   }
   @Get('/byId/:id')
   getUserById(@Param('id') id: string ){

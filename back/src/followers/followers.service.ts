@@ -1,11 +1,12 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
+import { user } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class FollowersService {
     constructor(private readonly prisma: PrismaService) {}
     
-        async getAllFollowerById(id: string){
+        async getAllFollowerById(id: string, user:user){
             const existingUser= await this.prisma.followers.findMany({
                 where:{
                     userId: id,
@@ -14,9 +15,9 @@ export class FollowersService {
             if(!existingUser) {
                 throw new ForbiddenException('this user not exist')
             }
-            return await this.prisma.followers.findMany({
-                orderBy: {
-                  followerId: 'asc',
+            const follow = await this.prisma.followers.findMany({
+                where:{
+                    userId:id
                 },
                 select: {
                   id: true,
@@ -24,6 +25,7 @@ export class FollowersService {
                   followerId:true
                 },
               });
+              return {follow,user }
         }
 
         async createFollow( id:string, userId: string ){

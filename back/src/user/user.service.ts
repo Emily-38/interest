@@ -24,8 +24,8 @@ export class UserService {
              
         })
     }
-    async getUserByPseudo(pseudo:string) {
-        const existingUser= this.prisma.user.findUnique({
+    async getUserByPseudo(pseudo:string , user:user) {
+        const existingUser= await this.prisma.user.findUnique({
             where:{
                 pseudo:pseudo
             },
@@ -34,13 +34,15 @@ export class UserService {
                 age: true,
                 pseudo:true,
                 gender:true,
+                confidentialityId:true,
                 profile_image: true,
-                interestId:true}
+                interestId:true
+            }
         })
         if(!existingUser){
             throw new ForbiddenException('this user not exist')
         }
-        return existingUser   
+        return {...existingUser, user:user }
     }
 
     async getUserById(id:string) {

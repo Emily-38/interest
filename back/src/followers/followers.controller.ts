@@ -10,8 +10,8 @@ export class FollowersController {
   constructor(private readonly followersService: FollowersService) {}
 
   @Get('/:id')
-  getAllFollowerById(@Param('id') id:string ) {
-    return this.followersService.getAllFollowerById(id);
+  getAllFollowerById(@Param('id') id:string,  @GetUser() user:user) {
+    return this.followersService.getAllFollowerById(id,user);
   }
 
   @Post('/create/:id')
