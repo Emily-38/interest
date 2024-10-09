@@ -8,13 +8,17 @@ export class InterestService {
     constructor(private readonly prisma: PrismaService,) {}
 
     
-    async getAllInterest() {
+    async getRandomInterest() {
       return this.prisma.$queryRaw<interest[]>
       ` SELECT *
         FROM interest
         ORDER BY RAND()
         LIMIT 10 
       `  
+    }
+
+    async getAllInterest() {
+      return this.prisma.interest.findMany()
     }
 
     async getInterestById(id: string) {

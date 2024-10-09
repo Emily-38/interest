@@ -11,13 +11,22 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('/')
-  getAllUser(){
+  getAllUser( ){
     return this.userService.getAllUser()
   }
 
+  @Get('/byPseudo/:pseudo')
+  getUserByPseudo(@Param('pseudo') pseudo: string ){
+    return this.userService.getUserByPseudo(pseudo)
+  }
   @Get('/byId/:id')
   getUserById(@Param('id') id: string ){
     return this.userService.getUserById(id)
+  }
+
+  @Get('/courent')
+  getCourentUser(@GetUser() user:user){
+    return this.userService.getCourentUser(user)
   }
 
   @Patch('/update/add/interest')

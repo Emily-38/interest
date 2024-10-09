@@ -14,20 +14,24 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { likePubliction, savePubliction } from '@/services/publication'
 import { useRouter } from 'next/navigation'
+import { getInterest } from '@/services/interest'
+import { InterestType } from '@/utils/interest'
 
 export const Publication = ({full,publication}:{full:boolean, publication:PublicationType}) => {
     const[isLike,setIsLike]= useState(false)
     const[isSave,setIsSave]= useState(false)
     const[userList,setUserList]= useState<UserType[]>()
     const[commentList,setCommentList]= useState<commentType[]>()
-    const[lastComment,setLastComment]=useState<commentType>()
+    const[lastComment,setLastComment]= useState<commentType>()
+    const[interestList,setInterestList]= useState<InterestType[]>()
     const date = new Date(publication.createdAt)
     const router= useRouter()
+
 
     const {register,handleSubmit, reset}=useForm<createCommentType>()
     const onSubmit: SubmitHandler<createCommentType> = async (data) => {
         createComment(publication._id,data).then((res)=>{
-            if(res.status ===201 ){
+            if(res.status ===201){
                 toast.success('Commentaire envoyé')
                 reset()
             }
@@ -38,9 +42,12 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
         getAllUser().then((res)=>{
             setUserList(res.data)
           })
+          getInterest().then((res)=>{
+            setInterestList(res.data)
+          })
           
           getCommentByIdPost(publication._id).then((res)=>{
-             console.log('comment',res.data)
+             
             setCommentList(res.data)
           })
           if(publication.like.includes(publication.user.id)){
@@ -49,23 +56,24 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
           if(publication.save.includes(publication.user.id)){
             setIsSave(true)
           }
-         
     }, [])
     
+   
      useEffect(() => {
         if(commentList){  
             setLastComment(commentList[0])
         }
-        
      }, [commentList])
-
+ 
   return (
 
     <div className=' w-full md:w-full md:mt-10 bg-white  mx-auto col-span-2 rounded-md mt-5'>
         <div className='flex justify-between items-center pl-3 pr-3 m-2'>
           {userList && userList.map((user)=>{
             if(user.id === publication.userId){ 
-                return( <div key={user.id}>
+                return( <div key={user.id} onClick={()=>{
+                    router.push(`/profil/${user.pseudo}`)
+                }}>
                         <div className='flex items-center gap-3 p-3 cursor-pointer'>
                             <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${user.profile_image}`} property='true' className='rounded-full h-10 w-10 object-cover'/>
                             <p> {user.pseudo} </p>
@@ -77,8 +85,10 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             <MenuSettingPublication publication={publication}/>
         </div>
 
+
         {publication.image && 
-        <> <div onClick={()=>{
+        <> 
+        <div onClick={()=>{
             router.push(`/publication/${publication._id}`)
             }} className='cursor-pointer'>
             <Image src={`http://localhost:3000/image/view/${publication.image}`} alt='Image de publication' width={1000} height={1000} className='mt-2 w-full' property='true'/>
@@ -103,44 +113,44 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                     </button>
                 </div>
                 </div>
-            </div>
-        </>}
-            <div>             
-            { full === true ? 
-            <ul className='flex'>
-                <li className='text-gray-400'><Badge content={true} interest={{
-                          id: '',
-                          name: ''
-                      }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
-                          throw new Error('Function not implemented.')
-                      } }/></li>
-                <li className='text-gray-400'><Badge content={true} interest={{
-                          id: '',
-                          name: ''
-                      }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
-                          throw new Error('Function not implemented.')
-                      } }/></li>
-                <li className='text-gray-400'><Badge content={true} interest={{
-                          id: '',
-                          name: ''
-                      }} setInterestUser={function (value: React.SetStateAction<string[]>): void {
-                          throw new Error('Function not implemented.')
-                      } }/></li>
+                <div>             
+            { publication.image && full === true ? 
+            <ul className='flex w-full justify-end text-xs'>
+                {interestList && interestList.map((interest)=>{ 
+                
+                    const hasCommonInterest = publication.interestId.some(interestId => publication.interestId.includes(interestId))
+                    if(hasCommonInterest){ 
+                    return( 
+                    <li className='text-gray-400'><Badge content={true} interest={interest} /></li>
+                    )}
+                })}
             </ul>
             :''}
         </div>
+            </div>
+        </>}
+            
         <div onClick={()=>{
             router.push(`/publication/${publication._id}`)
         }} className='cursor-pointer'>
         <p className='text-center'> {publication.description}</p>
+        <ul className='flex justify-center'>
+        {!publication.image && full === true ?
+         interestList && interestList.map((interest)=>{ 
+                const hasCommonInterest = publication.interestId.some(interestId => publication.interestId.includes(interestId))
+                if(hasCommonInterest){ 
+                return( 
+                <li className='text-gray-400 text-center text-xs'><Badge content={true} interest={interest} /></li>
+                )}
+            }): ''}</ul>
         </div>
+        
         {!publication.image && <>
             <div className='flex justify-between p-3'>
                 <div>
                     <ul className='flex gap-5 ml-4'>
                         <MenuLikePublication publication={publication} isLike={isLike}/>
                         <li>{commentList?.length}</li>
-                        
                     </ul>
                 <div className='flex gap-3 ml-3 text-xl'>
                     <button onClick={()=>{likePubliction(publication._id)
@@ -154,6 +164,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                         <FaBookmark className={`${isSave === true? 'text-primary': 'text-sky-300'}`} />
                     </button>
                 </div>
+
                 </div>
             </div>
             </>}
@@ -166,7 +177,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
         }</p>
        {full===true? <p className='text-gray-400 pl-3 '>Commentaires:</p>:'' } 
         {commentList && commentList.map((comment)=>{
-           
+
             const commentDate= new Date(comment.comment.createdAt)
                             if(full === true) { 
                                 return(
@@ -203,7 +214,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                                 <div className='flex flex-row items-center gap-2 md:text-base'>
                                     <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${lastComment.user[0].profile_image}`} className='rounded-full h-10 w-10 object-cover md:h-12 md:w-12'/>
                                     <p className='font-semibold'> {lastComment.user[0].pseudo} </p>
-                                    <p className='pr-5 text-center md:text-left'> {lastComment.comment.description} </p>
+                                    <p className='pr-5 text-center md:text-left truncate ...'> {lastComment.comment.description} </p>
                                 </div>
                             </div>  
                

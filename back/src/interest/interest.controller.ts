@@ -8,9 +8,14 @@ import { interestDto } from './dto';
 export class InterestController {
   constructor(private readonly interestService: InterestService) {}
 
-  @Get('/')
+  @Get('/all')
   getAllInterest() {
     return this.interestService.getAllInterest();
+  }
+
+  @Get('/')
+  getRandomInterest() {
+    return this.interestService.getRandomInterest();
   }
 
   @Get('/byId/:id')

@@ -2,7 +2,7 @@
 import { Badge } from '@/components/Badge'
 import { BlockShadow } from '@/components/BlockShadow'
 import { getConfidentiality } from '@/services/confidentiality'
-import { createInterest, getInterest } from '@/services/interest'
+import { createInterest, getRandomInterest } from '@/services/interest'
 import { updateUser } from '@/services/user'
 import { ConfidentialityType } from '@/utils/confidentiality'
 import { InterestCreate, InterestType } from '@/utils/interest'
@@ -25,7 +25,7 @@ const first_connection = () => {
   const router= useRouter()
 
   useEffect(() => {
-    getInterest().then((res)=>{
+    getRandomInterest().then((res)=>{
       setInterestList(res.data)
     })
     getConfidentiality().then((res)=>{

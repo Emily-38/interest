@@ -1,3 +1,5 @@
+import { InterestType } from "./interest"
+
 export type RegisterType={
     email: string
     pseudo:string
@@ -21,4 +23,5 @@ export type UserType={
     password: string
     confirmPassword: string 
     checkbox: boolean
+    interestId: InterestType[]
 }

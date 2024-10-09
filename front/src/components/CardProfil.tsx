@@ -1,13 +1,23 @@
-import React from 'react'
-import { BlockShadow } from './BlockShadow'
-import Image from 'next/image'
-import { Badge } from './Badge'
+import React, { useEffect, useState } from 'react'
 import ProfileUser from './ProfileUser'
+import { UserType } from '@/utils/user'
+import { getCourentUser } from '@/services/user'
 
 export const CardProfil = () => {
+  const[user,setUser]=useState<UserType>()
+  useEffect(() => {
+    getCourentUser().then((res)=>{
+     
+      setUser(res.data)
+    })
+  }, [])
+  if(!user){
+    return <div>Pas d'utilisateur </div>
+  }
+  
   return (
     <div className='bg-white shadow-md p-3 h-20'>
-        <ProfileUser button={false} col={false} pseudo={'roger'}/>
+        <ProfileUser button={false} col={false} user={user}/>
     </div>
   )
 }

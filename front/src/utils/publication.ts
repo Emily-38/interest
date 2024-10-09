@@ -7,7 +7,7 @@ export type PublicationType ={
     description:string
     createdAt:Date
     userId:string
-    interestId: InterestType[]
+    interestId: string[]
     like: string[]
     save:string[]
     user: UserType

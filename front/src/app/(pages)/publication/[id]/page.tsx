@@ -4,6 +4,7 @@ import { getPublictionById } from '@/services/publication'
 import { ParamsType } from '@/utils/parametre'
 import { PublicationType } from '@/utils/publication'
 import React, { useEffect, useState } from 'react'
+import { Rings } from 'react-loader-spinner'
 
 const publication = ({params}:ParamsType) => {
   const[publication, setPublication]=useState<PublicationType>()
@@ -14,7 +15,17 @@ const publication = ({params}:ParamsType) => {
   }, [])
   
   if(!publication){
-    return <>Error</>
+    return <div className='flex flex-col justify-center items-center font-semibold'>
+    <Rings
+      visible={true}
+      height="80"
+      width="80"
+      color="#2274A5"
+      ariaLabel="rings-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+    />
+  Veuillez patienter</div>
   }
   console.log(publication)
   return (
