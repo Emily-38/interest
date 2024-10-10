@@ -5,13 +5,18 @@ import { ParamsType } from '@/utils/parametre'
 import { PublicationType } from '@/utils/publication'
 import React, { useEffect, useState } from 'react'
 import { Rings } from 'react-loader-spinner'
+import { toast } from 'react-toastify'
 
 const publication = ({params}:ParamsType) => {
   const[publication, setPublication]=useState<PublicationType>()
+
   useEffect(() => {
     getPublictionById(params.id).then((res)=>{
       setPublication(res.data)
-    })
+    }).catch((e)=>{
+      console.log(e)
+      return toast.error(e.response.data.message) 
+  })
   }, [])
   
   if(!publication){
@@ -27,7 +32,7 @@ const publication = ({params}:ParamsType) => {
     />
   Veuillez patienter</div>
   }
-  console.log(publication)
+  
   return (
     <div className='w-5/6 mx-auto'>
         <Publication full={true} publication={publication}/>

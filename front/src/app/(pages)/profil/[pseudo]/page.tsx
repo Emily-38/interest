@@ -11,6 +11,7 @@ import { PublicationType } from '@/utils/publication'
 import { UserType } from '@/utils/user'
 import React, { useEffect, useState } from 'react'
 import { Rings } from 'react-loader-spinner'
+import { toast } from 'react-toastify'
 
 
 const page = ({params}:ParamsType) => {
@@ -25,7 +26,9 @@ const page = ({params}:ParamsType) => {
   useEffect(() => {
    getUserByPseudo(params.pseudo).then((res)=>{
     setUserPage(res.data)
-   })
+   }).catch((e)=>{
+    return toast.error(e.response.data.message) 
+})
 
    getPubliction().then((res)=>{
     setPublication(res.data)

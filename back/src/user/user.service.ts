@@ -40,7 +40,7 @@ export class UserService {
             }
         })
         if(!existingUser){
-            throw new ForbiddenException('this user not exist')
+            throw new ForbiddenException('Cet utilisateur n\'éxiste pas')
         }
         return {...existingUser, user:user }
     }

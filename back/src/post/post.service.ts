@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model,  Types } from 'mongoose';
+import mongoose, { Model,  Types } from 'mongoose';
 import { post } from 'schemas/post.schema';
 import { createPostDto, updatePostDto } from './dto';
 import { user } from '@prisma/client';
@@ -18,10 +18,18 @@ export class PostService {
     }
 
     async getPostById(id: string, user:user){
+        const isvalid = mongoose.Types.ObjectId.isValid(id)
+        if(!isvalid){
+            throw new ForbiddenException('cette publication n\'existe pas')
+        }
+        const existingPost= this.postModel.findById(id).exec()
+        if (!existingPost[0] && !isvalid ){
+            throw new ForbiddenException('cette publication n\'existe pas')
+        }else{ 
         const post= await this.postModel.findById(id).populate('comment').exec()
         return {
             ...post.toObject(),  
-            user: user}
+            user: user}}
     }
 
     createPost(createPost: createPostDto, userId: string){
