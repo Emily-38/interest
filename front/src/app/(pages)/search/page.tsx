@@ -1,14 +1,29 @@
 'use client'
 import ProfileUser from '@/components/ProfileUser'
-import React from 'react'
+import { getSearch } from '@/services/user'
+import { UserType } from '@/utils/user'
+import React, { useEffect, useState } from 'react'
 
 const search = () => {
+  const[query,setQuery]=useState('')
+  const[search,setSearch]=useState<UserType[]>()
+  
+  useEffect(() => {
+    getSearch(query).then((res)=>{
+      setSearch(res.data)
+    })
+  }, [query])
+  
   return (
     <div className={` md:flex flex flex-col items-center text-black h-lvh p-8 `}>
-    <input placeholder='recherche' className='rounded-md border border-black p-1 text-center outline-none'></input>
+    <input placeholder='recherche' className='rounded-md border border-black p-1 text-center outline-none'onChange={(e)=>{
+      setQuery(e.target.value)
+    }}></input>
         <div className='flex flex-col gap-3 m-4'>
-            <ProfileUser button={false} col={false} pseudo='alfred'/>
-            <ProfileUser button={false} col={false} pseudo='LaMamanDeRemy'/>
+          {search && search.map((user)=>{
+            return <ProfileUser button={false} col={false} user={user}/> 
+          })}
+             
         </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Query, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { JwtGuard } from 'src/auth/guards';
 import { GetUser } from 'src/auth/decorator';
@@ -29,6 +29,11 @@ export class UserController {
     return this.userService.getCourentUser(user)
   }
 
+  @Get('/search')
+  async globalSearch(@Query('query') query: string){ 
+   return this.userService.userSearch(query)
+  }
+
   @Patch('/update/add/interest')
   updateUserAddInterest(@GetUser() user: user ,@Body() dto: UserDto){
     return this.userService.updateUserAddInterest(user.id, dto)
@@ -37,5 +42,4 @@ export class UserController {
   updateUserDeleteInterest(@GetUser() user: user ,@Body() dto: UserDto){
     return this.userService.updateUserDeleteInterest(user.id, dto)
   }
-
 }

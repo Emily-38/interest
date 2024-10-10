@@ -20,10 +20,10 @@ export class UserService {
                 profile_image: true,
                 interestId:true
 
-              },
-             
+              },  
         })
     }
+
     async getUserByPseudo(pseudo:string , user:user) {
         const existingUser= await this.prisma.user.findUnique({
             where:{
@@ -111,6 +111,7 @@ export class UserService {
             }
         })
     }
+
     async updateUserDeleteInterest(id:string, dto:UserDto){
         const existingUser=this.prisma.user.findUnique({
             where:{
@@ -136,4 +137,16 @@ export class UserService {
             }
         })
     }
+
+    async userSearch(query: string) {
+            
+        return await this.prisma.user.findMany({
+         where: {
+           OR: [ 
+             { pseudo:{contains:query}},
+           ],
+         }
+       });
+     }
+
 }

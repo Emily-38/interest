@@ -5,15 +5,31 @@ import React, { useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import ProfileUser from './ProfileUser'
 import {  ModalCreatePublication } from './ModaleCreatePublication'
-import { ParamsType } from '@/utils/parametre'
-
+import { getCourentUser, getSearch } from '@/services/user'
+import { UserType } from '@/utils/user'
 
 export const Navbar = () => {
     const router = useRouter() 
     const[activePage,setActivePage]=useState('')
     const[isSearch, setIsSearch]=useState(false)
+    const[search,setSearch]=useState<UserType[]>()
+    const[query,setQuery]=useState('')
     const[setting,setSetting]=useState<any>(null)
+    const[user,setUser]=useState<UserType>()
     
+    useEffect(() => {
+       getCourentUser().then((res)=>{
+        setUser(res.data)
+       })
+
+       getSearch(query).then((res)=>{
+        setSearch(res.data)
+       })
+
+     }, [query])
+
+
+
     useEffect(() => {
        setSetting(localStorage.getItem('page')) 
     }, [setting])
@@ -48,7 +64,7 @@ export const Navbar = () => {
             </li>
 
             <li className={`${activePage ==='profil'?'font-semibold':''} cursor-pointer`} onClick={()=>{
-                router.push('/profil/moi')
+                router.push(`/profil/${user?.pseudo}`)
                 setActivePage('profil')
             }}> 
                 Profil
@@ -77,10 +93,14 @@ export const Navbar = () => {
     <p className='flex items-center gap-2 p-3 self-start cursor-pointer' onClick={()=>{
         setIsSearch(false)
     }}><FaArrowLeftLong/>Retour</p>
-    <input placeholder='recherche' className='rounded-md border border-black p-1 text-center outline-none'></input>
+    <input placeholder='recherche' className='rounded-md border border-black p-1 text-center outline-none' onChange={(e)=>{
+        setQuery(e.target.value)
+    }}></input>
         <div className='flex flex-col gap-3 m-4'>
-            <ProfileUser button={false} col={false} pseudo='alfred'/>
-            <ProfileUser button={false} col={false} pseudo='LaMamanDeRemy'/>
+            {search && search.map((user)=>{
+                return <ProfileUser button={false} col={false} user={user}/> 
+            })}
+            {/*  */}
         </div>
     </aside>
 
