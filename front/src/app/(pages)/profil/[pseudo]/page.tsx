@@ -22,17 +22,18 @@ const page = ({params}:ParamsType) => {
   const[follow,setFollow]=useState(false)
   const[followers,setFollowers]=useState<string[]>([])
   const[abonned,setAbonned]=useState<string[]>([])
+  const[isPublication,setIsPublication]=useState(false)
   
   useEffect(() => {
-   getUserByPseudo(params.pseudo).then((res)=>{
-    setUserPage(res.data)
-   }).catch((e)=>{
-    return toast.error(e.response.data.message) 
-})
+    getUserByPseudo(params.pseudo).then((res)=>{
+      setUserPage(res.data)
+    }).catch((e)=>{
+      return toast.error(e.response.data.message) 
+    })
 
-   getPubliction().then((res)=>{
-    setPublication(res.data)
-   })
+    getPubliction().then((res)=>{
+      setPublication(res.data)
+    })
 
   }, [])
 
@@ -146,17 +147,19 @@ const page = ({params}:ParamsType) => {
                 if(res.status === 200){
                   setFollow(false) }
                 })
-              }}>Ne plus suivre</button>:<button className='hidden md:block bg-primary text-center rounded-md w-1/6 text-white p-3'> Voir les publications sauvegardé </button>}
+              }}>Ne plus suivre</button>:<button className='hidden md:block bg-primary text-center rounded-md w-1/6 text-white p-3' onClick={()=>{
+                setIsPublication(!isPublication)
+              }}>{isPublication ===false ? 'Voir les publications sauvegardés' : 'Voir mes publications'  }  </button>}
             
         </div>
         <div className="md:hidden flex justify-between">
         <ul className='flex text-center'>
         {userPage.interestId && userPage.interestId.map((interest)=>{
-                   return(
-                  <li key={interest.id}>
-                    <Badge content={true} interest={interest}/>
-                  </li>
-                  )
+          return(
+            <li key={interest.id}>
+              <Badge content={true} interest={interest}/>
+            </li>
+          )
         })}
                 </ul>
                 { userPage.id !== followList?.user.id ? 
@@ -173,11 +176,18 @@ const page = ({params}:ParamsType) => {
                 if(res.status === 200){
                   setFollow(false) }
                 })
-              }}>Ne plus suivre</button>:<button className='hidden md:block bg-primary text-center rounded-md w-1/6 text-white p-3'> Voir les publications sauvegardé </button>}
+              }}>Ne plus suivre</button>:<button className='hidden md:block bg-primary text-center rounded-md w-1/6 text-white p-3' onClick={()=>{
+                setIsPublication(!isPublication)
+              }}>{isPublication ===false ? 'Voir les publications sauvegardés' : 'Voir mes publications'  }  </button>}
         </div>
         <div className='w-10/12 md:w-2/3 mx-auto'>
+        {isPublication === true?<>
+        {publication && publication.map((publicationSave)=>{
+          if(publicationSave.save.includes(userPage.user.id)){
+            return <Publication key={publicationSave._id} full={false} publication={publicationSave}/>
+          }
+        })}</> :<>
         {filteredPublications && filteredPublications.map((publicationUser)=>{
-          console.log(publicationUser.userId === userPage.id && userPage.confidentialityId === 'c8a2e0ab-19f3-443d-8809-90c62741fc9e')
           if(publicationUser.userId === userPage.id && userPage.confidentialityId === 'c8a2e0ab-19f3-443d-8809-90c62741fc9e'){
             
           return(
@@ -189,6 +199,7 @@ const page = ({params}:ParamsType) => {
             return <div className='flex justify-center items-center font-semibold'>Ce compte est privé </div>
           }
         })}
+        </>}
           
           
         </div>

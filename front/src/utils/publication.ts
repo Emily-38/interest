@@ -9,7 +9,7 @@ export type PublicationType ={
     userId:string
     interestId: string[]
     like: string[]
-    save:string[]
+    save: string[]
     user: UserType
 }
 export type CreatePublication={
