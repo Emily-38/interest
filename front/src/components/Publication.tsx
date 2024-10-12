@@ -9,10 +9,10 @@ import { PublicationType } from '@/utils/publication'
 import { commentType, createCommentType } from '@/utils/comment'
 import { UserType } from '@/utils/user'
 import { getAllUser } from '@/services/user'
-import { createComment, getCommentByIdPost } from '@/services/comment'
+import { createComment, deleteComment, getCommentByIdPost } from '@/services/comment'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { likePubliction, savePubliction } from '@/services/publication'
+import { deletePubliction, likePubliction, savePubliction } from '@/services/publication'
 import { useRouter } from 'next/navigation'
 import { getInterest } from '@/services/interest'
 import { InterestType } from '@/utils/interest'
@@ -53,9 +53,15 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
           if(publication.like.includes(publication.user.id)){
             setIsLike(true)
           }
-          if(publication.save.includes(publication.user.id)){
+          if(publication.favorite.includes(publication.user.id)){
             setIsSave(true)
           }
+          
+          if(userList?.some(user=>user.id !== publication.userId)){
+            deletePubliction(publication._id)
+        }
+      
+       
     }, [])
     
    
@@ -64,9 +70,8 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             setLastComment(commentList[0])
         }
      }, [commentList])
- 
+       
   return (
-
     <div className=' w-full md:w-full md:mt-10 bg-white  mx-auto col-span-2 rounded-md mt-5'>
         <div className='flex justify-between items-center pl-3 pr-3 m-2'>
           {userList && userList.map((user)=>{
@@ -117,7 +122,6 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             { publication.image && full === true ? 
             <ul className='flex w-full justify-end text-xs'>
                 {interestList && interestList.map((interest)=>{ 
-                
                     const hasCommonInterest = publication.interestId.some(interestId => publication.interestId.includes(interestId))
                     if(hasCommonInterest){ 
                     return( 
@@ -177,7 +181,9 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
         }</p>
        {full===true? <p className='text-gray-400 pl-3 '>Commentaires:</p>:'' } 
         {commentList && commentList.map((comment)=>{
-
+            if(!userList?.some(user=>user.id === comment.comment.userId)){
+                deleteComment(comment.comment.id)
+            }
             const commentDate= new Date(comment.comment.createdAt)
                             if(full === true) { 
                                 return(

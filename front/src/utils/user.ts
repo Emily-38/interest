@@ -25,3 +25,11 @@ export type UserType={
     interestId: InterestType[]
     user:UserType
 }
+export type UserUpdateType={
+    email?: string
+    pseudo?:string
+    gender?: string
+    profile_image?: string
+    confidentialityId?: string
+    interestId?: InterestType[]  
+}

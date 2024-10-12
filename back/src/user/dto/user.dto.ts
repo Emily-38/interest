@@ -1,9 +1,10 @@
-import { IsArray, IsBoolean, IsEmail, IsInt, IsOptional, IsString, IsStrongPassword, Min } from "class-validator"
+import { interest } from "@prisma/client"
+import { IsArray, IsBoolean, isEmail, IsEmail, IsInt, IsOptional, IsString, IsStrongPassword, Min } from "class-validator"
 
 export class UserDto {
 
+    
     @IsOptional()
-    @IsEmail()
     email: string
 
     @IsOptional()
@@ -36,7 +37,7 @@ export class UserDto {
     @IsOptional()
     @IsArray()
     @IsString({ each: true })
-    interestId?: string[];  
+    interestId: string[];  
 
     @IsOptional()
     confidentialityId: string

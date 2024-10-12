@@ -1,101 +1,167 @@
 'use client'
 import { Badge } from '@/components/Badge'
+import { InterestForm } from '@/components/InterestForm'
 import ProfileUser from '@/components/ProfileUser'
+import { getConfidentiality } from '@/services/confidentiality'
+import { deleteImage, InsertImage } from '@/services/image'
+import { getInterest } from '@/services/interest'
+import { deleteUser, getCourentUser, updateUser } from '@/services/user'
+import { ConfidentialityType } from '@/utils/confidentiality'
+import { InterestType } from '@/utils/interest'
 import { ParamsType } from '@/utils/parametre'
+import { UserType, UserUpdateType } from '@/utils/user'
+import { schemaUser } from '@/yup_schema/parametre'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/navigation'
-import React from 'react'
-import { FaCircle } from 'react-icons/fa6'
+import { totalmem } from 'os'
+import React, { useEffect, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { Rings } from 'react-loader-spinner'
+import { toast } from 'react-toastify'
 
 const setting = ({params}:ParamsType) => {
+    const[interest,setInterest]=useState<InterestType[]>()
+    const[user,setUser]=useState<UserType>()
+    const[interestUser,setInterestUser]=useState<string[]>([])
+    const[confidentialityList,setConfidentialityList]=useState<ConfidentialityType[]>()
+    const[confidentiality, setConfidentiality]=useState('')
+   
     const router=useRouter()
+
+    const {register,handleSubmit}=useForm<UserUpdateType>()
+    const onSubmit: SubmitHandler<UserUpdateType> = async (data) => {
+        if (data.profile_image && data.profile_image[0]) {
+            deleteImage(user?.profile_image)
+
+            const formData = new FormData();
+            formData.append("file", data.profile_image[0]);
+            try {
+              const uploadResponse = await InsertImage(formData);
+              const filename = uploadResponse.data; 
+
+        updateUser(interestUser,data, filename).then((res)=>{
+            if(res.status === 200 ) 
+            toast.success('modification prise en compte')
+            window.location.reload()
+        })
+    }catch (error) {
+        toast.error("Echec de la creation de publication");
+      }
+    }else{ 
+        updateUser( interestUser,data).then((res)=>{
+            if(res.status === 200 )
+            toast.success('modification prise en compte')
+            window.location.reload()
+        })
+    }
+  };
+
+    useEffect(() => {
+     getInterest().then((res)=>{
+        setInterest(res.data)
+     })
+
+     getCourentUser().then((res)=>{
+        setUser(res.data)
+     })
+
+     getConfidentiality().then((res)=>{
+        setConfidentialityList(res.data)
+     })
+    
+    }, [])
+
+    if(!user){
+        return <div className='flex flex-col justify-center items-center font-semibold'>
+        <Rings
+          visible={true}
+          height="80"
+          width="80"
+          color="#2274A5"
+          ariaLabel="rings-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      Veuillez patienter</div>
+    }
     
   return (
   <>
-  <div className='bg-white w-full md:hidden p-3'>
-<ul className='flex gap-3 justify-center items-center text-center'>
-    <li className={`${params.setting === 'updateProfile'? 'font-bold':''} cursor-pointer`} onClick={()=>{
-        router.push('/setting/updateProfile')
-    }}>Modifier le profil </li>
-    <li className={`${params.setting === 'confidentialiter'? 'font-bold':''} cursor-pointer`} onClick={()=>{
-        router.push('/setting/confidentialiter')
-    }}>Confidentialité du compte</li>
-    <li className={`${params.setting === 'personal'? 'font-bold':''} cursor-pointer`} onClick={()=>{
-        router.push('/setting/personal')
-    }}>Information personnelle</li>
+    <div className='bg-white w-full md:hidden p-3'>
+        <ul className='flex gap-3 justify-center items-center text-center'>
+            <li className={`${params.setting === 'updateProfile'? 'font-bold':''} cursor-pointer`} onClick={()=>{
+                router.push('/setting/updateProfile')
+            }}>Modifier le profil </li>
+            <li className={`${params.setting === 'confidentialiter'? 'font-bold':''} cursor-pointer`} onClick={()=>{
+                router.push('/setting/confidentialiter')
+            }}>Confidentialité du compte</li>
+            <li className={`${params.setting === 'personal'? 'font-bold':''} cursor-pointer`} onClick={()=>{
+                router.push('/setting/personal')
+            }}>Information personnelle</li>
+        </ul>
+    </div>
 
-</ul>
-  </div>
     {params.setting === 'updateProfile'?
-    <div className='flex flex-col gap-10 items-center'>
+    <form className='flex flex-col gap-10 items-center' onSubmit={handleSubmit(onSubmit)}>
         <div className='bg-white rounded-md flex justify-around md:w-1/2 w-full  m-5'>
-            <ProfileUser button={false} col={true} pseudo={'NoName'}/>
+            <ProfileUser button={false} col={true} user={user}/>
             <div className='flex justify-center items-center gap-3'>
-                <Badge content={true}/>
-                <FaCircle className='self-center text-xs'/>
-                <Badge content={true}/>
-                <FaCircle className='self-center text-xs'/>
-                <Badge content={true}/>
+                {user.interestId && user.interestId.map((interest)=>{
+                    return <Badge content={true} interest={interest}/>
+                })}
             </div>
         </div>
-        <p className='text-lg'>Modifier la photo de profil:</p>
-        <input type="file" className=' border bg-white border-black text-center rounded-md p-2 md:w-1/3 w-4/5'/>
+        <p className='text-lg' onClick={()=>{ console.log(interestUser)}}>Modifier la photo de profil:</p>
+        <input {...register('profile_image')} type="file" className=' border bg-white border-black text-center rounded-md p-2 md:w-1/3 w-4/5'/>
         <p className='text-lg'>Modifier le pseudo:</p>
-        <input type="text" placeholder="Pseudo" className=" border border-black text-center rounded-md md:w-1/3 w-4/5 p-2"/>
+        <input {...register('pseudo')} defaultValue={user.pseudo} type="text" placeholder={user.pseudo} className=" border border-black text-center rounded-md md:w-1/3 w-4/5 p-2"/>
         <p className='text-lg'>Ajouter ou supprimer des interets:</p>
-        <div className='border border-black p-2 bg-white rounded-md flex flex-col md:flex-row md:w-1/3 w-4/5 '>
-            <div className='p-3 grid grid-cols-2 gap-4'>
-                <Badge content={false}/>
-                <Badge content={false}/>
-                <Badge content={false}/>
-            </div>
-            <div className='self-end flex mx-auto'>
-                <input type="text" placeholder="Ajoute ton centre d'interet" className='appearance-none border-b-2 text-center outline-none border-b-gray-300'/>
-                <button type='submit' className='bg-primary  text-white rounded-md p-1'>Ajouter</button>
-            </div>
-        </div>
-        <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/3' onClick={()=>{ 
-            }}>Modifier
+        <InterestForm setInterestUser={setInterestUser} user={user}/>        
+        <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/3'>Modifier
         </button>
-    </div>:''}
+    </form>:''}
 
     {params.setting === 'confidentialiter'?
-     <div className='flex flex-col gap-10 justify-center items-center md:w-1/2 w-full md:h-lvh text-center mx-auto m-5'>
-       <p className='font-semibold text-2xl'>Confidentialité du compte</p>
+     <form className='flex flex-col gap-10 justify-center items-center md:w-1/2 w-full md:h-lvh text-center mx-auto m-5' onSubmit={handleSubmit(onSubmit)}>
+       <p className='font-semibold text-2xl'onClick={()=>{console.log(user)}}>Confidentialité du compte</p>
        <p>La confidentialité d'un compte fait référence à la gestion de la visibilité des publications et informations partagées sur ce compte. Si un compte est défini comme privé, cela signifie que seules les personnes qui suivent ce compte (après avoir reçu une autorisation) peuvent voir les publications, photos partagées. En revanche, si un compte est défini comme public, tout le monde, y compris ceux qui ne suivent pas le compte, peut accéder et voir les publications. Le choix entre un compte privé ou public permet donc de contrôler qui a accès à ses informations.</p>
-       <select className='bg-white border border-black rounded-md p-3 pl-4 w-1/2 text-center '>
-            <option value="">Public</option>
-            <option value="">Privée</option>  
-        </select>
-        <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2' onClick={()=>{ 
-            }}>Modifier
+       <p>Votre compte est actuellement {user.confidentialityId == 'c8a2e0ab-19f3-443d-8809-90c62741fc9e'?'Public':'Privé'}</p>
+       <select {...register('confidentialityId')} className='bg-white border border-black text-center rounded-md p-2 w-2/4'>
+       {confidentialityList && confidentialityList.map((option)=>{
+        return(
+          <option key={option.id} value={option.id}>{option.name}</option>
+        )
+       })}
+       </select>
+        <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2'>Modifier
         </button>
-        <button type="submit" className='bg-red-600 rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2' onClick={()=>{ 
-
+        <button className='bg-red-600 rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2' onClick={()=>{
+            deleteUser()
+            toast.success('Votre compte a été supprimé')
+            router.push('/')
         }}>Supprimer son compte 
         </button>
-     </div>
+     </form>
     :''}
 
     {params.setting === 'personal'?
-    <div className='flex flex-col gap-10 items-center justify-center md:w-1/2 w-full md:h-lvh h-full text-center mx-auto m-5'>
+    <form className='flex flex-col gap-10 items-center justify-center md:w-1/2 w-full md:h-lvh h-full text-center mx-auto m-5' onSubmit={handleSubmit(onSubmit)}>
         <p className='font-semibold text-2xl'>Confidentialité du compte</p>
-        <p className='text-lg'>Modifier  votre email:</p>
-        <input type="email" placeholder='Ecrire votre Email' className=' border bg-white border-black text-center rounded-md p-2 md:w-1/2 w-4/5'/>
+        <p className='text-lg'>Modifier votre email:</p>
+        <input {...register('email')}  type="email" placeholder='Ecrire votre Email' className=' border bg-white border-black text-center rounded-md p-2 md:w-1/2 w-4/5'/>
         <p className='text-lg'>Modifier votre votre genre:</p>
-        <select className='bg-white border border-black rounded-md p-3 pl-4 md:w-1/2 w-4/5 text-center '>
-            <option value="">Homme</option>
-            <option value="">Femme</option>
-            <option value="">Autre</option>
+        <select {...register('gender')} defaultValue={user.gender} className='bg-white border border-black rounded-md p-3 pl-4 md:w-1/2 w-4/5 text-center '>
+            <option value="Homme">Homme</option>
+            <option value="Femme">Femme</option>
+            <option value="Autre">Autre</option>
         </select>
-        <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2' onClick={()=>{ 
+        <button className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2' onClick={()=>{ 
 
         }}>Modifier votre mot de passe
         </button>
-        <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2' onClick={()=>{ 
-
-        }}>Modifier 
+        <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2'>Modifier 
         </button>
-    </div>
+    </form>
     :''}
   </>
   )

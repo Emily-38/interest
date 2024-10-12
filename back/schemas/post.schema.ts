@@ -18,7 +18,7 @@ export class post {
     like:string[]
 
     @Prop()
-    save:string[]
+    favorite:string[]
 
     @Prop()
     interestId:string[]

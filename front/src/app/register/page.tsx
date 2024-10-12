@@ -53,7 +53,7 @@ return (
           {errors.age && <p className='text-red-600'>{errors.age.message}</p>}
         </div>
           
-        <select {...register('gender')} className='bg-white border border-black rounded-md p-3.5 pl-4 w-full '>
+        <select {...register('gender')} className='bg-white border border-black rounded-md p-3.5 pl-4 w-full md:w-11/12'>
           <option value="Homme">Homme</option>
           <option value="Femme">Femme</option>
           <option value="Autre">Autre</option>

@@ -37,7 +37,6 @@ export const ModalCreatePublication= () => {
     if (data.file && data.file[0]) {
             const formData = new FormData();
             formData.append("file", data.file[0]);
-              console.log( 'test', data.file[0])
             try {
               const uploadResponse = await InsertImage(formData);
               const filename = uploadResponse.data; 

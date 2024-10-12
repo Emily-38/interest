@@ -7,9 +7,9 @@ export class FollowersService {
     constructor(private readonly prisma: PrismaService) {}
     
         async getAllFollowerById(id: string, user:user){
-            const existingUser= await this.prisma.followers.findMany({
+            const existingUser= await this.prisma.user.findUnique({
                 where:{
-                    userId: id,
+                  id:id
                 }
             });
             if(!existingUser) {
@@ -17,7 +17,10 @@ export class FollowersService {
             }
             const follow = await this.prisma.followers.findMany({
                 where:{
-                    userId:id
+                  OR:[ 
+                    {userId:id},
+                    {followerId:id}
+                  ]
                 },
                 select: {
                   id: true,

@@ -45,8 +45,8 @@ export class AuthService {
                 pseudo: dto.pseudo,
                 gender: dto.gender,
                 age: dto.age,
-                confidentialityId:'b22d3b53-c8fc-4eca-a5a6-faa0bba5db6c',
-                roleId:'7a6f26c0-6f87-4953-8bc1-eb923d18631c',
+                confidentialityId:'c8a2e0ab-19f3-443d-8809-90c62741fc9e',
+                roleId:'8f5a6b80-1781-4a8b-a5d7-d87345f431c0',
             }
         })
         return this.signToken(user.id)

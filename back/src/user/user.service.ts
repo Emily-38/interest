@@ -77,6 +77,7 @@ export class UserService {
                 pseudo:true,
                 gender:true,
                 profile_image: true,
+                confidentialityId:true,
                 interestId:true
             }
         })
@@ -88,54 +89,41 @@ export class UserService {
     }
 
     async updateUserAddInterest(id:string, dto:UserDto){
-        const existingUser=this.prisma.user.findUnique({
-            where:{
-                id:id
-            }
-        })
-        if(!existingUser){
-            throw new ForbiddenException('this user not exist')
-        }
-        return this.prisma.user.update({
-            where:{id:id},
-            data:{
-                ...dto,
-                interestId: {
-                    connect: dto.interestId.map(id => ({ id })) 
-                  }
-            },
-            select:{
-                id:true,
-                pseudo:true,
-                interestId:true
-            }
-        })
-    }
 
-    async updateUserDeleteInterest(id:string, dto:UserDto){
-        const existingUser=this.prisma.user.findUnique({
-            where:{
-                id:id
-            }
-        })
+        const existingUser = await this.prisma.user.findUnique({
+            where: { id },
+            include: { interestId: true }, 
+        });
+       
         if(!existingUser){
             throw new ForbiddenException('this user not exist')
         }
-        
+        if(!dto.email){
+            dto.email = existingUser.email
+        }
+        if(!dto.pseudo){
+            dto.pseudo = existingUser.pseudo
+        }
+
+        const existingInterestIds = existingUser.interestId.map(interest => interest.id);
+        const interestsToAdd = dto.interestId.filter(id => !existingInterestIds.includes(id));
+        const interestsToRemove = existingInterestIds.filter(interestId => dto.interestId.includes(interestId));
+
         return this.prisma.user.update({
-            where:{id:id},
-            data:{
+            where: { id },
+            data: {
                 ...dto,
                 interestId: {
-                    disconnect: dto.interestId.map(id => ({ id })) 
-                  }
+                    connect: interestsToAdd.map(interestId => ({ id: interestId })), 
+                    disconnect: interestsToRemove.map(interestId => ({ id: interestId })), 
+                },
             },
-            select:{
-                id:true,
-                pseudo:true,
-                interestId:true
-            }
-        })
+            select: {
+                id: true,
+                pseudo: true,
+                interestId: true, 
+            },
+        });
     }
 
     async userSearch(query: string) {
@@ -148,5 +136,27 @@ export class UserService {
          }
        });
      }
+
+     async deleteUser(id: string){
+        const existingUser= this.prisma.user.findUnique({
+            where:{
+                id: id
+            }
+        })
+        if(!existingUser){
+            throw new ForbiddenException('cette utilisateur n\'existe pas')
+        }
+
+        await this.prisma.followers.deleteMany({
+            where: {
+                followerId: id 
+            }
+        });
+        return await this.prisma.user.delete({
+            where:{
+                id :id
+            }
+        })
+      }
 
 }

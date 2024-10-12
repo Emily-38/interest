@@ -41,7 +41,8 @@ const page = ({params}:ParamsType) => {
     
     if(followList){ 
       followList.follow.map((followerId)=>{
-        if(followerId.followerId === followList.user.id){
+        console.log()
+        if(followerId.followerId === userPage?.id){
           setFollowers((prev)=>{ 
           return [...prev, followerId.followerId]})
           setFollow(true)
@@ -51,10 +52,9 @@ const page = ({params}:ParamsType) => {
 
     if(followList){ 
     followList.follow.map((userId)=>{
-      if(userId.userId === followList.user.id){
+      if(userId.userId === userPage?.id){
         setAbonned((prev)=>{ 
         return [...prev, userId.userId]})
-        
       }
     })
     }
@@ -183,7 +183,7 @@ const page = ({params}:ParamsType) => {
         <div className='w-10/12 md:w-2/3 mx-auto'>
         {isPublication === true?<>
         {publication && publication.map((publicationSave)=>{
-          if(publicationSave.save.includes(userPage.user.id)){
+          if(publicationSave.favorite.includes(userPage.user.id)){
             return <Publication key={publicationSave._id} full={false} publication={publicationSave}/>
           }
         })}</> :<>

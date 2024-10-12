@@ -28,13 +28,9 @@ export const Navbar = () => {
 
      }, [query])
 
-
-
     useEffect(() => {
        setSetting(localStorage.getItem('page')) 
     }, [setting])
-    
-   
     
   return (
     <div >
@@ -42,7 +38,7 @@ export const Navbar = () => {
         <ul className='flex flex-col justify-around items-center h-lvh'>
             <Image width={1000} height={1000} src={'/logo_interest.png'} alt={'logo'} priority={true} className='w-52'/>
             
-            <li className={`${activePage ==='home'?'font-semibold':''} cursor-pointer`} onClick={()=>{
+            <li className={`cursor-pointer`} onClick={()=>{
                 router.push('/home')
                 setActivePage('home')
             }}>
@@ -63,7 +59,7 @@ export const Navbar = () => {
                 <ModalCreatePublication/>
             </li>
 
-            <li className={`${activePage ==='profil'?'font-semibold':''} cursor-pointer`} onClick={()=>{
+            <li className={`cursor-pointer`} onClick={()=>{
                 router.push(`/profil/${user?.pseudo}`)
                 setActivePage('profil')
             }}> 

@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react'
 import {Rings} from 'react-loader-spinner'
 
 const home = () => {
+  localStorage.removeItem('page')
   const [publicationList, setPublicationList]=useState<PublicationType[]>()
   const[userList,setUserList]=useState<UserType[]>()
   const[courentUser,setCourentUser]=useState<UserType>()
@@ -45,7 +46,7 @@ const home = () => {
   }
   
   return (
-    <div className='flex justify-center flex-col place-self-center  md:gap-20 text-sm md:text-base md:flex-row'>
+    <div className='flex justify-center flex-col place-self-center md:w-11/12 md:gap-20 text-sm md:text-base md:flex-row'>
         <div className='flex overflow-x-scroll md:hidden'>
         {userList && courentUser && userList.map((user)=>{
            const courantinterestId=courentUser.interestId.map((interest)=>{return interest.id})
@@ -58,12 +59,11 @@ const home = () => {
         </div>
         <div className='w-11/12 md:w-2/3 mx-auto'>
          {publicationList && publicationList.map((publication)=>{
-          console.log(userList)
            const userInterestIds = publication.user.interestId.map(interest => interest.id);
            const hasCommonInterest = userInterestIds.some(interestId => publication.interestId.includes(interestId)
           );
            
-            if (hasCommonInterest === true ) {
+            if (hasCommonInterest === true) {
               return(
                 <Publication key={publication._id} full={false} publication={publication} />
               )

@@ -18,6 +18,6 @@ export class updatePostDto {
     @IsArray()
     @IsString({ each: true })
     @IsOptional()
-    save: string[]
+    favorite: string[]
 
 }

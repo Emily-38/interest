@@ -81,3 +81,16 @@ export async function savePubliction(id:string){
     
         return axios.put( url,{},axiosConfig )  
 }
+
+export async function deletePubliction(id:string){
+    let axiosConfig = {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+    }
+    const url = `${process.env.NEXT_PUBLIC_URL_API}post/delete/${id}`
+    
+        return axios.delete( url,axiosConfig )  
+}
