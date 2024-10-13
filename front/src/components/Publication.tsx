@@ -57,11 +57,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             setIsSave(true)
           }
           
-          if(userList?.some(user=>user.id !== publication.userId)){
-            deletePubliction(publication._id)
-        }
-      
-       
+         
     }, [])
     
    
@@ -69,7 +65,18 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
         if(commentList){  
             setLastComment(commentList[0])
         }
+        commentList && commentList.map((comment)=>{
+
+        
+        if(!userList?.some(user=>user.id === comment.comment.userId)){
+           return <div className='flex flex-row items-center gap-2 md:text-base'>
+            <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/default_profile.png`} className='rounded-full h-10 w-10 object-cover  md:h-12 md:w-12'/>
+            <p className='font-semibold'> Utilisateur supprimer </p>
+            </div>
+        }
+              })  
      }, [commentList])
+    
        
   return (
     <div className=' w-full md:w-full md:mt-10 bg-white  mx-auto col-span-2 rounded-md mt-5'>
@@ -122,7 +129,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             { publication.image && full === true ? 
             <ul className='flex w-full justify-end text-xs'>
                 {interestList && interestList.map((interest)=>{ 
-                    const hasCommonInterest = publication.interestId.some(interestId => publication.interestId.includes(interestId))
+                    const hasCommonInterest = publication.interestId.some(interestId =>  interest.id.includes(interestId));
                     if(hasCommonInterest){ 
                     return( 
                     <li className='text-gray-400'><Badge content={true} interest={interest} /></li>
@@ -181,9 +188,6 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
         }</p>
        {full===true? <p className='text-gray-400 pl-3 '>Commentaires:</p>:'' } 
         {commentList && commentList.map((comment)=>{
-            if(!userList?.some(user=>user.id === comment.comment.userId)){
-                deleteComment(comment.comment.id)
-            }
             const commentDate= new Date(comment.comment.createdAt)
                             if(full === true) { 
                                 return(

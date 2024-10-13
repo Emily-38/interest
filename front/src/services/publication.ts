@@ -1,4 +1,6 @@
-import { CreatePublication } from "@/utils/publication"
+import publication from "@/app/(pages)/publication/[id]/page"
+import { InterestType } from "@/utils/interest"
+import { CreatePublication, PublicationType } from "@/utils/publication"
 import axios from "axios"
 
 export async function createPubliction(data: CreatePublication){
@@ -80,6 +82,23 @@ export async function savePubliction(id:string){
     const url = `${process.env.NEXT_PUBLIC_URL_API}post/save/${id}`
     
         return axios.put( url,{},axiosConfig )  
+}
+
+export async function updatePublication(id:string,description:string,interestId:string[]){
+    console.log('id',id,'description', description,'interest', interestId)
+    let axiosConfig = {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+    }
+    const url = `${process.env.NEXT_PUBLIC_URL_API}post/update/${id}`
+    
+        return axios.patch( url,{
+            description:description,
+            interestId: interestId
+        },axiosConfig )  
 }
 
 export async function deletePubliction(id:string){

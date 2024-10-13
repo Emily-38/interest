@@ -2,7 +2,7 @@ import { InterestType } from '@/utils/interest'
 import { UserType } from '@/utils/user'
 import React, { useEffect, useState } from 'react'
 
-export const Badge = ({content,interest,setInterestUser,user}:{content:boolean,interest:InterestType,setInterestUser?: React.Dispatch<React.SetStateAction<string[]>>, user?:InterestType[]}) => {
+export const Badge = ({content,interest,setInterestUser,user,publication}:{content:boolean,interest:InterestType,setInterestUser?: React.Dispatch<React.SetStateAction<string[]>>, user?:InterestType[],publication?:string[]}) => {
     const[isActive,setIsActive]=useState(false)
     const[interestAdd,setInterestAdd]=useState(false)
 
@@ -17,8 +17,6 @@ export const Badge = ({content,interest,setInterestUser,user}:{content:boolean,i
         })
       }
     }, [isActive])
-   
- 
       
     useEffect(() => {
       if(user){
@@ -27,6 +25,7 @@ export const Badge = ({content,interest,setInterestUser,user}:{content:boolean,i
             setIsActive(true)
           }
          }
+   
     }, [])
     
       

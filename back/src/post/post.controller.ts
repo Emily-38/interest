@@ -36,7 +36,7 @@ export class PostController {
   return this.postService.savePost(id, user.id)
 }
 
-  @Put('/update/:id')
+  @Patch('/update/:id')
   updatePost(@Param('id') id: string, @Body() dto: updatePostDto, @GetUser() user:user) {
     return this.postService.updatePost(id,dto, user.id)
   }

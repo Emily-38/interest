@@ -45,15 +45,18 @@ export class PostService {
             throw new ForbiddenException('post not found')
         }
        
-        if(userId !== existingPost.userId ) {
-            throw new ForbiddenException('update unauthorized')
+        if (userId !== existingPost.userId) {
+            throw new ForbiddenException('Update unauthorized');
         }
 
-        return this.postModel.findByIdAndUpdate( 
+        if(!updatePostDto.description){
+            updatePostDto.description=existingPost.description
+        }
+        return await this.postModel.findByIdAndUpdate( 
             id,
-            {   updatePostDto,
-                interestId:updatePostDto.interestId
-            },{new:true})
+            {   ...updatePostDto,
+        
+            },{new:true}).exec()
     }
 
     async likePost( id: string, userId: string){
