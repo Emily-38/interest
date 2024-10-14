@@ -21,7 +21,8 @@ export type UserType={
     gender: string
     profile_image: string
     confidentialityId: string
-    checkbox: boolean
+    isActive: boolean
+    createdAt: Date
     interestId: InterestType[]
     user:UserType
 }

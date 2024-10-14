@@ -34,6 +34,11 @@ export class UserController {
    return this.userService.userSearch(query)
   }
 
+  @Patch('/update/disabled/:id')
+  disabledUser(@Param('id') id:string){
+    return this.userService.disabledUser(id)
+  }
+
   @Patch('/update')
   updateUserAddInterest(@GetUser() user: user ,@Body() dto: UserDto){
     return this.userService.updateUserAddInterest(user.id, dto)
@@ -44,3 +49,4 @@ export class UserController {
     return this.userService.deleteUser(user.id)
   }
 }
+

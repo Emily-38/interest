@@ -17,7 +17,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Interest-Home",
+  title: "Interest",
   description: "",
 };
 

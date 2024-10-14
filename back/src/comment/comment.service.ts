@@ -13,6 +13,10 @@ export class CommentService {
         @InjectModel(comment.name) private commentModel:Model<comment>,
         private readonly prisma: PrismaService) {}
 
+        async getAllComment(){
+           return await this.commentModel.find()
+        }
+        
        async getAllCommentByPost(postId: string){
             const comment = await   this.commentModel.find({postId}).sort({ createdAt: -1 })
             const commentsWithUsers = await Promise.all(

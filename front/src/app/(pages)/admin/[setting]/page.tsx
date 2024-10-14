@@ -1,0 +1,201 @@
+'use client'
+import { deleteComment, getAllComment } from '@/services/comment'
+import { deletePubliction, getPubliction } from '@/services/publication'
+import { deleteUser, disabledUser, getAllUser, updateUser } from '@/services/user'
+import { commentAdminType, commentType } from '@/utils/comment'
+import { ParamsType } from '@/utils/parametre'
+import { PublicationType } from '@/utils/publication'
+import { UserType } from '@/utils/user'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { FaBan, FaEye, FaTrash } from 'react-icons/fa6'
+import { toast } from 'react-toastify'
+
+const admin = ({params}:ParamsType) => {
+    const[userList,setUserList]=useState<UserType[]>()
+    const[publicationList,setPublicationList]=useState<PublicationType[]>()
+    const[commentList,setCommentList]=useState<commentAdminType[]>()
+    const router = useRouter()
+  useEffect(() => {
+    getAllUser().then((res)=>{
+        setUserList(res.data)
+    }) 
+    getPubliction().then((res)=>{
+        setPublicationList(res.data)
+    })
+    getAllComment().then((res)=>{
+        console.log(res.data)
+        setCommentList(res.data)
+    })
+  }, [])
+  
+    return (
+    <>
+    {params.setting === 'users'?
+        <div className={`text-gray-900`}>
+        <div className="p-4 flex justify-center">
+            <h1 className="text-3xl">
+                Users
+            </h1>
+        </div>
+        <div className="px-3 py-4 flex justify-center">
+            <table className="w-full text-md bg-white shadow-md rounded mb-4">
+                <tbody>
+                    <tr className="border-b">
+                        <th className="text-left p-3 px-5">Pseudo</th>
+                        <th className="text-left p-3 px-5">Email</th>
+                        <th className="text-left p-3 px-5">Active</th>
+                        <th className="text-left p-3 px-5">Date</th>
+                        <th className="text-center p-3 px-5">Action</th>   
+                    </tr>
+                    {userList && userList.map((user)=>{
+                        const createdAt= new Date(user.createdAt)
+                        console.log(user.isActive)
+                        return(
+                            <tr className="border-b hover:bg-sky-100 bg-gray-100">
+                            <td className="p-3 px-5">{user.pseudo}</td>
+                            <td className="p-3 px-5">{user.email}</td>
+                            <td className="p-3 px-5">{user.isActive === true ? 'Active': 'Inactive'} </td>
+                            <td className="p-3 px-5">{ createdAt.toLocaleString('fr-FR', {
+                                        year: 'numeric',
+                                        month: 'numeric',
+                                        day: 'numeric',
+                                        })}</td>
+                            <td className="p-3 px-5 flex justify-center">
+                            <button type="button" className="mr-3 text-xl  py-1 px-2 " onClick={()=>{
+                                router.push(`profil/${user.pseudo}`)
+                            }}><FaEye /></button>
+                            <button type="button" className="text-xl py-1 px-2" onClick={()=>{
+                                deleteUser().then((res)=>{
+                                    if(res.status === 200){
+                                        toast.success('L\'utilisateur a été supprimer')
+                                    }
+                                })
+                            }}><FaTrash /></button>
+                            <button className='py-1 px-2 text-red-600 text-xl' onClick={()=>{
+                                disabledUser(user.id).then((res)=>{
+                                    if(res.status === 200){
+                                        toast.success('L\'utilisateur a été désactivé')
+                                    }
+                                })
+                            }}><FaBan /></button>
+                            </td>
+                            </tr>
+                        )
+                        })} 
+                </tbody>
+            </table>
+        </div>
+    </div>
+:''}
+{params.setting === 'publications'?
+    <div className={`text-gray-900`}>
+        <div className="p-4 flex justify-center">
+            <h1 className="text-3xl">
+                Publications
+            </h1>
+        </div>
+        <div className="px-3 py-4 flex justify-center">
+            <table className="w-full text-md bg-white shadow-md rounded mb-4">
+                <tbody>
+                    <tr className="border-b">
+                        <th className="text-left p-3 px-5">Pseudo</th>
+                        <th className="text-left p-3 px-5">Publication</th>
+                        <th className="text-left p-3 px-5">Image</th>
+                        <th className="text-left p-3 px-5">Date</th>
+                        <th className="text-center p-3 px-5">Action</th>   
+                    </tr>
+                    {publicationList && publicationList.map((publication)=>{
+                       const userPublication = userList?.find(user => user.id === publication.userId);
+                            
+                        
+                        const createdAt = new Date(publication.createdAt)
+                        return(
+                            <tr className="border-b hover:bg-sky-100 bg-gray-100">
+                            <td className="p-3 px-5">{userPublication?.pseudo}</td>
+                            <td className="p-3 px-5">{publication._id}</td>
+                            <td className="p-3 px-5">{publication.image ? 'Oui': 'Non'} </td>
+                            <td className="p-3 px-5">{ createdAt.toLocaleString('fr-FR', {
+                                        year: 'numeric',
+                                        month: 'numeric',
+                                        day: 'numeric',
+                                        })}</td>
+                            <td className="p-3 px-5 flex justify-center">
+                            <button type="button" className="mr-3 text-xl  py-1 px-2 " onClick={()=>{
+                                router.push(`publication/${publication._id}`)
+                            }}><FaEye /></button>
+                            <button type="button" className="text-xl py-1 px-2" onClick={()=>{
+                                deletePubliction(publication._id).then((res)=>{
+                                    if(res.status === 200){
+                                        toast.success('La publication a été supprimer')
+                                    }
+                                })
+                            }}> <FaTrash />
+                            </button>
+                            </td>
+                            </tr>
+                        )
+                        })} 
+                </tbody>
+            </table>
+        </div>
+    </div>
+:''}
+{params.setting === 'commentaires'?
+    <div className={`text-gray-900`} >
+        <div className="p-4 flex justify-center">
+            <h1 className="text-3xl" onClick={()=>{
+        console.log(commentList)
+    }}>
+                Commentaires
+            </h1>
+        </div>
+        <div className="px-3 py-4 flex justify-center">
+            <table className="w-full text-md bg-white shadow-md rounded mb-4">
+                <tbody>
+                    <tr className="border-b">
+                        <th className="text-left p-3 px-5">Pseudo</th>
+                        <th className="text-left p-3 px-5">comment</th>
+                        <th className="text-left p-3 px-5">Date</th>
+                        <th className="text-center p-3 px-5">Action</th>   
+                    </tr>
+                    {commentList && commentList.map((comment)=>{
+                        
+                       const userComment = userList?.find(user => user.id === comment.userId);
+                        const createdAt = new Date(comment.createdAt)
+                        return(
+                            <tr className="border-b hover:bg-sky-100 bg-gray-100">
+                            <td className="p-3 px-5">{userComment?.pseudo}</td>
+                            <td className="p-3 px-5">{comment._id}</td>
+                            <td className="p-3 px-5">{ createdAt.toLocaleString('fr-FR', {
+                                        year: 'numeric',
+                                        month: 'numeric',
+                                        day: 'numeric',
+                                        })}</td>
+                            <td className="p-3 px-5 flex justify-center">
+                            <button type="button" className="mr-3 text-xl  py-1 px-2 " onClick={()=>{
+                                router.push(`../publication/${comment.postId}`)
+                            }}><FaEye /></button>
+                            <button type="button" className="text-xl py-1 px-2" onClick={()=>{
+                                deleteComment(comment._id).then((res)=>{
+                                    if(res.status === 200){
+                                        toast.success('Le commentaire a été supprimer')
+                                    }
+                                })
+                            }}> <FaTrash />
+                            </button>
+                            </td>
+                            </tr>
+                        )
+                        })} 
+                </tbody>
+            </table>
+        </div>
+    </div>
+:''}
+
+</>
+  )
+}
+
+export default admin

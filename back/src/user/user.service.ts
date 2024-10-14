@@ -15,10 +15,13 @@ export class UserService {
               select: {
                 id: true,
                 age: true,
+                email:true,
                 pseudo:true,
                 gender:true,
-                profile_image: true,
-                interestId:true
+                isActive:true,
+                profile_image:true,
+                interestId:true,
+                createdAt:true
 
               },  
         })
@@ -88,6 +91,26 @@ export class UserService {
           
     }
 
+    async disabledUser(id:string){
+        const existingUser = await this.prisma.user.findUnique({
+            where:{id:id}
+        })
+        if(!existingUser){
+            throw new ForbiddenException('cet utilisateur n\'existe pas')
+        }
+        if(!existingUser.isActive){
+            return await this.prisma.user.update({
+                where: {id:id},
+                data: {isActive:true}
+            }) 
+        }else{
+            return await this.prisma.user.update({
+                where: {id:id},
+                data: {isActive:false}
+            })
+        }
+    }
+
     async updateUserAddInterest(id:string, dto:UserDto){
 
         const existingUser = await this.prisma.user.findUnique({
@@ -137,7 +160,7 @@ export class UserService {
        });
      }
 
-     async deleteUser(id: string){
+    async deleteUser(id: string){
         const existingUser= this.prisma.user.findUnique({
             where:{
                 id: id
@@ -157,6 +180,5 @@ export class UserService {
                 id :id
             }
         })
-      }
-
+    }
 }

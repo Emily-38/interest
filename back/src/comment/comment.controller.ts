@@ -10,6 +10,11 @@ import { user } from '@prisma/client';
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
+@Get('/')
+getAllComment(){
+  return this.commentService.getAllComment()
+}
+
   @Get('/bypostId/:id')
   getAllCommentByPostId(@Param('id') postId: string){
   return this.commentService.getAllCommentByPost(postId)
