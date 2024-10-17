@@ -16,7 +16,7 @@ const admin = ({params}:ParamsType) => {
     const[publicationList,setPublicationList]=useState<PublicationType[]>()
     const[commentList,setCommentList]=useState<commentAdminType[]>()
     const router = useRouter()
-    
+
   useEffect(() => {
     getAllUser().then((res)=>{
         setUserList(res.data)
@@ -76,17 +76,17 @@ const admin = ({params}:ParamsType) => {
                                         day: 'numeric',
                                         })}</td>
                             <td className="p-3 px-5 flex justify-center">
-                            <button type="button" className="mr-3 text-xl  py-1 px-2" onClick={()=>{
+                            <button aria-label='view' type="button" className="mr-3 text-xl  py-1 px-2" onClick={()=>{
                                 router.push(`profil/${user.pseudo}`)
                             }}><FaEye /></button>
-                            <button type="button" className="text-xl py-1 px-2" onClick={()=>{
+                            <button aria-label='delete' type="button" className="text-xl py-1 px-2" onClick={()=>{
                                 deleteUser().then((res)=>{
                                     if(res.status === 200){
                                         toast.success('L\'utilisateur a été supprimer')
                                     }
                                 })
                             }}><FaTrash /></button>
-                            <button className='py-1 px-2 text-red-600 text-xl' onClick={()=>{
+                            <button aria-label='desable' className='py-1 px-2 text-red-600 text-xl' onClick={()=>{
                                 disabledUser(user.id).then((res)=>{
                                     if(res.status === 200){
                                         toast.success('L\'utilisateur a été désactivé')
@@ -135,10 +135,10 @@ const admin = ({params}:ParamsType) => {
                                         day: 'numeric',
                                         })}</td>
                             <td className="p-3 px-5 flex justify-center">
-                            <button type="button" className="mr-3 text-xl  py-1 px-2 " onClick={()=>{
+                            <button aria-label='view' type="button" className="mr-3 text-xl  py-1 px-2 " onClick={()=>{
                                 router.push(`publication/${publication._id}`)
                             }}><FaEye /></button>
-                            <button type="button" className="text-xl py-1 px-2" onClick={()=>{
+                            <button aria-label='delete' type="button" className="text-xl py-1 px-2" onClick={()=>{
                                 deletePubliction(publication._id).then((res)=>{
                                     if(res.status === 200){
                                         toast.success('La publication a été supprimer')
@@ -187,10 +187,10 @@ const admin = ({params}:ParamsType) => {
                                         day: 'numeric',
                                         })}</td>
                             <td className="p-3 px-5 flex justify-center">
-                            <button type="button" className="mr-3 text-xl  py-1 px-2 " onClick={()=>{
+                            <button aria-label='view' type="button" className="mr-3 text-xl  py-1 px-2 " onClick={()=>{
                                 router.push(`../publication/${comment.postId}`)
                             }}><FaEye /></button>
-                            <button type="button" className="text-xl py-1 px-2" onClick={()=>{
+                            <button aria-label='delete' type="button" className="text-xl py-1 px-2" onClick={()=>{
                                 deleteComment(comment._id).then((res)=>{
                                     if(res.status === 200){
                                         toast.success('Le commentaire a été supprimer')
