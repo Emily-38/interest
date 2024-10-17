@@ -81,6 +81,7 @@ export class UserService {
                 gender:true,
                 profile_image: true,
                 confidentialityId:true,
+                roleId:true,
                 interestId:true
             }
         })

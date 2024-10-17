@@ -1,8 +1,8 @@
 'use client'
 import { deleteComment, getAllComment } from '@/services/comment'
 import { deletePubliction, getPubliction } from '@/services/publication'
-import { deleteUser, disabledUser, getAllUser, updateUser } from '@/services/user'
-import { commentAdminType, commentType } from '@/utils/comment'
+import { deleteUser, disabledUser, getAllUser } from '@/services/user'
+import { commentAdminType} from '@/utils/comment'
 import { ParamsType } from '@/utils/parametre'
 import { PublicationType } from '@/utils/publication'
 import { UserType } from '@/utils/user'
@@ -16,6 +16,7 @@ const admin = ({params}:ParamsType) => {
     const[publicationList,setPublicationList]=useState<PublicationType[]>()
     const[commentList,setCommentList]=useState<commentAdminType[]>()
     const router = useRouter()
+    
   useEffect(() => {
     getAllUser().then((res)=>{
         setUserList(res.data)
@@ -31,6 +32,19 @@ const admin = ({params}:ParamsType) => {
   
     return (
     <>
+     <div className='bg-white w-full md:hidden p-3'>
+        <ul className='flex gap-3 justify-center items-center text-center'>
+            <li className={`${params.setting === 'users'? 'font-bold':''} cursor-pointer`} onClick={()=>{
+                router.push('/admin/users')
+            }}>Users </li>
+            <li className={`${params.setting === 'publications'? 'font-bold':''} cursor-pointer`} onClick={()=>{
+                router.push('/admin/publications')
+            }}>Publications</li>
+            <li className={`${params.setting === 'commentaires'? 'font-bold':''} cursor-pointer`} onClick={()=>{
+                router.push('/admin/commentaires')
+            }}>Commentaires</li>
+        </ul>
+    </div>
     {params.setting === 'users'?
         <div className={`text-gray-900`}>
         <div className="p-4 flex justify-center">
@@ -38,9 +52,9 @@ const admin = ({params}:ParamsType) => {
                 Users
             </h1>
         </div>
-        <div className="px-3 py-4 flex justify-center">
-            <table className="w-full text-md bg-white shadow-md rounded mb-4">
-                <tbody>
+        <div className="px-3 py-4 overflow-x-scroll">
+            <table className="md:w-full  text-md bg-white shadow-md rounded mb-4 ">
+                <tbody className=''>
                     <tr className="border-b">
                         <th className="text-left p-3 px-5">Pseudo</th>
                         <th className="text-left p-3 px-5">Email</th>
@@ -62,7 +76,7 @@ const admin = ({params}:ParamsType) => {
                                         day: 'numeric',
                                         })}</td>
                             <td className="p-3 px-5 flex justify-center">
-                            <button type="button" className="mr-3 text-xl  py-1 px-2 " onClick={()=>{
+                            <button type="button" className="mr-3 text-xl  py-1 px-2" onClick={()=>{
                                 router.push(`profil/${user.pseudo}`)
                             }}><FaEye /></button>
                             <button type="button" className="text-xl py-1 px-2" onClick={()=>{
@@ -95,7 +109,7 @@ const admin = ({params}:ParamsType) => {
                 Publications
             </h1>
         </div>
-        <div className="px-3 py-4 flex justify-center">
+        <div className="px-3 py-4 overflow-x-scroll">
             <table className="w-full text-md bg-white shadow-md rounded mb-4">
                 <tbody>
                     <tr className="border-b">
@@ -150,7 +164,7 @@ const admin = ({params}:ParamsType) => {
                 Commentaires
             </h1>
         </div>
-        <div className="px-3 py-4 flex justify-center">
+        <div className="px-3 py-4 overflow-x-scroll">
             <table className="w-full text-md bg-white shadow-md rounded mb-4">
                 <tbody>
                     <tr className="border-b">

@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { GiConsoleController } from "react-icons/gi";
 import { toast } from "react-toastify";
 
 

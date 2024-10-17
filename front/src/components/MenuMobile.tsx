@@ -24,28 +24,28 @@ const router = useRouter()
                 router.push('/home')
                 setIsActive(false)
             }}>Accueil</li>
-            <hr className='w-4/5'/>
+           <li className='w-4/5'> <hr/></li>
             <li>Notification</li>
-            <hr className='w-4/5'/>
+            <li className='w-4/5'><hr/></li>
             <li className='cursor-pointer' onClick={()=>{
                 router.push('/search')
                 setIsActive(false)
             }}>Recherche</li>
-            <hr className='w-4/5'/>
+           <li className='w-4/5'> <hr/></li>
             <li className='cursor-pointer'><ModalCreatePublication/></li>
-            <hr className='w-4/5'/>
+            <li className='w-4/5'><hr/></li>
             <li className='cursor-pointer' onClick={()=>{
                 router.push('/profil/OKrogeur')
                 setIsActive(false)
             }}>Profil</li>
-            <hr className='w-4/5'/>
+           <li className='w-4/5'> <hr /></li>
             <li className='cursor-pointer' onClick={()=>{
                 router.push('/setting/updateProfile')
                 setIsActive(false)
             }}>Parametre</li>
-            <hr className='w-4/5'/>
+           <li className='w-4/5'> <hr /></li>
             <li>A propos</li>
-            <hr className='w-4/5'/>
+           <li className='w-4/5'> <hr /></li>
             <li className='pb-6 cursor-pointer' onClick={()=>{
                 router.push('/')
             }}>Deconnexion</li>

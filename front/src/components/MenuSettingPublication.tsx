@@ -11,7 +11,7 @@ export const MenuSettingPublication = ({publication}:{publication:PublicationTyp
   return (
 
   <div className='text-right p-2 w-20'>
-    <button onClick={()=> {setOpen(!open)}}>
+    <button aria-label='setting' onClick={()=> {setOpen(!open)}}>
         <SlOptions className='cursor-pointer'/>
     </button>
     

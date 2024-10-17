@@ -23,6 +23,7 @@ export type UserType={
     confidentialityId: string
     isActive: boolean
     createdAt: Date
+    roleId: string
     interestId: InterestType[]
     user:UserType
 }
