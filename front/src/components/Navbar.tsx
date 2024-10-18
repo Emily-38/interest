@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import ProfileUser from './ProfileUser'
 import {  ModalCreatePublication } from './ModaleCreatePublication'
-import { getCourentUser, getSearch } from '@/services/user'
+import { getCurrentUser, getSearch } from '@/services/user'
 import { UserType } from '@/utils/user'
 
 export const Navbar = () => {
@@ -18,7 +18,7 @@ export const Navbar = () => {
     const[user,setUser]=useState<UserType>()
     
     useEffect(() => {
-       getCourentUser().then((res)=>{
+       getCurrentUser().then((res)=>{
         setUser(res.data)
        })
 
@@ -45,11 +45,6 @@ export const Navbar = () => {
                 Accueil
             </li>
 
-            <li className='cursor-pointer' onClick={()=>{
-               
-            }}>
-                Notification
-            </li>
             <li className='cursor-pointer' onClick={()=>{
                 setIsSearch(true)
             }}>

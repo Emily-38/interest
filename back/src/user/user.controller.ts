@@ -24,9 +24,9 @@ export class UserController {
     return this.userService.getUserById(id)
   }
 
-  @Get('/courent')
-  getCourentUser(@GetUser() user:user){
-    return this.userService.getCourentUser(user)
+  @Get('/current')
+  getCurrentUser(@GetUser() user:user){
+    return this.userService.getCurrentUser(user)
   }
 
   @Get('/search')

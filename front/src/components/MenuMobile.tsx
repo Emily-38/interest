@@ -1,11 +1,21 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { ModalCreatePublication } from './ModaleCreatePublication'
 import { useRouter } from 'next/navigation'
+import { UserType } from '@/utils/user'
+import { getCurrentUser } from '@/services/user'
 
 export const MenuMobile = () => {
 const[isActive,setIsActive]=useState(false)
+const[user, setUser]=useState<UserType>()
+
+useEffect(() => {
+  getCurrentUser().then((res)=>{
+    setUser(res.data)
+  })
+}, [])
+
 const router = useRouter()
 
   return (
@@ -15,7 +25,7 @@ const router = useRouter()
             setIsActive(!isActive)
         }} />
         <div className='flex items-center font-semibold gap-5'>
-            <p>Nom Utilisateur</p>
+            <p>{user?.pseudo}</p>
             <Image src={'/chat.jpg'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/>
         </div>
     </div>
@@ -24,8 +34,6 @@ const router = useRouter()
                 router.push('/home')
                 setIsActive(false)
             }}>Accueil</li>
-           <li className='w-4/5'> <hr/></li>
-            <li>Notification</li>
             <li className='w-4/5'><hr/></li>
             <li className='cursor-pointer' onClick={()=>{
                 router.push('/search')

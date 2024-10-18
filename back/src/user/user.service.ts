@@ -68,7 +68,7 @@ export class UserService {
         return existingUser   
     }
 
-    async getCourentUser(user:user) {
+    async getCurrentUser(user:user) {
 
         const existingUser= this.prisma.user.findUnique({
             where:{

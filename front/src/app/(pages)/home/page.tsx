@@ -3,7 +3,7 @@ import { CardProfil } from '@/components/CardProfil'
 import ProfileUser from '@/components/ProfileUser'
 import { Publication } from '@/components/Publication'
 import { getPubliction } from '@/services/publication'
-import { getAllUser, getCourentUser } from '@/services/user'
+import { getAllUser, getCurrentUser } from '@/services/user'
 import { PublicationType } from '@/utils/publication'
 import { UserType } from '@/utils/user'
 import React, { useEffect, useState } from 'react'
@@ -13,7 +13,7 @@ const home = () => {
   localStorage.removeItem('page')
   const [publicationList, setPublicationList]=useState<PublicationType[]>()
   const[userList,setUserList]=useState<UserType[]>()
-  const[courentUser,setCourentUser]=useState<UserType>()
+  const[currentUser,setCurrentUser]=useState<UserType>()
  
 
   useEffect(() => {
@@ -21,12 +21,11 @@ const home = () => {
       setPublicationList(res.data)
     })
 
-    getCourentUser().then((res)=>{
-      setCourentUser(res.data)
+    getCurrentUser().then((res)=>{
+      setCurrentUser(res.data)
     })
 
     getAllUser().then((res)=>{
-      console.log('all',res.data)
       setUserList(res.data)
     })
     
@@ -48,10 +47,10 @@ const home = () => {
   return (
     <div className='flex justify-center flex-col place-self-center md:w-11/12 md:gap-20 text-sm md:text-base md:flex-row'>
         <div className='flex overflow-x-scroll md:hidden'>
-        {userList && courentUser && userList.map((user)=>{
-           const courantinterestId=courentUser.interestId.map((interest)=>{return interest.id})
-           const userMatchInterest = courantinterestId.some(interest => {
-            return courentUser.id !== user.id && user.interestId.some(userInterest => userInterest.id === interest)});
+        {userList && currentUser && userList.map((user)=>{
+           const currentinterestId=currentUser.interestId.map((interest)=>{return interest.id})
+           const userMatchInterest = currentinterestId.some(interest => {
+            return currentUser.id !== user.id && user.interestId.some(userInterest => userInterest.id === interest)});
             if(userMatchInterest === true){ 
             return(<ProfileUser key={user.id} button={false} col={true} user={user}/>)}
           })}
@@ -76,10 +75,10 @@ const home = () => {
           <CardProfil/>
           <div className='flex flex-col gap-4 p-5'>
             <p className='text-gray-400 m-3 text-center'>Suggestion de profile</p>
-            {userList && courentUser && userList.map((user)=>{
-           const courantinterestId=courentUser.interestId.map((interest)=>{return interest.id})
-           const userMatchInterest = courantinterestId.some(interest => {
-            return courentUser.id !== user.id && user.interestId.some(userInterest => userInterest.id === interest)});
+            {userList && currentUser && userList.map((user)=>{
+           const currentinterestId=currentUser.interestId.map((interest)=>{return interest.id})
+           const userMatchInterest = currentinterestId.some(interest => {
+            return currentUser.id !== user.id && user.interestId.some(userInterest => userInterest.id === interest)});
             if(userMatchInterest === true){ 
             return(<ProfileUser key={user.id} button={false} col={false} user={user}/>)}
           })}

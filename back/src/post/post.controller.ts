@@ -41,9 +41,6 @@ export class PostController {
     return this.postService.updatePost(id,dto, user.id)
   }
 
-  
-
-  @UseGuards(JwtGuard)
   @Delete('/delete/:id')
   deletePost(@Param('id') id: string, ) {
     return this.postService.deletePost(id)

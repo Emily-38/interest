@@ -54,7 +54,7 @@ export async function getAllUser(){
         url,axiosConfig
     )
 }
-export async function getCourentUser(){
+export async function getCurrentUser(){
     let axiosConfig = {
         headers: {
             'content-type': 'application/json;charset=utf-8',
@@ -63,7 +63,7 @@ export async function getCourentUser(){
             Authorization: `Bearer ${localStorage.getItem("token")}`
         },
     }
-    const url = `${process.env.NEXT_PUBLIC_URL_API}user/courent`
+    const url = `${process.env.NEXT_PUBLIC_URL_API}user/current`
     return axios.get(
         url,axiosConfig
     )

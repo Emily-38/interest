@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import ProfileUser from './ProfileUser'
 import { UserType } from '@/utils/user'
-import { getCourentUser } from '@/services/user'
+import { getCurrentUser } from '@/services/user'
 
 export const CardProfil = () => {
   const[user,setUser]=useState<UserType>()
   useEffect(() => {
-    getCourentUser().then((res)=>{
+    getCurrentUser().then((res)=>{
      
       setUser(res.data)
     })

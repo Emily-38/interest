@@ -5,7 +5,7 @@ import ProfileUser from '@/components/ProfileUser'
 import { getConfidentiality } from '@/services/confidentiality'
 import { deleteImage, InsertImage } from '@/services/image'
 import { getInterest } from '@/services/interest'
-import { deleteUser, getCourentUser, updateUser } from '@/services/user'
+import { deleteUser, getCurrentUser, updateUser } from '@/services/user'
 import { ConfidentialityType } from '@/utils/confidentiality'
 import { InterestType } from '@/utils/interest'
 import { ParamsType } from '@/utils/parametre'
@@ -58,7 +58,7 @@ const setting = ({params}:ParamsType) => {
         setInterest(res.data)
      })
 
-     getCourentUser().then((res)=>{
+     getCurrentUser().then((res)=>{
         setUser(res.data)
      })
 
