@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as argon from 'argon2';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { loginDto, RegisterDto } from './dto';
+import { EmailService } from 'src/email/email.service';
 
 
 @Injectable()
@@ -11,7 +12,8 @@ export class AuthService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly jwt: JwtService,
-        private readonly config:ConfigService
+        private readonly config:ConfigService,
+        private readonly emailService:EmailService
     ) {}
 
     async register(dto: RegisterDto ) {
@@ -36,8 +38,10 @@ export class AuthService {
             throw new ForbiddenException('the password is not the same')
         }
 
-        const PasswordHash = await argon.hash(dto.password)
+        const activationToken= await argon.hash(`${dto.email}+${dto.pseudo}`)
+        const cleanToken= activationToken.replaceAll('/','-')
 
+        const PasswordHash = await argon.hash(dto.password)
         const user = await this.prisma.user.create({
             data:{
                 email: dto.email,
@@ -45,11 +49,13 @@ export class AuthService {
                 pseudo: dto.pseudo,
                 gender: dto.gender,
                 age: dto.age,
+                token:cleanToken,
                 confidentialityId:'c8a2e0ab-19f3-443d-8809-90c62741fc9e',
                 roleId:'8f5a6b80-1781-4a8b-a5d7-d87345f431c0',
             }
         })
-        return this.signToken(user.id)
+        await this.emailService.sendUserConfirmation(user, cleanToken);
+        return 'successful'
     };
 
     async login(dto: loginDto) {
@@ -91,6 +97,28 @@ export class AuthService {
         return {
              access_token: token
         }
+    }
+
+    async validateAccount(token:string){
+        const user=await this.prisma.user.findFirst({
+            where:{
+                token:token,
+            }
+        })
+        if (!user) {
+            throw new ForbiddenException('Invalid crendentials');
+        }
+        await this.prisma.user.update({
+            where: {
+                id: user.id
+            },
+            data: {
+                isActive: true,
+                token: null
+            }
+        })
+        return 'compte activé'
+        
     }
         
     

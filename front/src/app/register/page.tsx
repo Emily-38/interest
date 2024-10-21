@@ -19,6 +19,7 @@ const register = () => {
   const {register,handleSubmit ,formState:{errors}}=useForm<RegisterType>({mode:'onSubmit', resolver:yupResolver(schemaRegister)})
   const onSubmit: SubmitHandler<RegisterType> = (data) => {
    registerForm(data).then((res)=>{
+    console.log(res.data)
     if(res.status=== 201){
       toast.success('Verifier votre boite mail')
      router.push('/')

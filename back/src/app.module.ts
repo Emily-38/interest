@@ -13,6 +13,7 @@ import { FollowersModule } from './followers/followers.module';
 import { UserModule } from './user/user.module';
 import { InterestModule } from './interest/interest.module';
 import { ImageModule } from './image/image.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { ImageModule } from './image/image.module';
     FollowersModule,
     UserModule,
     InterestModule,
-    ImageModule
+    ImageModule,
+    EmailModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -3,5 +3,6 @@ export type ParamsType={
         pseudo:string
         id:string
         setting:string
+        token:string
     }
 }

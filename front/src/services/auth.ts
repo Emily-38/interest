@@ -4,8 +4,6 @@ import axios from "axios"
 export async function registerForm(data:RegisterType){
     let axiosConfig = {
         headers: {
-            'content-type': 'application/json;charset=utf-8',
-            'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         },
     }
@@ -22,7 +20,6 @@ export async function registerForm(data:RegisterType){
         },
         axiosConfig
     )
-      
 }
 
 export async function loginForm(data:LoginType){
@@ -41,6 +38,23 @@ export async function loginForm(data:LoginType){
             password: data.password, 
             
         },
+        axiosConfig
+    )  
+}
+
+
+export async function activateAccount(token:string){
+    let axiosConfig = {
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        },
+    }
+    const url = `${process.env.NEXT_PUBLIC_URL_API}auth/validate/${token}`
+    return axios.patch(
+        url,
+        {},
         axiosConfig
     )  
 }
