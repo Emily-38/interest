@@ -81,7 +81,6 @@ export class AuthService {
         if(isValidAccount !== true ){
             throw new ForbiddenException('votre compte n\'est pas activer merci de verifier vos mail')
         }
-        
         return{ interest:user.interestId, token: await this.signToken(user.id)} 
     }
 
@@ -118,7 +117,6 @@ export class AuthService {
             }
         })
         return 'compte activé'
-        
     }
         
     
