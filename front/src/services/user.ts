@@ -40,6 +40,42 @@ export async function firstUpdateUser(interest:string[], confidentialityId?:stri
         },axiosConfig
     )
 }
+
+
+export async function forgetPassword(email:string){
+    console.log(email)
+    let axiosConfig = {
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+    }
+    const url = `${process.env.NEXT_PUBLIC_URL_API}user/forget_password`
+    return axios.patch(
+        url,{
+            email:email
+        },axiosConfig
+    )
+}
+export async function change_Password(password:string, token:string){
+    let axiosConfig = {
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+    }
+    const url = `${process.env.NEXT_PUBLIC_URL_API}user/change_password/${token}`
+    return axios.patch(
+        url,{
+            password:password
+        },axiosConfig
+    )
+}
+
 export async function getAllUser(){
     let axiosConfig = {
         headers: {

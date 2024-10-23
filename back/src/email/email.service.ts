@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
-import { user } from '@prisma/client';
+import { Prisma, user } from '@prisma/client';
 
 @Injectable()
 export class EmailService {
@@ -19,17 +19,31 @@ export class EmailService {
     }
   
     async sendUserConfirmation(user: user, token: string) {
-      const url = `${this.config.get('SERVER_URL')}/validate/${token}`;
+      const url = `${this.config.get('SERVER_URL')}/change_password/${token}`;
       const emailHtml = `<p>Bonjour ${user.pseudo},</p>
-          <p>ta prochaine etape serra de valider ton compte en cliquant sur le lien suivant :</p>
-              <a href='${url}'>Clique ici pour valider ton compte</a>
-          <p>apres validation tu pourra te connecter à notre plateforme ! </p>`;
+          <p>Vous avez fait une demande de changement de mots de passe voici le lien qui vous permettra de changer de mots de passe:</p>
+              <a href='${url}'>Clique ici pour changer de mots de passe</a>`;
   
       await this.transporter.sendMail({
         from: this.config.get('SMTP_EMAIL'),
         to: user.email,
-        subject: 'Bienvenue sur Interest',
+        subject: 'Vous avez fait une demande de changement de mot de passe ? ',
         html: emailHtml,
       });
     }
+
+    async sendForgetPassword(user: user, token: string) {
+        const url = `${this.config.get('SERVER_URL')}/change_password/${token}`;
+        const emailHtml = `<p>Bonjour ${user.pseudo},</p>
+            <p>Ta prochaine etape serra de valider ton compte en cliquant sur le lien suivant :</p>
+                <a href='${url}'>Clique ici pour valider ton compte</a>
+            <p>Apres cette etape tu pourra a nouveau te connecter à notre plateforme ! </p>`;
+    
+        await this.transporter.sendMail({
+          from: this.config.get('SMTP_EMAIL'),
+          to: user.email,
+          subject: 'Bienvenue sur Interest',
+          html: emailHtml,
+        });
+      }
 }

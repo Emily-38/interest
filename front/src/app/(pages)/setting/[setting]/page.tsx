@@ -1,11 +1,12 @@
 'use client'
+import forget_password from '@/app/forget_password/page'
 import { Badge } from '@/components/Badge'
 import { InterestForm } from '@/components/InterestForm'
 import ProfileUser from '@/components/ProfileUser'
 import { getConfidentiality } from '@/services/confidentiality'
 import { deleteImage, InsertImage } from '@/services/image'
 import { getInterest } from '@/services/interest'
-import { deleteUser, getCurrentUser, updateUser } from '@/services/user'
+import { change_Password, deleteUser, forgetPassword, getCurrentUser, updateUser } from '@/services/user'
 import { ConfidentialityType } from '@/utils/confidentiality'
 import { InterestType } from '@/utils/interest'
 import { ParamsType } from '@/utils/parametre'
@@ -154,10 +155,17 @@ const setting = ({params}:ParamsType) => {
             <option value="Femme">Femme</option>
             <option value="Autre">Autre</option>
         </select>
-        <button className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2' onClick={()=>{ 
-
+        <p className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2' onClick={()=>{ 
+            console.log(user.email)
+            forgetPassword(user.email).then((res)=>{
+                if(res.status === 200){
+                    toast.success('un email vous a été envoyé')
+                }
+            }).catch((e)=>{
+                toast.error(e.response.data.message)
+            })
         }}>Modifier votre mot de passe
-        </button>
+        </p>
         <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/2'>Modifier 
         </button>
     </form>

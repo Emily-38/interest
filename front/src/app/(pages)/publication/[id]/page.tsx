@@ -14,7 +14,6 @@ const publication = ({params}:ParamsType) => {
     getPublictionById(params.id).then((res)=>{
       setPublication(res.data)
     }).catch((e)=>{
-      console.log(e)
       return toast.error(e.response.data.message) 
   })
   }, [])

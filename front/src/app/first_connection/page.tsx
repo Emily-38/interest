@@ -88,12 +88,9 @@ const onSubmit: SubmitHandler<InterestCreate> = (data) => {
            <p className='cursor-pointer flex items-center gap-3' onClick={()=>{setIsActive(false)}}><FaArrowLeftLong/>Retour</p>
            <p className='hidden cursor-pointer md:flex items-center gap-3' onClick={()=>{
            firstUpdateUser(interestUser, confidentiality).then((res)=>{
-             console.log(res)
-             console.log(interestUser)
-             console.log(confidentiality)
-              // if(res.status === 200){
-              //   router.push('/home')
-              // }
+              if(res.status === 200){
+                router.push('/home')
+              }
             })
            }}>Suivant<FaArrowRightLong /></p> 
         </div>

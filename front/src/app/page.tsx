@@ -41,7 +41,9 @@ export default function Home() {
         <form className="flex flex-col justify-center items-center gap-4 p-3" onSubmit={handleSubmit(onSubmit)}>
           <input {...register('email')} type="email" placeholder="Adresse e-mail" className=" border border-black rounded-md p-3 pl-4 w-5/6"/>
           <input {...register('password')} type="password" placeholder="Mot de passe" className=" border border-black rounded-md p-3 pl-4 w-5/6"/>
-          <a href="" className="underline  self-start ml-7 text-xs hover:text-primary md:ml-12">Mot de passe oublié ?</a>
+          <p className="underline  self-start ml-7 text-xs hover:text-primary md:ml-12" onClick={()=>{
+            router.push('/forget_password')
+          }}>Mot de passe oublié ?</p>
           <button type="submit" className="bg-primary text-white font-semibold text-center w-5/6 p-3 rounded-md">Connexion</button>
           <hr className="w-11/12 border border-black"/>
           <Link className="bg-primary text-white font-semibold text-center w-3/5 p-3 rounded-md" href={'/register'}>Crée un compte</Link>
