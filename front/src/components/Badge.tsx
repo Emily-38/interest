@@ -31,7 +31,7 @@ export const Badge = ({content,interest,setInterestUser,user,publication}:{conte
       
     
   return (
-    <div  className={`${isActive === true ? 'bg-primary text-white':''} ${content === true? '':'border border-black'} cursor-pointer rounded-md  p-1`} onClick={()=>{
+    <div  className={`${isActive === true ? 'bg-primary text-white':''} ${content === true? '':'border border-black'} cursor-pointer h-10 rounded-md  p-2`} onClick={()=>{
       if(content !== true){
         setIsActive(!isActive)
         setInterestAdd(true)

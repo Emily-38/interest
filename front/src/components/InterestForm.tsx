@@ -34,13 +34,13 @@ export const InterestForm = ({setInterestUser,user,publication}:{setInterestUser
     }
 
     return (
-    <div className='border bg-white  border-black p-2 rounded-md flex flex-col  '>
-            <div className='p-3 flex gap-4 h-14 overflow-x-scroll'>
+    <div className='border bg-white  border-black p-2 rounded-md flex flex-col gap-5 '>
+            <div className=' flex gap-5 h-16 overflow-x-scroll my-auto'>
             {interestList && interestList.map((interest)=>{
                 return( 
                 <Badge key={interest.id} content={false} interest={interest} setInterestUser={setInterestUser} user={user?.interestId} publication={publication?.interestId}/> )})}
             </div>
-            <div className='p-3 flex gap-4 overflow-x-scroll' >
+            <div className=' flex gap-5 h-16 overflow-x-scroll' >
             {interestAdd && interestAdd.map((interest)=>{
                 return(<Badge  key={interest.id} content={false} interest={interest} setInterestUser={setInterestUser}/>)
                 })}

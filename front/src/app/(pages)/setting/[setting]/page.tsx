@@ -112,8 +112,10 @@ const setting = ({params}:ParamsType) => {
         <input {...register('profile_image')} type="file" className=' border bg-white border-black text-center rounded-md p-2 md:w-1/3 w-4/5'/>
         <p className='text-lg'>Modifier le pseudo:</p>
         <input {...register('pseudo')} defaultValue={user.pseudo} type="text" placeholder={user.pseudo} className=" border border-black text-center rounded-md md:w-1/3 w-4/5 p-2"/>
-        <p className='text-lg'>Ajouter ou supprimer des interets:</p>
-        <InterestForm setInterestUser={setInterestUser} user={user}/>        
+            <p className='text-lg'>Ajouter ou supprimer des interets:</p>
+            <div className='md:w-1/3 w-4/5'>
+                <InterestForm setInterestUser={setInterestUser} user={user}/>
+            </div>     
         <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/3'>Modifier
         </button>
     </form>:''}
