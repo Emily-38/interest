@@ -24,7 +24,10 @@ const router = useRouter()
         <GiHamburgerMenu className='text-4xl cursor-pointer' onClick={()=>{
             setIsActive(!isActive)
         }} />
-        <div className='flex items-center font-semibold gap-5'>
+        <div className='flex items-center font-semibold gap-5' onClick={()=>{
+              router.push(`/profil/${user?.pseudo}`)
+              setIsActive(false)
+        }}>
             <p>{user?.pseudo}</p>
             <Image src={'/chat.jpg'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/>
         </div>
@@ -43,7 +46,7 @@ const router = useRouter()
             <li className='cursor-pointer'><ModalCreatePublication/></li>
             <li className='w-4/5'><hr/></li>
             <li className='cursor-pointer' onClick={()=>{
-                router.push('/profil/OKrogeur')
+                router.push(`/profil/${user?.pseudo}`)
                 setIsActive(false)
             }}>Profil</li>
            <li className='w-4/5'> <hr /></li>
@@ -52,10 +55,14 @@ const router = useRouter()
                 setIsActive(false)
             }}>Parametre</li>
            <li className='w-4/5'> <hr /></li>
-            <li>A propos</li>
+            <li className=' cursor-pointer' onClick={()=>{
+                router.push('/about')
+                setIsActive(false)
+            }}>A propos</li>
            <li className='w-4/5'> <hr /></li>
             <li className='pb-6 cursor-pointer' onClick={()=>{
                 router.push('/')
+                localStorage.clear()
             }}>Deconnexion</li>
         </ul>
     </div>)
