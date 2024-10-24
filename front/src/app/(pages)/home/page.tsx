@@ -9,7 +9,7 @@ import { UserType } from '@/utils/user'
 import React, { useEffect, useState } from 'react'
 import {Rings} from 'react-loader-spinner'
 
-const home = () => {
+const Home = () => {
   localStorage.removeItem('page')
   const [publicationList, setPublicationList]=useState<PublicationType[]>()
   const[userList,setUserList]=useState<UserType[]>()
@@ -88,4 +88,4 @@ const home = () => {
   )
 }
 
-export default home
+export default Home

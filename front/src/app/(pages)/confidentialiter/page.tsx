@@ -19,11 +19,11 @@ const confidentialiter = () => {
                 <li>Email : Utilisé pour la création de votre compte, la communication et la récupération de votre mot de passe.</li>
                 <li>Pseudo : Identifiant public visible par les autres utilisateurs.</li>
                 <li>Mot de passe : Stocké sous forme hachée pour garantir sa sécurité.</li>
-                <li> Âge et genre : Ces informations sont facultatives et utilisées pour personnaliser l'expérience utilisateur.</li>
-                <li>Image : Photo de profil choisie par l'utilisateur.</li>
+                <li> {`Âge et genre : Ces informations sont facultatives et utilisées pour personnaliser l'expérience utilisateur.`}</li>
+                <li>{`Image : Photo de profil choisie par l'utilisateur.`}</li>
                 <li>Messages privés : Messages échangés entre utilisateurs via la plateforme.</li>
                 <li>Commentaires : Interactions publiques dans les différentes sections du site.</li>
-                <p>Nous ne collectons pas de cookies ou d'autres technologies de suivi.</p>
+                <p>{`Nous ne collectons pas de cookies ou d'autres technologies de suivi.`}</p>
             </ul>
         </li>
         <li>
@@ -31,8 +31,8 @@ const confidentialiter = () => {
             <p> Les données personnelles collectées sont utilisées exclusivement pour assurer le bon fonctionnement de la plateforme. Aucune donnée n’est partagée à des fins publicitaires ou avec des tiers extérieurs. Les finalités spécifiques sont :</p>
             <ul className='list-disc list-inside pl-5'>
                 <li>La gestion des comptes utilisateurs et des publications.</li>
-                <li>La communication en cas de perte de mot de passe via l'adresse email fournie.</li>
-                <li> L’amélioration des interactions et de l'expérience utilisateur. </li>
+                <li>{`La communication en cas de perte de mot de passe via l'adresse email fournie.`}</li>
+                <li> {`L’amélioration des interactions et de l'expérience utilisateur.`} </li>
             </ul>
         </li>
         <li>
@@ -51,21 +51,21 @@ const confidentialiter = () => {
         </li>
         <li>
             <p className='text-xl font-semibold '>6. Vos droits: </p>
-            <p>En tant qu'utilisateur de notre réseau social, vous disposez des droits suivants concernant vos données personnelles :</p>
+            <p>{`En tant qu'utilisateur de notre réseau social, vous disposez des droits suivants concernant vos données personnelles :`}</p>
             <ul className='list-disc list-inside pl-5'>
                 <li>Accès : Vous pouvez accéder à toutes les informations vous concernant via les paramètres de votre compte.</li>
                 <li>Modification : Vous avez la possibilité de modifier à tout moment vos informations personnelles via votre espace utilisateur.</li>            
                 <li>Suppression : Vous pouvez choisir de supprimer votre compte et toutes vos données personnelles seront effacées de notre base de données.</li>
-                <li>Limitation : Vous avez le droit de limiter certaines utilisations de vos données si vous estimez qu'elles ne sont plus nécessaires aux finalités pour lesquelles elles ont été collectées.</li>
+                <li>{`Limitation : Vous avez le droit de limiter certaines utilisations de vos données si vous estimez qu'elles ne sont plus nécessaires aux finalités pour lesquelles elles ont été collectées.`}</li>
             </ul>
         </li>
         <li>
             <p className='text-xl font-semibold '>7. Accès et utilisation par des mineurs: </p>
-            <p>Notre réseau social est destiné uniquement aux utilisateurs âgés de 18 ans et plus. Si nous apprenons qu'une personne de moins de 18 ans a créé un compte sans autorisation, nous prendrons les mesures nécessaires pour supprimer immédiatement les informations de cette personne.</p>
+            <p>{`Notre réseau social est destiné uniquement aux utilisateurs âgés de 18 ans et plus. Si nous apprenons qu'une personne de moins de 18 ans a créé un compte sans autorisation, nous prendrons les mesures nécessaires pour supprimer immédiatement les informations de cette personne.`}</p>
         </li>
         <li>
             <p className='text-xl font-semibold '>8. Transferts internationaux:</p>
-            <p>Bien que notre réseau social soit basé en France, vos données peuvent être accessibles dans d'autres régions. Nous nous engageons à respecter toutes les lois applicables en matière de protection des données, notamment le Règlement Général sur la Protection des Données (RGPD) pour les utilisateurs résidant en Union européenne.</p>
+            <p>{`Bien que notre réseau social soit basé en France, vos données peuvent être accessibles dans d'autres régions. Nous nous engageons à respecter toutes les lois applicables en matière de protection des données, notamment le Règlement Général sur la Protection des Données (RGPD) pour les utilisateurs résidant en Union européenne.`}</p>
         </li>
         <li>
             <p className='text-xl font-semibold '>9. Modifications de cette politique</p>
@@ -73,7 +73,7 @@ const confidentialiter = () => {
         </li>
         <li>
             <p className='text-xl font-semibold '>10. Nous contacter</p>
-            <p>Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, ou si vous souhaitez exercer vos droits sur vos données, veuillez nous contacter à l'adresse suivante : martorana.emily38@gmail.com.</p>
+            <p>{`Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, ou si vous souhaitez exercer vos droits sur vos données, veuillez nous contacter à l'adresse suivante : martorana.emily38@gmail.com.`}</p>
         </li>
 
     </ol>

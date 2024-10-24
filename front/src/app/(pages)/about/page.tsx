@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const about = () => {
+const About = () => {
     const router = useRouter()
   return (
     <div>
@@ -25,4 +25,4 @@ const about = () => {
   )
 }
 
-export default about
+export default About

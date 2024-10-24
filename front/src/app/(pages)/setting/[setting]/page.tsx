@@ -17,7 +17,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { Rings } from 'react-loader-spinner'
 import { toast } from 'react-toastify'
 
-const setting = ({params}:ParamsType) => {
+const Setting = ({params}:ParamsType) => {
     const[interest,setInterest]=useState<InterestType[]>()
     const[user,setUser]=useState<UserType>()
     const[interestUser,setInterestUser]=useState<string[]>([])
@@ -174,4 +174,4 @@ const setting = ({params}:ParamsType) => {
   )
 }
 
-export default setting
+export default Setting

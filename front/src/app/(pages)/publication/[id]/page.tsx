@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { Rings } from 'react-loader-spinner'
 import { toast } from 'react-toastify'
 
-const publication = ({params}:ParamsType) => {
+const PublicationId = ({params}:ParamsType) => {
   const[publication, setPublication]=useState<PublicationType>()
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const publication = ({params}:ParamsType) => {
     }).catch((e)=>{
       return toast.error(e.response.data.message) 
   })
-  }, [])
+  }, [params.id])
   
   if(!publication){
     return <div className='flex flex-col justify-center items-center font-semibold'>
@@ -39,4 +39,4 @@ const publication = ({params}:ParamsType) => {
   )
 }
 
-export default publication
+export default PublicationId

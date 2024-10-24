@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react'
 import { FaBan, FaEye, FaTrash } from 'react-icons/fa6'
 import { toast } from 'react-toastify'
 
-const admin = ({params}:ParamsType) => {
+const Admin = ({params}:ParamsType) => {
     const[userList,setUserList]=useState<UserType[]>()
     const[publicationList,setPublicationList]=useState<PublicationType[]>()
     const[commentList,setCommentList]=useState<commentAdminType[]>()
@@ -64,9 +64,8 @@ const admin = ({params}:ParamsType) => {
                     </tr>
                     {userList && userList.map((user)=>{
                         const createdAt= new Date(user.createdAt)
-                        console.log(user.isActive)
                         return(
-                            <tr className="border-b hover:bg-sky-100 bg-gray-100">
+                            <tr key={user.id} className="border-b hover:bg-sky-100 bg-gray-100">
                             <td className="p-3 px-5">{user.pseudo}</td>
                             <td className="p-3 px-5">{user.email}</td>
                             <td className="p-3 px-5">{user.isActive === true ? 'Active': 'Inactive'} </td>
@@ -125,7 +124,7 @@ const admin = ({params}:ParamsType) => {
                         
                         const createdAt = new Date(publication.createdAt)
                         return(
-                            <tr className="border-b hover:bg-sky-100 bg-gray-100">
+                            <tr key={publication._id} className="border-b hover:bg-sky-100 bg-gray-100">
                             <td className="p-3 px-5">{userPublication?.pseudo}</td>
                             <td className="p-3 px-5">{publication._id}</td>
                             <td className="p-3 px-5">{publication.image ? 'Oui': 'Non'} </td>
@@ -178,7 +177,7 @@ const admin = ({params}:ParamsType) => {
                        const userComment = userList?.find(user => user.id === comment.userId);
                         const createdAt = new Date(comment.createdAt)
                         return(
-                            <tr className="border-b hover:bg-sky-100 bg-gray-100">
+                            <tr  key={comment._id} className="border-b hover:bg-sky-100 bg-gray-100">
                             <td className="p-3 px-5">{userComment?.pseudo}</td>
                             <td className="p-3 px-5">{comment._id}</td>
                             <td className="p-3 px-5">{ createdAt.toLocaleString('fr-FR', {
@@ -212,4 +211,4 @@ const admin = ({params}:ParamsType) => {
   )
 }
 
-export default admin
+export default Admin

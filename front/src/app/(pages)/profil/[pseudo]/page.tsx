@@ -14,7 +14,7 @@ import { Rings } from 'react-loader-spinner'
 import { toast } from 'react-toastify'
 
 
-const page = ({params}:ParamsType) => {
+const Profil = ({params}:ParamsType) => {
   const [userPage,setUserPage]=useState<UserType>()
   const[publication,setPublication]=useState<PublicationType[]>()
   const[filteredPublications,setFilteredPublications]=useState<PublicationType[]>()
@@ -35,7 +35,7 @@ const page = ({params}:ParamsType) => {
       setPublication(res.data)
     })
 
-  }, [])
+  }, [params.pseudo])
 
   useEffect(() => {
     
@@ -194,9 +194,9 @@ const page = ({params}:ParamsType) => {
             
             <Publication key={publicationUser._id} full={false} publication={publicationUser}/>
           ) }else if(publicationUser.userId !== userPage.id){
-            return <div className='flex justify-center items-center font-semibold'>Cette personne n'a pas de publication </div>
+            return <div key={userPage.id} className='flex justify-center items-center font-semibold'>{`Cette personne n'a pas de publication`} </div>
           }else{
-            return <div className='flex justify-center items-center font-semibold'>Ce compte est privé </div>
+            return <div key={userPage.id} className='flex justify-center items-center font-semibold'>Ce compte est privé </div>
           }
         })}
         </>}
@@ -207,4 +207,4 @@ const page = ({params}:ParamsType) => {
   )
 }
 
-export default page
+export default Profil

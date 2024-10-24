@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 
-export default function layout(
+export default function Layout(
   {children}: Readonly<{children: React.ReactNode}>){
     const router = useRouter()
     useEffect(() => {
       if(!localStorage.getItem('token')){ 
         router.push('/')} 
-    }, [])
+    }, [router])
     
   return (
   <div className=" md:grid grid-cols-[20%_1fr] text-sm md:text-base">

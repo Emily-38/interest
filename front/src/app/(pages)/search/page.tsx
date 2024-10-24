@@ -4,7 +4,7 @@ import { getSearch } from '@/services/user'
 import { UserType } from '@/utils/user'
 import React, { useEffect, useState } from 'react'
 
-const search = () => {
+const Search = () => {
   const[query,setQuery]=useState('')
   const[search,setSearch]=useState<UserType[]>()
   
@@ -29,4 +29,4 @@ const search = () => {
   )
 }
 
-export default search
+export default Search
