@@ -38,6 +38,17 @@ export class AuthService {
             throw new ForbiddenException('the password is not the same')
         }
 
+        const userRole= await this.prisma.role.findUnique({
+            where:{
+                name: 'User',
+            },
+        });
+        const confidentialityPublic= await this.prisma.confidentiality.findUnique({
+            where:{
+                name: 'Public',
+            },
+        });
+
         const activationToken= await argon.hash(`${dto.email}+${dto.pseudo}`)
         const cleanToken= activationToken.replaceAll('/','-')
 
@@ -50,8 +61,8 @@ export class AuthService {
                 gender: dto.gender,
                 age: dto.age,
                 token:cleanToken,
-                confidentialityId:'c8a2e0ab-19f3-443d-8809-90c62741fc9e',
-                roleId:'8f5a6b80-1781-4a8b-a5d7-d87345f431c0',
+                confidentialityId: confidentialityPublic.id,
+                roleId: userRole.id,
             }
         })
         await this.emailService.sendUserConfirmation(user, cleanToken);
