@@ -29,7 +29,7 @@ const router = useRouter()
               setIsActive(false)
         }}>
             <p>{user?.pseudo}</p>
-            <Image src={'/chat.jpg'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/>
+           { user?.profile_image ? <Image src={`http://localhost:3000/image/view/${user?.profile_image}`} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/> : <Image src={'/default_profile.png'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/>} 
         </div>
     </div>
         <ul className={`${isActive ? 'flex': 'translate-y-[-150%]'} z-10 absolute top-20 w-full left-0 bg-white flex flex-col gap-5 items-center transform transition-all duration-300`}>
