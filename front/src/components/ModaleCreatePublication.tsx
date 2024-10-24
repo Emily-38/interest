@@ -91,7 +91,7 @@ export const ModalCreatePublication= () => {
     <div className=' w-2/3  bg-white mx-auto rounded-md'>
         <div className='flex justify-between items-center pl-3 pr-3'>
             <div className='flex items-center gap-3 p-2 cursor-pointer'>
-            <Image width={50} height={50} alt='Profile User' src={'/chat.jpg'} className='rounded-full h-5 w-5 object-cover'/>
+            <Image width={50} height={50} alt='Profile User' src={'/default_profile.png'} className='rounded-full h-5 w-5 object-cover'/>
                 <p> Nom Utilisateur </p>
             </div>
             <SlOptions className='cursor-pointer'/>
