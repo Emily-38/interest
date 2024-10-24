@@ -1,10 +1,12 @@
-import { getPubliction, getPublictionById, updatePublication } from '@/services/publication';
-import { PublicationType } from '@/utils/publication';
-import React, { useEffect, useState } from 'react'
+
+
+import React, {useState } from 'react'
 import { toast } from 'react-toastify';
 import { InterestForm } from './InterestForm';
+import { commentType } from '@/utils/comment';
+import { updateComment } from '@/services/comment';
 
-export const ModaleUpdatePublication = ({publication}:{publication:PublicationType}) => {
+export const ModaleUpdateComment = ({comment}:{comment:commentType}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const[description,setDescription]=useState('')
@@ -21,13 +23,9 @@ export const ModaleUpdatePublication = ({publication}:{publication:PublicationTy
     <div className={`relative flex flex-col items-center p-4 h-4/5 w-full bg-white rounded-md shadow-md mx-auto max-w-xl max-h-full text-center`}> 
     <h1 className='font-semibold text-xl p-4'>Modifier votre publication</h1>
     <p className='text-left'>Description: </p>
-    <textarea maxLength={500} defaultValue={publication.description} placeholder='Ecrivez votre description...' className='border border-black outline-none rounded-md p-2 w-1/2 m-5' onChange={(e)=>{setDescription(e.target.value)}}></textarea>
-    <div className='w-3/4'>
-    <p>Ajouter tout les interets souhaité sur la publications:</p>
-    <InterestForm setInterestUser={setInterestUser} publication={publication}/>
-    </div>
+    <textarea maxLength={500} defaultValue={comment.comment.description} placeholder='Ecrivez votre description...' className='border border-black outline-none rounded-md p-2 w-1/2 m-5' onChange={(e)=>{setDescription(e.target.value)}}></textarea>
     <button onClick={()=>{
-      updatePublication(publication._id,description,interestUser).then((res)=>{
+      updateComment(comment.comment._id,description).then((res)=>{
         if(res.status === 200){
           toast.success('modification reussite')
           setOpen(false)

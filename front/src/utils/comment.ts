@@ -1,7 +1,7 @@
 import { UserType } from "./user"
 
 export type commentType ={
-    userId: string
+    
    comment:{ _id:string
     userId: string
     postId: string

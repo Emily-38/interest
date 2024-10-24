@@ -16,6 +16,7 @@ import { deletePubliction, likePubliction, savePubliction } from '@/services/pub
 import { useRouter } from 'next/navigation'
 import { getInterest } from '@/services/interest'
 import { InterestType } from '@/utils/interest'
+import { MenuSettingComment } from './MenuSettingComment'
 
 export const Publication = ({full,publication}:{full:boolean, publication:PublicationType}) => {
     const[isLike,setIsLike]= useState(false)
@@ -79,7 +80,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
     
        
   return (
-    <div className=' w-full md:w-full md:mt-10 bg-white  mx-auto col-span-2 rounded-md mt-5'>
+    <div className=' w-full md:w-[600px] md:mt-10 bg-white  mx-auto col-span-2 rounded-md mt-5'>
         <div className='flex justify-between items-center pl-3 pr-3 m-2'>
           {userList && userList.map((user)=>{
             if(user.id === publication.userId){ 
@@ -187,13 +188,13 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             minute: '2-digit'}) 
         }</p>
        {full===true? <p className='text-gray-400 pl-3 '>Commentaires:</p>:'' } 
+       <div className='overflow-y-scroll'>
         {commentList && commentList.map((comment)=>{
             const commentDate= new Date(comment.comment.createdAt)
-                            if(full === true) { 
-                                return(
-                                        <>
-                                            
-                                            <div className='overflow-y-scroll max-w-full max-h-60'>
+                if(full === true) { 
+                    return(
+                        <>    
+                            <div className=' max-w-full max-h-60'>
 
                             <div className='flex justify-between md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
                                 <div className='flex flex-row items-center gap-2 md:text-base'>
@@ -208,6 +209,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                                     hour: '2-digit',
                                     minute: '2-digit'}) 
                                 }</p>
+                                <MenuSettingComment comment={comment}/>
                             </div>  
                         </div>
         </>
@@ -215,14 +217,14 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
     }
        }
                )} 
-
+</div>
                     {lastComment && full === false ? <>
                         <p className='text-gray-400 pl-3 '>Dernier commentaire:</p>
                     <div className='flex justify-between md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
                                 <div className='flex flex-row items-center gap-2 md:text-base'>
                                     <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${lastComment.user[0].profile_image}`} className='rounded-full h-10 w-10 object-cover md:h-12 md:w-12'/>
                                     <p className='font-semibold'> {lastComment.user[0].pseudo} </p>
-                                    <p className='pr-5 text-center md:text-left truncate ...'> {lastComment.comment.description} </p>
+                                    <p className='pr-5 w-[500px] text-center md:text-left truncate ...'> {lastComment.comment.description} </p>
                                 </div>
                             </div>  
                

@@ -56,3 +56,18 @@ export async function deleteComment(id :string){
     
         return axios.delete( url,axiosConfig )  
 }
+export async function updateComment(id :string, description:string){
+    let axiosConfig = {
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+    }
+    const url = `${process.env.NEXT_PUBLIC_URL_API}comment/update/${id}`
+    
+        return axios.patch( url,{
+            description:description
+        },axiosConfig )  
+}
