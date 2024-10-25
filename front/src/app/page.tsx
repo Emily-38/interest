@@ -13,9 +13,7 @@ export default function Home() {
   const {register,handleSubmit}=useForm<LoginType>()
   const onSubmit: SubmitHandler<LoginType> = (data) => {
     loginForm(data).then((res)=>{
-      console.log(res.data)
       const interests = res.data.interest
-
       if(res.status=== 201){
         localStorage.setItem('token', res.data.token.access_token)
         toast.success('Bienvenue sur interest')

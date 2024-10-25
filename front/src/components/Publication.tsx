@@ -9,10 +9,10 @@ import { PublicationType } from '@/utils/publication'
 import { commentType, createCommentType } from '@/utils/comment'
 import { UserType } from '@/utils/user'
 import { getAllUser } from '@/services/user'
-import { createComment, deleteComment, getCommentByIdPost } from '@/services/comment'
+import { createComment, getCommentByIdPost } from '@/services/comment'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { deletePubliction, likePubliction, savePubliction } from '@/services/publication'
+import { likePubliction, savePubliction } from '@/services/publication'
 import { useRouter } from 'next/navigation'
 import { getInterest } from '@/services/interest'
 import { InterestType } from '@/utils/interest'
@@ -88,7 +88,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                     router.push(`/profil/${user.pseudo}`)
                 }}>
                         <div className='flex items-center gap-3 p-3 cursor-pointer'>
-                            <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${user.profile_image}`} property='true' className='rounded-full h-10 w-10 object-cover'/>
+                           {user.profile_image? <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${user.profile_image}`} property='true' className='rounded-full h-10 w-10 object-cover'/> :<Image width={50} height={50} alt='Profile User' src={'/default_profile'} property='true' className='rounded-full h-10 w-10 object-cover'/>} 
                             <p> {user.pseudo} </p>
                         </div>
                         </div>
@@ -196,13 +196,14 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                         <>    
                             <div className=' max-w-full max-h-60'>
 
-                            <div className='flex justify-between md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
+                            <div className='flex justify-between flex-nowrap md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
                                 <div className='flex flex-row items-center gap-2 md:text-base'>
-                                    <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${comment.user[0].profile_image}`} className='rounded-full h-10 w-10 object-cover  md:h-12 md:w-12'/>
+                                { comment.user[0].profile_image ? <Image src={`http://localhost:3000/image/view/${comment.user[0]?.profile_image}`} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-10 w-10'/> : <Image src={'/default_profile.png'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-10 w-10'/>} 
                                     <p className='font-semibold'> {comment.user[0].pseudo} </p>
-                                    <p className='pr-5 text-center md:text-left'> {comment.comment.description} </p>
+                                    <p className='pr-5 text-center w-72'> {comment.comment.description} </p>
                                 </div>
-                                <p className='text-gray-400 text-xs text-right pr-3'>{ commentDate.toLocaleString('fr-FR', {
+                                <div className='flex justify-between'>
+                                <p className='text-gray-400 text-xs text-right'>{ commentDate.toLocaleString('fr-FR', {
                                     year: 'numeric',
                                     month: 'numeric',
                                     day: 'numeric',
@@ -210,6 +211,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                                     minute: '2-digit'}) 
                                 }</p>
                                 <MenuSettingComment comment={comment}/>
+                                </div>
                             </div>  
                         </div>
         </>
@@ -222,7 +224,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                         <p className='text-gray-400 pl-3 '>Dernier commentaire:</p>
                     <div className='flex justify-between md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
                                 <div className='flex flex-row items-center gap-2 md:text-base'>
-                                    <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${lastComment.user[0].profile_image}`} className='rounded-full h-10 w-10 object-cover md:h-12 md:w-12'/>
+                                { lastComment.user[0].profile_image ? <Image src={`http://localhost:3000/image/view/${lastComment.user[0].profile_image}`} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/> : <Image src={'/default_profile.png'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/>} 
                                     <p className='font-semibold'> {lastComment.user[0].pseudo} </p>
                                     <p className='pr-5 w-[500px] text-center md:text-left truncate ...'> {lastComment.comment.description} </p>
                                 </div>

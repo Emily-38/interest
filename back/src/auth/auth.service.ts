@@ -33,7 +33,7 @@ export class AuthService {
         if(existingPseudo) {
             throw new ForbiddenException('this pseudo already existing')
         }
-        console.log(dto)
+     
         if( dto.confirmPassword !== dto.password){
             throw new ForbiddenException('the password is not the same')
         }

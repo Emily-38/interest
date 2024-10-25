@@ -45,7 +45,7 @@ const Home = () => {
   }
   
   return (
-    <div className='flex justify-center flex-col place-self-center md:w-11/12 md:gap-20 text-sm md:text-base md:flex-row'>
+    <div className='flex justify-center flex-col place-self-center w-96 md:w-11/12 md:gap-20 text-sm md:text-base md:flex-row'>
         <div className='flex overflow-x-scroll md:hidden'>
         {userList && currentUser && userList.map((user)=>{
            const currentinterestId=currentUser.interestId.map((interest)=>{return interest.id})

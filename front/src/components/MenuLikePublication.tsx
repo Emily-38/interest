@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import ProfileUser from './ProfileUser'
 import { IoCloseOutline } from 'react-icons/io5'
 import { PublicationType } from '@/utils/publication'
-
 import { UserType } from '@/utils/user'
 import { getUserById } from '@/services/user'
 

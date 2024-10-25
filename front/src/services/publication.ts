@@ -85,7 +85,6 @@ export async function savePubliction(id:string){
 }
 
 export async function updatePublication(id:string,description:string,interestId:string[]){
-    console.log('id',id,'description', description,'interest', interestId)
     let axiosConfig = {
         headers: {
             'Access-Control-Allow-Origin': '*',

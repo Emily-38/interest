@@ -3,10 +3,9 @@ import { Badge } from '@/components/Badge'
 import { BlockShadow } from '@/components/BlockShadow'
 import { getConfidentiality } from '@/services/confidentiality'
 import { createInterest, getRandomInterest } from '@/services/interest'
-import { firstUpdateUser, updateUser } from '@/services/user'
+import { firstUpdateUser } from '@/services/user'
 import { ConfidentialityType } from '@/utils/confidentiality'
 import { InterestCreate, InterestType } from '@/utils/interest'
-import { UserUpdateType } from '@/utils/user'
 import { schemaInterest } from '@/yup_schema/interest'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/navigation'
@@ -59,9 +58,7 @@ const onSubmit: SubmitHandler<InterestCreate> = (data) => {
                 <FaArrowRightLong />
             </div>
             <h1 className='font-semibold text-2xl'>Bienvenue sur Interest</h1>
-            <p className='md:self-start text-lg' onClick={()=>{
-          console.log(interestUser)
-        }}>{`Choisis tes centres d'intérets:`} </p> 
+            <p className='md:self-start text-lg'>{`Choisis tes centres d'intérets:`} </p> 
             <div className='flex flex-row flex-wrap gap-10'>
             { interestList && interestList.map( (interest: InterestType) => {
                 return <Badge key={interest.id} content={false} interest={interest} setInterestUser={setInterestUser}/>
@@ -109,9 +106,6 @@ const onSubmit: SubmitHandler<InterestCreate> = (data) => {
        <p className='p-4 text-center'>public: tout le monde peut voir tes publications</p>
        <p className='bg-primary rounded-md text-white text-center p-3 w-1/2 md:hidden'onClick={()=>{
              firstUpdateUser(interestUser, confidentiality).then((res)=>{
-              console.log(res)
-              console.log(interestUser)
-              console.log(confidentiality)
                if(res.status === 200){
                  router.push('/home')
                }

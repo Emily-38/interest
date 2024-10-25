@@ -15,8 +15,6 @@ export async function InsertImage(image:any){
         return res;
       })
       .catch((e) => {
-       console.log(e)
-        
         return e;
       });
     }
@@ -38,8 +36,6 @@ export async function InsertImage(image:any){
             return res;
           })
           .catch((e) => {
-           console.log(e)
-            
             return e;
           });
         }

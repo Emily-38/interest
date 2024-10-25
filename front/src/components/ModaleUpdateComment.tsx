@@ -2,7 +2,6 @@
 
 import React, {useState } from 'react'
 import { toast } from 'react-toastify';
-import { InterestForm } from './InterestForm';
 import { commentType } from '@/utils/comment';
 import { updateComment } from '@/services/comment';
 

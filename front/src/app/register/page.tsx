@@ -4,7 +4,7 @@ import { BlockShadow } from '@/components/BlockShadow'
 import { RegisterType } from '@/utils/user'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { schemaRegister } from '@/yup_schema/register'
@@ -19,7 +19,7 @@ const Register = () => {
   const {register,handleSubmit ,formState:{errors}}=useForm<RegisterType>({mode:'onSubmit', resolver:yupResolver(schemaRegister)})
   const onSubmit: SubmitHandler<RegisterType> = (data) => {
    registerForm(data).then((res)=>{
-    console.log(res.data)
+
     if(res.status=== 201){
       toast.success('Verifier votre boite mail')
      router.push('/')
@@ -82,7 +82,7 @@ return (
           <label className="mt-px cursor-pointer select-none font-light ">
             <p className=" font-sans text-sm font-normal w-full ">
               {`J'accepte les `}
-              <span className='font-bold text-sm hover:underline hover:text-primary'>{`Conditions d'utilisations`}</span>
+              <span className='font-bold text-sm hover:underline hover:text-primary' onClick={()=>{router.push('/cgu')}}>{`Conditions d'utilisations`}</span>
             </p>
             {errors.checkbox && <p className='text-red-600'>{errors.checkbox.message}</p>} 
           </label>

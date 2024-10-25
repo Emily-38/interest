@@ -1,7 +1,6 @@
 'use client'
 import { BlockShadow } from '@/components/BlockShadow'
 import { messageType } from '@/utils/message'
-import { register } from 'module'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'

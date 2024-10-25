@@ -1,5 +1,5 @@
 'use client'
-import { InterestCreate, InterestType } from '@/utils/interest'
+import { InterestType } from '@/utils/interest'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Badge } from './Badge'
 import { createInterest, getRandomInterest } from '@/services/interest'

@@ -1,6 +1,6 @@
-import { getPubliction, getPublictionById, updatePublication } from '@/services/publication';
+import { updatePublication } from '@/services/publication';
 import { PublicationType } from '@/utils/publication';
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { toast } from 'react-toastify';
 import { InterestForm } from './InterestForm';
 

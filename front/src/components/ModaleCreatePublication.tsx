@@ -5,7 +5,6 @@ import { SlOptions } from 'react-icons/sl';
 import Image from 'next/image';
 import { BiCommentDetail } from 'react-icons/bi';
 import { useRouter } from 'next/navigation';
-
 import { InterestForm } from './InterestForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CreatePublication } from '@/utils/publication';

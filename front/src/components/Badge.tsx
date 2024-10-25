@@ -1,5 +1,4 @@
 import { InterestType } from '@/utils/interest'
-import { UserType } from '@/utils/user'
 import React, { useEffect, useState } from 'react'
 
 export const Badge = ({content,interest,setInterestUser,user,publication}:{content:boolean,interest:InterestType,setInterestUser?: React.Dispatch<React.SetStateAction<string[]>>, user?:InterestType[],publication?:string[]}) => {

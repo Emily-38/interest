@@ -43,7 +43,6 @@ export async function firstUpdateUser(interest:string[], confidentialityId?:stri
 
 
 export async function forgetPassword(email:string){
-    console.log(email)
     let axiosConfig = {
         headers: {
             'content-type': 'application/json;charset=utf-8',

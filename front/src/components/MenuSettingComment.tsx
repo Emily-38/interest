@@ -1,8 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
 import { SlOptions } from 'react-icons/sl'
-import { ModaleUpdatePublication } from './ModaleUpdatePublication'
-import { deletePubliction } from '@/services/publication'
 import { toast } from 'react-toastify'
 import { getCurrentUser } from '@/services/user'
 import { UserType } from '@/utils/user'

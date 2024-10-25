@@ -25,7 +25,6 @@ const Admin = ({params}:ParamsType) => {
         setPublicationList(res.data)
     })
     getAllComment().then((res)=>{
-        console.log(res.data)
         setCommentList(res.data)
     })
   }, [])
@@ -157,9 +156,7 @@ const Admin = ({params}:ParamsType) => {
 {params.setting === 'commentaires'?
     <div className={`text-gray-900`} >
         <div className="p-4 flex justify-center">
-            <h1 className="text-3xl" onClick={()=>{
-        console.log(commentList)
-    }}>
+            <h1 className="text-3xl">
                 Commentaires
             </h1>
         </div>
