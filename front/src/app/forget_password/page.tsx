@@ -4,7 +4,7 @@ import { forgetPassword } from '@/services/user'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-const forget_password = () => {
+const Forget_password = () => {
 const[email,setEmail]=useState('')
 useEffect(() => {
  
@@ -32,4 +32,4 @@ useEffect(() => {
   )
 }
 
-export default forget_password
+export default Forget_password

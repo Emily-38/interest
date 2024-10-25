@@ -5,13 +5,13 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 
-const validateAccount = ({params}:ParamsType) => {
+const ValidateAccount = ({params}:ParamsType) => {
     const router = useRouter()
     useEffect(() => {
         activateAccount(params.token).then((res)=>{
             console.log(res.data)
         })
-    }, [])
+    }, [params.token])
     
   return (
     <div>
@@ -25,4 +25,4 @@ const validateAccount = ({params}:ParamsType) => {
   )
 }
 
-export default validateAccount
+export default ValidateAccount

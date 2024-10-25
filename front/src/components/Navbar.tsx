@@ -101,7 +101,7 @@ export const Navbar = () => {
     }}></input>
         <div className='flex flex-col gap-3 m-4'>
             {search && search.map((user)=>{
-                return <ProfileUser button={false} col={false} user={user}/> 
+                return <ProfileUser key={user.id} button={false} col={false} user={user}/> 
             })}
         </div>
     </aside>
@@ -136,7 +136,7 @@ export const Navbar = () => {
                 router.push('/home')
                 setActivePage('home')
             }}>
-                Retour à la page d'accueil
+               {` Retour à la page d'accueil`}
             </li>
            
             <li className='cursor-pointer' onClick={()=>{
@@ -184,7 +184,7 @@ export const Navbar = () => {
                 router.push('/home')
                 setActivePage('home')
             }}>
-                Retour à la page d'accueil
+               {`Retour à la page d'accueil`}
             </li>
            
             <li className='cursor-pointer' onClick={()=>{

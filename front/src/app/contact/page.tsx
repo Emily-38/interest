@@ -7,7 +7,7 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 
-const contact = () => {
+const Contact = () => {
     const {register,handleSubmit}=useForm<messageType>()
 const onSubmit: SubmitHandler<messageType> = (data) => console.log(data)
     const router = useRouter()
@@ -39,4 +39,4 @@ const onSubmit: SubmitHandler<messageType> = (data) => console.log(data)
   )
 }
 
-export default contact
+export default Contact

@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 
 
-const register = () => {
+const Register = () => {
   const router = useRouter()
   const {register,handleSubmit ,formState:{errors}}=useForm<RegisterType>({mode:'onSubmit', resolver:yupResolver(schemaRegister)})
   const onSubmit: SubmitHandler<RegisterType> = (data) => {
@@ -81,8 +81,8 @@ return (
           </label>
           <label className="mt-px cursor-pointer select-none font-light ">
             <p className=" font-sans text-sm font-normal w-full ">
-              J'accepte les 
-              <span className='font-bold text-sm hover:underline hover:text-primary'>Conditions d'utilisations</span>
+              {`J'accepte les `}
+              <span className='font-bold text-sm hover:underline hover:text-primary'>{`Conditions d'utilisations`}</span>
             </p>
             {errors.checkbox && <p className='text-red-600'>{errors.checkbox.message}</p>} 
           </label>
@@ -94,4 +94,4 @@ return (
      </BlockShadow>
   </div>)
 }
-export default register
+export default Register

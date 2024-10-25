@@ -5,7 +5,7 @@ import { ParamsType } from '@/utils/parametre'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
-const page = ({params}:ParamsType) => {
+const ChangePassword = ({params}:ParamsType) => {
     const[newPassword,setNewPassword]=useState('')
   return (
     <div className='flex flex-col justify-center items-center h-lvh'> 
@@ -29,4 +29,4 @@ const page = ({params}:ParamsType) => {
   )
 }
 
-export default page
+export default ChangePassword

@@ -59,7 +59,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
           }
           
          
-    }, [])
+    }, [publication._id,publication.favorite,publication.like,publication.user.id])
     
    
      useEffect(() => {
@@ -70,13 +70,13 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
 
         
         if(!userList?.some(user=>user.id === comment.comment.userId)){
-           return <div className='flex flex-row items-center gap-2 md:text-base'>
-            <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/default_profile.png`} className='rounded-full h-10 w-10 object-cover  md:h-12 md:w-12'/>
+           return <div key={comment.comment._id} className='flex flex-row items-center gap-2 md:text-base'>
+            <Image width={50} height={50} alt='Profile User' src={'/default_profile.png'} className='rounded-full h-10 w-10 object-cover  md:h-12 md:w-12'/>
             <p className='font-semibold'> Utilisateur supprimer </p>
             </div>
         }
               })  
-     }, [commentList])
+     }, [commentList,userList])
     
        
   return (
@@ -133,7 +133,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                     const hasCommonInterest = publication.interestId.some(interestId =>  interest.id.includes(interestId));
                     if(hasCommonInterest){ 
                     return( 
-                    <li className='text-gray-400'><Badge content={true} interest={interest} /></li>
+                    <li key={interest.id} className='text-gray-400'><Badge content={true} interest={interest} /></li>
                     )}
                 })}
             </ul>
@@ -152,7 +152,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                 const hasCommonInterest = publication.interestId.some(interestId => publication.interestId.includes(interestId))
                 if(hasCommonInterest){ 
                 return( 
-                <li className='text-gray-400 text-center text-xs'><Badge content={true} interest={interest} /></li>
+                <li key={interest.id} className='text-gray-400 text-center text-xs'><Badge content={true} interest={interest} /></li>
                 )}
             }): ''}</ul>
         </div>

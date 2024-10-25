@@ -21,7 +21,7 @@ const Search = () => {
     }}></input>
         <div className='flex flex-col gap-3 m-4'>
           {search && search.map((user)=>{
-            return <ProfileUser button={false} col={false} user={user}/> 
+            return <ProfileUser key={user.id} button={false} col={false} user={user}/> 
           })}
              
         </div>

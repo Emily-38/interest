@@ -11,8 +11,6 @@ export const MenuLikePublication = ({publication, isLike}:{publication:Publicati
    const[userList,setUserList]=useState<UserType[]>([])
   const[compteurLike,setCompteurLike]=useState<number>(publication.like.length)
  useEffect(() => {
- 
- 
 if (publication.like) {
   publication.like.forEach(id => {
       getUserById(id).then((res) => {
@@ -33,7 +31,7 @@ if(isLike === true){
 setCompteurLike(compteurLike +1)}
 else{
   setCompteurLike((prevCompteurLike) => Math.max(prevCompteurLike - 1, 0))}
- }, [isLike])
+ }, [isLike,publication.like])
  
   return (
 <div className=''>
@@ -49,7 +47,7 @@ else{
       
       {userList && userList.map((user)=>{ 
          
-      return <ProfileUser button={false} col={false} user={user}/> })}
+      return <ProfileUser key={user.id} button={false} col={false} user={user}/> })}
           
         </div>
     </div>

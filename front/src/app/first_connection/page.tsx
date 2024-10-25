@@ -15,7 +15,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
 import { toast } from 'react-toastify'
 
-const first_connection = () => { 
+const First_connection = () => { 
   const[interestList,setInterestList]=useState<InterestType[]>()
   const[interestAdd,setInterestAdd]=useState<InterestType[]>([])
   const[interestUser,setInterestUser]=useState<string[]>([])
@@ -61,7 +61,7 @@ const onSubmit: SubmitHandler<InterestCreate> = (data) => {
             <h1 className='font-semibold text-2xl'>Bienvenue sur Interest</h1>
             <p className='md:self-start text-lg' onClick={()=>{
           console.log(interestUser)
-        }}>Choisis tes centres d'intérets: </p> 
+        }}>{`Choisis tes centres d'intérets:`} </p> 
             <div className='flex flex-row flex-wrap gap-10'>
             { interestList && interestList.map( (interest: InterestType) => {
                 return <Badge key={interest.id} content={false} interest={interest} setInterestUser={setInterestUser}/>
@@ -122,4 +122,4 @@ const onSubmit: SubmitHandler<InterestCreate> = (data) => {
 </>)
 }
 
-export default first_connection
+export default First_connection

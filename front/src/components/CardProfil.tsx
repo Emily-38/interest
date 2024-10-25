@@ -12,7 +12,7 @@ export const CardProfil = () => {
     })
   }, [])
   if(!user){
-    return <div>Pas d'utilisateur </div>
+    return <div>{`Pas d'utilisateur`}</div>
   }
   
   return (

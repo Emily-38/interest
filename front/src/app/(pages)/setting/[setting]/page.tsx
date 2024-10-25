@@ -105,7 +105,7 @@ const Setting = ({params}:ParamsType) => {
             <ProfileUser button={false} col={true} user={user}/>
             <div className='flex justify-center items-center gap-3'>
                 {user.interestId && user.interestId.map((interest)=>{
-                    return <Badge content={true} interest={interest}/>
+                    return <Badge key={interest.id} content={true} interest={interest}/>
                 })}
             </div>
         </div>
@@ -124,7 +124,7 @@ const Setting = ({params}:ParamsType) => {
     {params.setting === 'confidentialiter'?
      <form className='flex flex-col gap-10 justify-center items-center md:w-1/2 w-full md:h-lvh text-center mx-auto m-5' onSubmit={handleSubmit(onSubmit)}>
        <p className='font-semibold text-2xl'onClick={()=>{console.log(user)}}>Confidentialité du compte</p>
-       <p>La confidentialité d'un compte fait référence à la gestion de la visibilité des publications et informations partagées sur ce compte. Si un compte est défini comme privé, cela signifie que seules les personnes qui suivent ce compte (après avoir reçu une autorisation) peuvent voir les publications, photos partagées. En revanche, si un compte est défini comme public, tout le monde, y compris ceux qui ne suivent pas le compte, peut accéder et voir les publications. Le choix entre un compte privé ou public permet donc de contrôler qui a accès à ses informations.</p>
+       <p>{`La confidentialité d'un compte fait référence à la gestion de la visibilité des publications et informations partagées sur ce compte. Si un compte est défini comme privé, cela signifie que seules les personnes qui suivent ce compte (après avoir reçu une autorisation) peuvent voir les publications, photos partagées. En revanche, si un compte est défini comme public, tout le monde, y compris ceux qui ne suivent pas le compte, peut accéder et voir les publications. Le choix entre un compte privé ou public permet donc de contrôler qui a accès à ses informations.`}</p>
        <p>Votre compte est actuellement {user.confidentialityId == 'c8a2e0ab-19f3-443d-8809-90c62741fc9e'?'Public':'Privé'}</p>
        <select {...register('confidentialityId')} className='bg-white border border-black text-center rounded-md p-2 w-2/4'>
        {confidentialityList && confidentialityList.map((option)=>{

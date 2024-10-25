@@ -38,30 +38,6 @@ const Profil = ({params}:ParamsType) => {
   }, [params.pseudo])
 
   useEffect(() => {
-    
-    if(followList){ 
-      followList.follow.map((followerId)=>{
-        console.log()
-        if(followerId.followerId === userPage?.id){
-          setFollowers((prev)=>{ 
-          return [...prev, followerId.followerId]})
-          setFollow(true)
-        }
-      })
-    }
-
-    if(followList){ 
-    followList.follow.map((userId)=>{
-      if(userId.userId === userPage?.id){
-        setAbonned((prev)=>{ 
-        return [...prev, userId.userId]})
-      }
-    })
-    }
-    
-  }, [followList])
-
-  useEffect(() => {
 
     if(userPage){
       getFollowByUser(userPage.id).then((res)=>{
@@ -77,6 +53,28 @@ const Profil = ({params}:ParamsType) => {
     }
 
   }, [userPage, publication])
+  
+
+  useEffect(() => {
+    if(followList){ 
+      followList.follow.map((followerId)=>{
+        if(followerId.followerId === userPage?.id){
+          setFollowers((prev)=>{ 
+          return [...prev, followerId.followerId]})
+        }
+      })
+    }
+
+    if(followList){ 
+      followList.follow.map((userId)=>{
+        if(userId.userId === userPage?.id){
+          setAbonned((prev)=>{ 
+          return [...prev, userId.userId]})
+        }
+      })
+    }
+  }, [followList])
+
   
   useEffect(() => {
     
@@ -120,6 +118,7 @@ const Profil = ({params}:ParamsType) => {
                   </li>
                   <li className='flex flex-col items-center md:flex-row md:gap-3'> 
                     <p>{followers.length}</p>
+
                     Suivis
                   </li>
                 </ul>

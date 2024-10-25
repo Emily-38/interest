@@ -16,7 +16,7 @@ export const Badge = ({content,interest,setInterestUser,user,publication}:{conte
           }
         })
       }
-    }, [isActive])
+    }, [isActive, interest.id, interestAdd,setInterestUser])
       
     useEffect(() => {
       if(user){
@@ -26,7 +26,7 @@ export const Badge = ({content,interest,setInterestUser,user,publication}:{conte
           }
          }
    
-    }, [])
+    }, [interest.id,user])
     
       
     
