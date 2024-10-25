@@ -49,6 +49,11 @@ const router = useRouter()
                 router.push(`/profil/${user?.pseudo}`)
                 setIsActive(false)
             }}>Profil</li>
+             <li className='w-4/5'> <hr /></li>
+             {user?.roleId === '833fb586-b957-47ff-b59c-3500a9224eb4'? <li  className='cursor-pointer' onClick={()=>{
+                router.push('/admin/users')
+                setIsActive(false)
+            }}>Admin</li>:''}
            <li className='w-4/5'> <hr /></li>
             <li className='cursor-pointer' onClick={()=>{
                 router.push('/setting/updateProfile')
