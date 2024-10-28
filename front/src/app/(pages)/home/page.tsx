@@ -10,13 +10,14 @@ import React, { useEffect, useState } from 'react'
 import {Rings} from 'react-loader-spinner'
 
 const Home = () => {
-  localStorage.removeItem('page')
+  
   const [publicationList, setPublicationList]=useState<PublicationType[]>()
   const[userList,setUserList]=useState<UserType[]>()
   const[currentUser,setCurrentUser]=useState<UserType>()
  
 
   useEffect(() => {
+    localStorage.removeItem('page')
     getPubliction().then((res)=>{
       setPublicationList(res.data)
     })
