@@ -18,7 +18,7 @@ export class EmailService {
       });
     }
   
-    async sendUserConfirmation(user: user, token: string) {
+    async sendForgetPassword(user: user, token: string) {
       const url = `${this.config.get('SERVER_URL')}/change_password/${token}`;
       const emailHtml = `<p>Bonjour ${user.pseudo},</p>
           <p>Vous avez fait une demande de changement de mots de passe voici le lien qui vous permettra de changer de mots de passe:</p>
@@ -32,8 +32,8 @@ export class EmailService {
       });
     }
 
-    async sendForgetPassword(user: user, token: string) {
-        const url = `${this.config.get('SERVER_URL')}/change_password/${token}`;
+    async sendUserConfirmation (user: user, token: string) {
+        const url = `${this.config.get('SERVER_URL')}/validate/${token}`;
         const emailHtml = `<p>Bonjour ${user.pseudo},</p>
             <p>Ta prochaine etape serra de valider ton compte en cliquant sur le lien suivant :</p>
                 <a href='${url}'>Clique ici pour valider ton compte</a>
