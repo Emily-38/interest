@@ -26,52 +26,52 @@ async function main() {
         },
     });
 
-    const interest1 = await prisma.confidentiality.create({
+    const interest1 = await prisma.interest.create({
         data: {
             name: 'Animaux'
         },
     });
-    const interest2 = await prisma.confidentiality.create({
+    const interest2 = await prisma.interest.create({
         data: {
             name: 'Sport'
         },
     });
-    const interest3 = await prisma.confidentiality.create({
+    const interest3 = await prisma.interest.create({
         data: {
             name: 'Voiture'
         },
     });
-    const interest4 = await prisma.confidentiality.create({
+    const interest4 = await prisma.interest.create({
         data: {
             name: 'Jeux video'
         },
     });
-    const interest5 = await prisma.confidentiality.create({
+    const interest5 = await prisma.interest.create({
         data: {
             name: 'Art'
         },
     });
-    const interest6 = await prisma.confidentiality.create({
+    const interest6 = await prisma.interest.create({
         data: {
             name: 'Activité manuelle'
         },
     });
-    const interest7 = await prisma.confidentiality.create({
+    const interest7 = await prisma.interest.create({
         data: {
             name: 'Voyage'
         },
     });
-    const interest8 = await prisma.confidentiality.create({
+    const interest8 = await prisma.interest.create({
         data: {
             name: 'Mangas'
         },
     });
-    const interest9 = await prisma.confidentiality.create({
+    const interest9 = await prisma.interest.create({
         data: {
             name: 'Musique'
         },
     });
-    const interest10 = await prisma.confidentiality.create({
+    const interest10 = await prisma.interest.create({
         data: {
             name: 'Cuisine'
         },
