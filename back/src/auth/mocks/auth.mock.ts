@@ -13,3 +13,11 @@ export const interestMock ={
     email: 'test@gmail.com',
     password: 'test', 
   };
+  export const user = {
+    email: 'test@gmail.com',
+    pseudo: 'test',
+    age: 18,
+    gender: 'Femme',
+    password:'Test38450*',
+    confirmPassword:'Test38450*'
+  }

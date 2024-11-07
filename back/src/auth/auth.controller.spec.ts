@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthServiceMock } from './mocks/auth.service.mock';
 import { authMocks} from './mocks/auth.mock';
+import { JwtGuard } from './guards';
 
 describe('AuthController', () => { 
   let controller: AuthController;
+  let service: AuthService
   
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
@@ -17,6 +17,10 @@ describe('AuthController', () => {
     }).compile();
 
     controller = module.get<AuthController>(AuthController);
+    service = module.get<AuthService>(AuthService)
+  });
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
   });
 
 describe('login',()=>{

@@ -46,8 +46,11 @@ export default function Home() {
           <hr className="w-11/12 border border-black"/>
           <Link className="bg-primary text-white font-semibold text-center w-3/5 p-3 rounded-md" href={'/register'}>Crée un compte</Link>
         </form>
-        
+        <p className="text-center text-primary hover:underline cursor-pointer" onClick={()=>{
+        router.push('/presentation')
+      }}> Qu'est-ce qu'interest ? </p>
       </div>
+    
     </div>
   );
 }

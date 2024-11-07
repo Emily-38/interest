@@ -13,7 +13,7 @@ export class FollowersService {
                 }
             });
             if(!existingUser) {
-                throw new ForbiddenException('this user not exist')
+                throw new ForbiddenException('user doesn\'t exist')
             }
             const follow = await this.prisma.followers.findMany({
                 where:{
@@ -39,7 +39,7 @@ export class FollowersService {
           });
           
           if(!existingUser) {
-            throw new ForbiddenException('this user not exist')
+            throw new ForbiddenException('user doesn\'t exist')
           }
 
           const existingFollow = await this.prisma.followers.findFirst({

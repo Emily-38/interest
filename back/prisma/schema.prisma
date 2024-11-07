@@ -13,19 +13,19 @@ model user {
   id String @id @default(uuid())
   email String @unique
   pseudo String @unique
-  password String 
-  age Int
-  gender String
-  profile_image String?
+  password String @db.VarChar(255)
+  age Int @db.Int()
+  gender String @db.VarChar(255)
+  profile_image String? @db.VarChar(255)
   gdpr DateTime @default(now())
-  token  String?
+  token  String? @db.VarChar(1000)
   isActive Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  confidentialityId  String
-  roleId String  
+  confidentialityId  String @db.VarChar(255)
+  roleId String  @db.VarChar(255)
 
   followers   followers[] @relation("UserFollowers")
   
@@ -35,7 +35,6 @@ model user {
   
   confidentiality confidentiality @relation(fields: [confidentialityId], references: [id])
   role role @relation(fields: [roleId], references: [id])
-
 }
 
 model interest {
