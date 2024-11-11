@@ -29,8 +29,6 @@ const Setting = ({params}:ParamsType) => {
     const {register,handleSubmit}=useForm<UserUpdateType>()
     const onSubmit: SubmitHandler<UserUpdateType> = async (data) => {
         if (data.profile_image && data.profile_image[0]) {
-            deleteImage(user?.profile_image)
-
             const formData = new FormData();
             formData.append("file", data.profile_image[0]);
             try {
