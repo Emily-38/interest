@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
-import { Prisma, user } from '@prisma/client';
+import { user } from '@prisma/client';
 
 @Injectable()
 export class EmailService {
@@ -35,9 +35,9 @@ export class EmailService {
     async sendUserConfirmation (user: user, token: string) {
         const url = `${this.config.get('SERVER_URL')}/validate/${token}`;
         const emailHtml = `<p>Bonjour ${user.pseudo},</p>
-            <p>Ta prochaine etape serra de valider ton compte en cliquant sur le lien suivant :</p>
+            <p>Ta prochaine étape sera de valider ton compte en cliquant sur le lien suivant :</p>
                 <a href='${url}'>Clique ici pour valider ton compte</a>
-            <p>Apres cette etape tu pourra a nouveau te connecter à notre plateforme ! </p>`;
+            <p>Après cette étape, tu pourras à nouveau te connecter à notre plateforme ! </p>`;
     
         await this.transporter.sendMail({
           from: this.config.get('SMTP_EMAIL'),
