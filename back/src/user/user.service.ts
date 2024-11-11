@@ -24,6 +24,7 @@ export class UserService {
                 gender:true,
                 isActive:true,
                 profile_image:true,
+                confidentialityId:true,
                 interestId:true,
                 createdAt:true
 

@@ -88,7 +88,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                     router.push(`/profil/${user.pseudo}`)
                 }}>
                         <div className='flex items-center gap-3 p-3 cursor-pointer'>
-                           {user.profile_image? <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${user.profile_image}`} property='true' className='rounded-full h-10 w-10 object-cover'/> :<Image width={50} height={50} alt='Profile User' src={'/default_profile'} property='true' className='rounded-full h-10 w-10 object-cover'/>} 
+                           {user.profile_image? <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${user.profile_image}`} property='true' className='rounded-full h-10 w-10 object-cover'/> :<Image width={50} height={50} alt='Profile User' src={'/default_profile.png'} property='true' className='rounded-full h-10 w-10 object-cover'/>} 
                             <p> {user.pseudo} </p>
                         </div>
                         </div>

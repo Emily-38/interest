@@ -1,14 +1,14 @@
 'use client'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import ProfileUser from './ProfileUser'
 import {  ModalCreatePublication } from './ModaleCreatePublication'
 import { getCurrentUser, getSearch } from '@/services/user'
 import { UserType } from '@/utils/user'
 
-export const Navbar = () => {
+export const Navbar = ({setIsLoading}:{setIsLoading:Dispatch<SetStateAction<boolean>>}) => {
     const router = useRouter() 
     const[activePage,setActivePage]=useState('')
     const[isSearch, setIsSearch]=useState(false)
@@ -41,12 +41,14 @@ export const Navbar = () => {
             <li className={`cursor-pointer`} onClick={()=>{
                 router.push('/home')
                 setActivePage('home')
+                setIsLoading(true)
             }}>
                 Accueil
             </li>
 
             <li className='cursor-pointer' onClick={()=>{
                 setIsSearch(true)
+                setIsLoading(true)
             }}>
                 Recherche
             </li>
@@ -57,6 +59,7 @@ export const Navbar = () => {
             <li className={`cursor-pointer`} onClick={()=>{
                 router.push(`/profil/${user?.pseudo}`)
                 setActivePage('profil')
+                setIsLoading(true)
             }}> 
                 Profil
             </li>
@@ -64,12 +67,14 @@ export const Navbar = () => {
             {user?.roleId === '833fb586-b957-47ff-b59c-3500a9224eb4'? <li  className='cursor-pointer' onClick={()=>{
                 router.push('/admin/users')
                 setSetting(localStorage.setItem('page','admin'))
+                setIsLoading(true)
             }}>Admin</li>:''}
 
             <li className='cursor-pointer' onClick={()=>{
                 router.push('/setting/updateProfile')
                 setActivePage('UpdateProfile')
                 setSetting(localStorage.setItem('page','setting'))
+                setIsLoading(true)
             }}> 
                 Parametre
             </li>
