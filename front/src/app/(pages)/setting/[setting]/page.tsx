@@ -147,7 +147,7 @@ const Setting = ({params}:ParamsType) => {
         <p className='font-semibold text-2xl'>Confidentialité du compte</p>
         <p className='text-lg'>Modifier votre email:</p>
         <input {...register('email')}  type="email" placeholder='Ecrire votre Email' className=' border bg-white border-black text-center rounded-md p-2 md:w-1/2 w-4/5'/>
-        <p className='text-lg'>Modifier votre votre genre:</p>
+        <p className='text-lg'>Modifier votre genre:</p>
         <select {...register('gender')} defaultValue={user.gender} className='bg-white border border-black rounded-md p-3 pl-4 md:w-1/2 w-4/5 text-center '>
             <option value="Homme">Homme</option>
             <option value="Femme">Femme</option>
