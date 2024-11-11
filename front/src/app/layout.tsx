@@ -17,7 +17,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Interest",
-  description: "Interest est un reseaux social basé sur tes centres d'interets",
+  description: "Interest est un reseaux social basé sur tes centres d'interet",
 };
 
 export default function RootLayout({
