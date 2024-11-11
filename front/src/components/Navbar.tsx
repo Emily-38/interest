@@ -88,6 +88,7 @@ export const Navbar = ({setIsLoading}:{setIsLoading:Dispatch<SetStateAction<bool
             
             <li className='cursor-pointer' onClick={()=>{
                 router.push('/')
+                localStorage.clear()
             }}>
                 Déconnexion
             </li>
