@@ -5,14 +5,19 @@ import { ModalCreatePublication } from './ModaleCreatePublication'
 import { useRouter } from 'next/navigation'
 import { UserType } from '@/utils/user'
 import { getCurrentUser } from '@/services/user'
+import { getRole } from '@/services/role'
+import { RoleType } from '@/utils/role'
 
 export const MenuMobile = () => {
 const[isActive,setIsActive]=useState(false)
 const[user, setUser]=useState<UserType>()
-
+const[role,setRole]=useState<RoleType>()
 useEffect(() => {
   getCurrentUser().then((res)=>{
     setUser(res.data)
+  })
+  getRole().then((res)=>{
+    setRole(res.data[0].id)
   })
 }, [])
 
@@ -50,7 +55,7 @@ const router = useRouter()
                 setIsActive(false)
             }}>Profil</li>
             
-             {user?.roleId === '833fb586-b957-47ff-b59c-3500a9224eb4'? <><li className='w-4/5'> <hr /></li><li  className='cursor-pointer' onClick={()=>{
+             {user?.roleId === role? <><li className='w-4/5'> <hr /></li><li  className='cursor-pointer' onClick={()=>{
                 router.push('/admin/users')
                 setIsActive(false)
             }}>Admin</li> <li className='w-4/5'> <hr /></li> </>: <li className='w-4/5'> <hr /></li>}

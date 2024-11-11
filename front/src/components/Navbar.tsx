@@ -7,6 +7,8 @@ import ProfileUser from './ProfileUser'
 import {  ModalCreatePublication } from './ModaleCreatePublication'
 import { getCurrentUser, getSearch } from '@/services/user'
 import { UserType } from '@/utils/user'
+import { getRole } from '@/services/role'
+import { RoleType } from '@/utils/role'
 
 export const Navbar = ({setIsLoading}:{setIsLoading:Dispatch<SetStateAction<boolean>>}) => {
     const router = useRouter() 
@@ -16,6 +18,7 @@ export const Navbar = ({setIsLoading}:{setIsLoading:Dispatch<SetStateAction<bool
     const[query,setQuery]=useState('')
     const[setting,setSetting]=useState<any>(null)
     const[user,setUser]=useState<UserType>()
+    const[role,setRole]=useState<RoleType>()
     
     useEffect(() => {
        getCurrentUser().then((res)=>{
@@ -24,6 +27,10 @@ export const Navbar = ({setIsLoading}:{setIsLoading:Dispatch<SetStateAction<bool
 
        getSearch(query).then((res)=>{
         setSearch(res.data)
+       })
+
+       getRole().then((res)=>{
+        setRole(res.data[0].id)
        })
 
      }, [query])
@@ -64,7 +71,7 @@ export const Navbar = ({setIsLoading}:{setIsLoading:Dispatch<SetStateAction<bool
                 Profil
             </li>
             
-            {user?.roleId === '833fb586-b957-47ff-b59c-3500a9224eb4'? <li  className='cursor-pointer' onClick={()=>{
+            {user?.roleId === role? <li  className='cursor-pointer' onClick={()=>{
                 router.push('/admin/users')
                 setSetting(localStorage.setItem('page','admin'))
                 setIsLoading(true)
