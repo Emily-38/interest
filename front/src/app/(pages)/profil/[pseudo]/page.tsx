@@ -203,7 +203,7 @@ if(userPage){
           }
         })}</> :<>
         
-        {userPage.confidentialityId !== 'c8a2e0ab-19f3-443d-8809-90c62741fc9e'?<div key={userPage.id} className='flex justify-center items-center font-semibold'>Ce compte est privé </div>: <>{filteredPublications && filteredPublications.map((publicationUser)=>{
+        {userPage.confidentialityId !== 'cac9c843-ef0a-4ba8-8b90-e0191df0d1b6'?<div key={userPage.id} className='flex justify-center items-center font-semibold'>Ce compte est privé </div>: <>{filteredPublications && filteredPublications.map((publicationUser)=>{
           if(confidentiality && userPage.confidentialityId === confidentiality && publicationUser.userId === userPage.id  || publicationUser.userId === userCurrent.id){
             
           return(
