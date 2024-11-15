@@ -202,15 +202,15 @@ if(userPage){
             return <Publication key={publicationSave._id} full={false} publication={publicationSave}/>
           }
         })}</> :<>
-        {filteredPublications && filteredPublications.map((publicationUser)=>{
+        
+        {userPage.confidentialityId !== 'c8a2e0ab-19f3-443d-8809-90c62741fc9e'?<div key={userPage.id} className='flex justify-center items-center font-semibold'>Ce compte est privé </div>: <>{filteredPublications && filteredPublications.map((publicationUser)=>{
           if(confidentiality && userPage.confidentialityId === confidentiality && publicationUser.userId === userPage.id  || publicationUser.userId === userCurrent.id){
             
           return(
             
             <Publication key={publicationUser._id} full={false} publication={publicationUser}/>
            ) }
-        })}
-        {userPage.confidentialityId !== 'c8a2e0ab-19f3-443d-8809-90c62741fc9e'?<div key={userPage.id} className='flex justify-center items-center font-semibold'>Ce compte est privé </div>:''}
+        })}</>}
         </>}
           
           
