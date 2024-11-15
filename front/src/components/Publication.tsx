@@ -88,7 +88,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                     router.push(`/profil/${user.pseudo}`)
                 }}>
                         <div className='flex items-center gap-3 p-3 cursor-pointer'>
-                           {user.profile_image? <Image width={50} height={50} alt='Profile User' src={`http://localhost:3000/image/view/${user.profile_image}`} property='true' className='rounded-full h-10 w-10 object-cover'/> :<Image width={50} height={50} alt='Profile User' src={'/default_profile'} property='true' className='rounded-full h-10 w-10 object-cover'/>} 
+                           {user.profile_image? <Image width={50} height={50} alt='Profile User' src={`https://interest-48022f6f5975.herokuapp.com/image/view/${user.profile_image}`} property='true' className='rounded-full h-10 w-10 object-cover'/> :<Image width={50} height={50} alt='Profile User' src={'/default_profile.png'} property='true' className='rounded-full h-10 w-10 object-cover'/>} 
                             <p> {user.pseudo} </p>
                         </div>
                         </div>
@@ -104,7 +104,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
         <div onClick={()=>{
             router.push(`/publication/${publication._id}`)
             }} className='cursor-pointer'>
-            <Image src={`http://localhost:3000/image/view/${publication.image}`} alt='Image de publication' width={1000} height={1000} className='mt-2 w-full' property='true'/>
+            <Image src={`https://interest-48022f6f5975.herokuapp.com/image/view/${publication.image}`} alt='Image de publication' width={1000} height={1000} className='mt-2 w-full' property='true'/>
             </div>
             <div className='flex justify-between p-3'>
                 <div>
@@ -198,7 +198,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
 
                             <div className='flex justify-between flex-nowrap md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
                                 <div className='flex flex-row items-center gap-2 md:text-base'>
-                                { comment.user[0].profile_image ? <Image src={`http://localhost:3000/image/view/${comment.user[0]?.profile_image}`} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-10 w-10'/> : <Image src={'/default_profile.png'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-10 w-10'/>} 
+                                { comment.user[0].profile_image ? <Image src={`https://interest-48022f6f5975.herokuapp.com/image/view/${comment.user[0]?.profile_image}`} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-10 w-10'/> : <Image src={'/default_profile.png'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-10 w-10'/>} 
                                     <p className='font-semibold'> {comment.user[0].pseudo} </p>
                                     <p className='pr-5 text-center w-72'> {comment.comment.description} </p>
                                 </div>
@@ -224,7 +224,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                         <p className='text-gray-400 pl-3 '>Dernier commentaire:</p>
                     <div className='flex justify-between md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
                                 <div className='flex flex-row items-center gap-2 md:text-base'>
-                                { lastComment.user[0].profile_image ? <Image src={`http://localhost:3000/image/view/${lastComment.user[0].profile_image}`} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/> : <Image src={'/default_profile.png'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/>} 
+                                { lastComment.user[0].profile_image ? <Image src={`https://interest-48022f6f5975.herokuapp.com/image/view/${lastComment.user[0].profile_image}`} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/> : <Image src={'/default_profile.png'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/>} 
                                     <p className='font-semibold'> {lastComment.user[0].pseudo} </p>
                                     <p className='pr-5 w-[500px] text-center md:text-left truncate ...'> {lastComment.comment.description} </p>
                                 </div>

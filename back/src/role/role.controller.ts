@@ -9,7 +9,7 @@ import { roleDto } from './dto/role.dto';
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
-  @UseGuards(AdminGuard)
+  
   @Get('/')
   getAllRole() {
     return this.roleService.getAllRole();

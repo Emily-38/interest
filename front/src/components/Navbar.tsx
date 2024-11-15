@@ -1,14 +1,16 @@
 'use client'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import ProfileUser from './ProfileUser'
 import {  ModalCreatePublication } from './ModaleCreatePublication'
 import { getCurrentUser, getSearch } from '@/services/user'
 import { UserType } from '@/utils/user'
+import { getRole } from '@/services/role'
+import { RoleType } from '@/utils/role'
 
-export const Navbar = () => {
+export const Navbar = ({setIsLoading}:{setIsLoading:Dispatch<SetStateAction<boolean>>}) => {
     const router = useRouter() 
     const[activePage,setActivePage]=useState('')
     const[isSearch, setIsSearch]=useState(false)
@@ -16,6 +18,7 @@ export const Navbar = () => {
     const[query,setQuery]=useState('')
     const[setting,setSetting]=useState<any>(null)
     const[user,setUser]=useState<UserType>()
+    const[role,setRole]=useState<RoleType>()
     
     useEffect(() => {
        getCurrentUser().then((res)=>{
@@ -24,6 +27,10 @@ export const Navbar = () => {
 
        getSearch(query).then((res)=>{
         setSearch(res.data)
+       })
+
+       getRole().then((res)=>{
+        setRole(res.data[0].id)
        })
 
      }, [query])
@@ -41,12 +48,14 @@ export const Navbar = () => {
             <li className={`cursor-pointer`} onClick={()=>{
                 router.push('/home')
                 setActivePage('home')
+                setIsLoading(true)
             }}>
                 Accueil
             </li>
 
             <li className='cursor-pointer' onClick={()=>{
                 setIsSearch(true)
+                setIsLoading(true)
             }}>
                 Recherche
             </li>
@@ -57,25 +66,29 @@ export const Navbar = () => {
             <li className={`cursor-pointer`} onClick={()=>{
                 router.push(`/profil/${user?.pseudo}`)
                 setActivePage('profil')
+                setIsLoading(true)
             }}> 
                 Profil
             </li>
             
-            {user?.roleId === '833fb586-b957-47ff-b59c-3500a9224eb4'? <li  className='cursor-pointer' onClick={()=>{
+            {user?.roleId === role? <li  className='cursor-pointer' onClick={()=>{
                 router.push('/admin/users')
                 setSetting(localStorage.setItem('page','admin'))
+                setIsLoading(true)
             }}>Admin</li>:''}
 
             <li className='cursor-pointer' onClick={()=>{
                 router.push('/setting/updateProfile')
                 setActivePage('UpdateProfile')
                 setSetting(localStorage.setItem('page','setting'))
+                setIsLoading(true)
             }}> 
                 Parametre
             </li>
             
             <li className='cursor-pointer' onClick={()=>{
                 router.push('/')
+                localStorage.clear()
             }}>
                 Déconnexion
             </li>

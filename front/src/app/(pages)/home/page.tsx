@@ -8,12 +8,16 @@ import { PublicationType } from '@/utils/publication'
 import { UserType } from '@/utils/user'
 import React, { useEffect, useState } from 'react'
 import {Rings} from 'react-loader-spinner'
+import { ConfidentialityType } from '@/utils/confidentiality'
+import { getConfidentiality } from '@/services/confidentiality'
 
 const Home = () => {
   
   const [publicationList, setPublicationList]=useState<PublicationType[]>()
   const[userList,setUserList]=useState<UserType[]>()
   const[currentUser,setCurrentUser]=useState<UserType>()
+  const[confidentiality,setConfidentiality]=useState<ConfidentialityType>()
+  const[userConfidentiality, setUserConfidentiality]= useState<UserType[]>([])
  
 
   useEffect(() => {
@@ -31,8 +35,23 @@ const Home = () => {
     getAllUser().then((res)=>{
       setUserList(res.data)
     })
+    getConfidentiality().then((res)=>{
+      setConfidentiality(res.data[1])
+      
+    })
     
   }, [])
+  useEffect(() => {
+    if (confidentiality){
+      userList?.map((user)=>{
+        if(user.confidentialityId === confidentiality.id){
+          setUserConfidentiality((prev)=>{ 
+            return [...prev, user]})
+        }
+      })
+    }
+  }, [confidentiality])
+  
   if(!userList){
     return <div className='flex flex-col justify-center items-center font-semibold'>
       <Rings
@@ -46,7 +65,7 @@ const Home = () => {
       />
     Veuillez patienter</div>
   }
-  
+
   return (
     <div className='flex justify-center flex-col place-self-center w-96 md:w-11/12 md:gap-20 text-sm md:text-base md:flex-row'>
         <div className='flex overflow-x-scroll md:hidden'>
@@ -62,10 +81,11 @@ const Home = () => {
         <div className='w-11/12 md:w-2/3 mx-auto'>
          {publicationList && publicationList.map((publication)=>{
            const userInterestIds = publication.user.interestId.map(interest => interest.id);
-           const hasCommonInterest = userInterestIds.some(interestId => publication.interestId.includes(interestId)
-          );
+           const hasCommonInterest = userInterestIds.some(interestId => publication.interestId.includes(interestId));
+           const hasConfidentiality = userConfidentiality.some(user => publication.userId.includes(user.id))
+          
            
-            if (hasCommonInterest === true) {
+            if (hasCommonInterest === true && hasConfidentiality === true) {
               return(
                 <Publication key={publication._id} full={false} publication={publication} />
               )

@@ -2,13 +2,16 @@
 import { Badge } from '@/components/Badge'
 import ProfileUser from '@/components/ProfileUser'
 import { Publication } from '@/components/Publication'
+import { getConfidentiality } from '@/services/confidentiality'
 import { addFollow, getFollowByUser, unFollow } from '@/services/follow'
 import { getPubliction } from '@/services/publication'
-import { getUserByPseudo } from '@/services/user'
+import { getCurrentUser, getUserByPseudo } from '@/services/user'
+import { ConfidentialityType } from '@/utils/confidentiality'
 import { followType } from '@/utils/follow'
 import { ParamsType } from '@/utils/parametre'
 import { PublicationType } from '@/utils/publication'
 import { UserType } from '@/utils/user'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { Rings } from 'react-loader-spinner'
 import { toast } from 'react-toastify'
@@ -16,6 +19,7 @@ import { toast } from 'react-toastify'
 
 const Profil = ({params}:ParamsType) => {
   const [userPage,setUserPage]=useState<UserType>()
+  const [userCurrent,setUserCurrent]=useState<UserType>()
   const[publication,setPublication]=useState<PublicationType[]>()
   const[filteredPublications,setFilteredPublications]=useState<PublicationType[]>()
   const[followList,setFollowList]=useState<followType>()
@@ -23,10 +27,16 @@ const Profil = ({params}:ParamsType) => {
   const[followers,setFollowers]=useState<string[]>([])
   const[abonned,setAbonned]=useState<string[]>([])
   const[isPublication,setIsPublication]=useState(false)
+  const[confidentiality,setConfidentiality]=useState<string>()
+
   
   useEffect(() => {
+    getCurrentUser().then((res)=>{
+      setUserCurrent(res.data)
+    })
     getUserByPseudo(params.pseudo).then((res)=>{
       setUserPage(res.data)
+      
     }).catch((e)=>{
       return toast.error(e.response.data.message) 
     })
@@ -38,7 +48,12 @@ const Profil = ({params}:ParamsType) => {
   }, [params.pseudo])
 
   useEffect(() => {
-
+if(userPage){
+  getConfidentiality().then((res)=>{
+    setConfidentiality(res.data[1].id)
+   
+  })
+}
     if(userPage){
       getFollowByUser(userPage.id).then((res)=>{
         setFollowList(res.data)   
@@ -87,7 +102,7 @@ const Profil = ({params}:ParamsType) => {
     }
     
   }, [followList])
-  
+ 
   if(!userPage){
     return<div className='flex flex-col justify-center items-center font-semibold'>
     <Rings
@@ -101,7 +116,8 @@ const Profil = ({params}:ParamsType) => {
     />
   Veuillez patienter</div>
   }
-
+ 
+  if(userCurrent)
   return (
     <div className='p-3'>
         <div className='flex  gap-10 md:justify-around items-center'> 
@@ -161,7 +177,7 @@ const Profil = ({params}:ParamsType) => {
           )
         })}
                 </ul>
-                { userPage.id !== followList?.user.id ? 
+                { userPage.id !== userCurrent.id ? 
                 follow === false?
                 <button className=' bg-primary text-center rounded-md w-1/4 text-white p-1' onClick={()=>{ 
               addFollow(userPage.id).then((res)=>{
@@ -182,12 +198,12 @@ const Profil = ({params}:ParamsType) => {
         <div className='w-10/12 md:w-2/3 mx-auto'>
         {isPublication === true?<>
         {publication && publication.map((publicationSave)=>{
-          if(publicationSave.favorite.includes(userPage.user.id)){
+          if(publicationSave.favorite.includes(userCurrent.id)){
             return <Publication key={publicationSave._id} full={false} publication={publicationSave}/>
           }
         })}</> :<>
         {filteredPublications && filteredPublications.map((publicationUser)=>{
-          if(publicationUser.userId === userPage.id && userPage.confidentialityId === 'c8a2e0ab-19f3-443d-8809-90c62741fc9e'){
+          if(confidentiality && userPage.confidentialityId === confidentiality && publicationUser.userId === userPage.id  || publicationUser.userId === userCurrent.id){
             
           return(
             
