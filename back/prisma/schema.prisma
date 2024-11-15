@@ -13,19 +13,19 @@ model user {
   id String @id @default(uuid())
   email String @unique
   pseudo String @unique
-  password String @db.VarChar(255)
+  password String @db.VarChar(191)
   age Int @db.Int()
-  gender String @db.VarChar(255)
-  profile_image String? @db.VarChar(255)
+  gender String @db.VarChar(191)
+  profile_image String? @db.VarChar(191)
   gdpr DateTime @default(now())
-  token  String? @db.VarChar(1000)
+  token  String? @db.VarChar(191)
   isActive Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  confidentialityId  String @db.VarChar(255)
-  roleId String  @db.VarChar(255)
+  confidentialityId  String @db.VarChar(191)
+  roleId String  @db.VarChar(191)
 
   followers   followers[] @relation("UserFollowers")
   
