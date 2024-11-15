@@ -192,12 +192,9 @@ const Profil = ({params}:ParamsType) => {
           return(
             
             <Publication key={publicationUser._id} full={false} publication={publicationUser}/>
-          ) }else if(publicationUser.userId !== userPage.id){
-            return <div key={userPage.id} className='flex justify-center items-center font-semibold'>{`Cette personne n'a pas de publication`} </div>
-          }else{
-            return <div key={userPage.id} className='flex justify-center items-center font-semibold'>Ce compte est privé </div>
-          }
+           ) }
         })}
+        {userPage.confidentialityId !== 'c8a2e0ab-19f3-443d-8809-90c62741fc9e'?<div key={userPage.id} className='flex justify-center items-center font-semibold'>Ce compte est privé </div>:''}
         </>}
           
           

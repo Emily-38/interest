@@ -17,7 +17,9 @@ const Home = () => {
  
 
   useEffect(() => {
+    
     localStorage.removeItem('page')
+
     getPubliction().then((res)=>{
       setPublicationList(res.data)
     })
