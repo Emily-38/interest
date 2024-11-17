@@ -9,7 +9,7 @@ import { InterestForm } from './InterestForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CreatePublication } from '@/utils/publication';
 import { toast } from 'react-toastify';
-import { createPubliction } from '@/services/publication';
+import { createPublication } from '@/services/publication';
 import { InsertImage } from '@/services/image';
 
 
@@ -45,7 +45,7 @@ export const ModalCreatePublication= () => {
                 interestId: interestUser,
                 image: filename, 
               }
-              const createResponse = await createPubliction(productData);
+              const createResponse = await createPublication(productData);
               toast.success("Creation de la publication reussi");
              
             }catch (error) {

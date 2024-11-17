@@ -2,7 +2,7 @@ import { PublicationType } from '@/utils/publication'
 import React, { useEffect, useState } from 'react'
 import { SlOptions } from 'react-icons/sl'
 import { ModaleUpdatePublication } from './ModaleUpdatePublication'
-import { deletePubliction } from '@/services/publication'
+import { deletePublication } from '@/services/publication'
 import { toast } from 'react-toastify'
 import { getCurrentUser } from '@/services/user'
 import { UserType } from '@/utils/user'
@@ -31,7 +31,7 @@ export const MenuSettingPublication = ({publication}:{publication:PublicationTyp
     <p><ModaleUpdatePublication publication={publication}/></p>
     <hr className='w-4/5'/>
     <p className='text-red-600 cursor-pointer' onClick={()=>{
-      deletePubliction(publication._id).then((res)=>{
+      deletePublication(publication._id).then((res)=>{
        if(res.status === 200 ){
         toast.success('La publication a bien été supprimé')
        }

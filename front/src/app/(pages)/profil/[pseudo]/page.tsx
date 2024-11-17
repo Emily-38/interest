@@ -4,7 +4,7 @@ import ProfileUser from '@/components/ProfileUser'
 import { Publication } from '@/components/Publication'
 import { getConfidentiality } from '@/services/confidentiality'
 import { addFollow, getFollowByUser, unFollow } from '@/services/follow'
-import { getPubliction } from '@/services/publication'
+import { getPublication } from '@/services/publication'
 import { getCurrentUser, getUserByPseudo } from '@/services/user'
 import { ConfidentialityType } from '@/utils/confidentiality'
 import { followType } from '@/utils/follow'
@@ -41,7 +41,7 @@ const Profil = ({params}:ParamsType) => {
       return toast.error(e.response.data.message) 
     })
 
-    getPubliction().then((res)=>{
+    getPublication().then((res)=>{
       setPublication(res.data)
     })
 

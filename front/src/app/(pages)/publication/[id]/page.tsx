@@ -1,6 +1,6 @@
 'use client'
 import { Publication } from '@/components/Publication'
-import { getPublictionById } from '@/services/publication'
+import { getPublicationById } from '@/services/publication'
 import { ParamsType } from '@/utils/parametre'
 import { PublicationType } from '@/utils/publication'
 import React, { useEffect, useState } from 'react'
@@ -11,7 +11,7 @@ const PublicationId = ({params}:ParamsType) => {
   const[publication, setPublication]=useState<PublicationType>()
 
   useEffect(() => {
-    getPublictionById(params.id).then((res)=>{
+    getPublicationById(params.id).then((res)=>{
       setPublication(res.data)
     }).catch((e)=>{
       return toast.error(e.response.data.message) 

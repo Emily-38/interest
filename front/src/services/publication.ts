@@ -3,7 +3,7 @@ import { InterestType } from "@/utils/interest"
 import { CreatePublication, PublicationType } from "@/utils/publication"
 import axios from "axios"
 
-export async function createPubliction(data: CreatePublication){
+export async function createPublication(data: CreatePublication){
     let axiosConfig = {
         headers: {
             'content-type': 'application/json;charset=utf-8',
@@ -32,7 +32,7 @@ export async function createPubliction(data: CreatePublication){
     }
 }
 
-export async function getPubliction(){
+export async function getPublication(){
     let axiosConfig = {
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -45,7 +45,7 @@ export async function getPubliction(){
         return axios.get( url,axiosConfig )  
 }
 
-export async function getPublictionById(id:string){
+export async function getPublicationById(id:string){
     let axiosConfig = {
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -58,7 +58,7 @@ export async function getPublictionById(id:string){
         return axios.get( url,axiosConfig )  
 }
 
-export async function likePubliction(id:string){
+export async function likePublication(id:string){
     let axiosConfig = {
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -71,7 +71,7 @@ export async function likePubliction(id:string){
         return axios.put( url,{},axiosConfig )  
 }
 
-export async function savePubliction(id:string){
+export async function savePublication(id:string){
     let axiosConfig = {
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -100,7 +100,7 @@ export async function updatePublication(id:string,description:string,interestId:
         },axiosConfig )  
 }
 
-export async function deletePubliction(id:string){
+export async function deletePublication(id:string){
     let axiosConfig = {
         headers: {
             'Access-Control-Allow-Origin': '*',

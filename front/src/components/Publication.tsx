@@ -12,7 +12,7 @@ import { getAllUser } from '@/services/user'
 import { createComment, getCommentByIdPost } from '@/services/comment'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { likePubliction, savePubliction } from '@/services/publication'
+import { likePublication, savePublication } from '@/services/publication'
 import { useRouter } from 'next/navigation'
 import { getInterest } from '@/services/interest'
 import { InterestType } from '@/utils/interest'
@@ -113,14 +113,14 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                         <li>{commentList?.length}</li>  
                     </ul>
                 <div className='flex gap-3 ml-3 text-xl'>
-                    <button  aria-label='like' onClick={()=>{ likePubliction(publication._id)
+                    <button  aria-label='like' onClick={()=>{ likePublication(publication._id)
                         setIsLike(!isLike)
                     
                     }}>
                         <FaHeart className={`${isLike === true? 'text-red-600': 'text-red-300'}`}  />
                     </button>
                     <BiSolidCommentDetail />
-                    <button aria-label='save' onClick={()=>{savePubliction(publication._id)
+                    <button aria-label='save' onClick={()=>{savePublication(publication._id)
                         setIsSave(!isSave)}}>
                         <FaBookmark className={`${isSave === true? 'text-primary': 'text-sky-300'}`} />
                     </button>
@@ -165,13 +165,13 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                         <li>{commentList?.length}</li>
                     </ul>
                 <div className='flex gap-3 ml-3 text-xl'>
-                    <button  aria-label='like' onClick={()=>{likePubliction(publication._id)
+                    <button  aria-label='like' onClick={()=>{likePublication(publication._id)
                          setIsLike(!isLike)
                     }}>
                         <FaHeart className={`${isLike === true? 'text-red-600': 'text-red-300'}`}  />
                     </button>
                     <BiSolidCommentDetail />
-                    <button  aria-label='save' onClick={()=>{ savePubliction(publication._id)
+                    <button  aria-label='save' onClick={()=>{ savePublication(publication._id)
                         setIsSave(!isSave)}}>
                         <FaBookmark className={`${isSave === true? 'text-primary': 'text-sky-300'}`} />
                     </button>

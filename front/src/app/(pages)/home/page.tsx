@@ -2,7 +2,7 @@
 import { CardProfil } from '@/components/CardProfil'
 import ProfileUser from '@/components/ProfileUser'
 import { Publication } from '@/components/Publication'
-import { getPubliction } from '@/services/publication'
+import { getPublication } from '@/services/publication'
 import { getAllUser, getCurrentUser } from '@/services/user'
 import { PublicationType } from '@/utils/publication'
 import { UserType } from '@/utils/user'
@@ -24,7 +24,7 @@ const Home = () => {
     
     localStorage.removeItem('page')
 
-    getPubliction().then((res)=>{
+    getPublication().then((res)=>{
       setPublicationList(res.data)
     })
 
