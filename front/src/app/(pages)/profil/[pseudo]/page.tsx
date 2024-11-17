@@ -139,7 +139,7 @@ if(userPage){
                   </li>
                 </ul>
 
-                <ul className='hidden md:flex gap-5 text-center'>
+                <ul className='hidden md:flex gap-5 text-center md:flex-wrap'>
                   {userPage.interestId && userPage.interestId.map((interest)=>{
                    return( 
                     <li key={interest.id}>
@@ -167,8 +167,8 @@ if(userPage){
               }}>{isPublication ===false ? 'Voir les publications sauvegardés' : 'Voir mes publications'  }  </button>}
             
         </div>
-        <div className="md:hidden flex justify-between">
-        <ul className='flex text-center'>
+        <div className="md:hidden flex justify-between ">
+        <ul className='flex text-center flex-wrap'>
         {userPage.interestId && userPage.interestId.map((interest)=>{
           return(
             <li key={interest.id}>
@@ -179,7 +179,7 @@ if(userPage){
                 </ul>
                 { userPage.id !== userCurrent.id ? 
                 follow === false?
-                <button className=' bg-primary text-center rounded-md w-1/4 text-white p-1' onClick={()=>{ 
+                <button className=' bg-primary text-center rounded-md w-1/4 h-10 text-white p-1' onClick={()=>{ 
               addFollow(userPage.id).then((res)=>{
                 if(res.status === 201){
                   setFollow(true) }

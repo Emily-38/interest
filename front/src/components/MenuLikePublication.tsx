@@ -5,10 +5,10 @@ import { PublicationType } from '@/utils/publication'
 import { UserType } from '@/utils/user'
 import { getUserById } from '@/services/user'
 
-export const MenuLikePublication = ({publication, isLike}:{publication:PublicationType,isLike:boolean}) => {
+export const MenuLikePublication = ({publication, compteurLike, isReload}:{publication:PublicationType,isReload:boolean,compteurLike:number}) => {
    const[isOpen,setIsOpen]=useState(false)
    const[userList,setUserList]=useState<UserType[]>([])
-  const[compteurLike,setCompteurLike]=useState<number>(publication.like.length)
+
  useEffect(() => {
 if (publication.like) {
   publication.like.forEach(id => {
@@ -19,19 +19,15 @@ if (publication.like) {
 
               if (!userExists) {
                   return [...prev, newUser];
-              }
+              } 
               return prev;
           });
       });
   });
 }
-
-if(isLike === true){ 
-setCompteurLike(compteurLike +1)}
-else{
-  setCompteurLike((prevCompteurLike) => Math.max(prevCompteurLike - 1, 0))}
- }, [isLike,publication.like])
+  }, [publication.like,isReload])
  
+
   return (
 <div className=''>
     

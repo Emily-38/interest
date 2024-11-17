@@ -83,7 +83,7 @@ export const Navbar = ({setIsLoading}:{setIsLoading:Dispatch<SetStateAction<bool
                 setSetting(localStorage.setItem('page','setting'))
                 setIsLoading(true)
             }}> 
-                Parametre
+                Paramètres
             </li>
             
             <li className='cursor-pointer' onClick={()=>{
@@ -121,7 +121,7 @@ export const Navbar = ({setIsLoading}:{setIsLoading:Dispatch<SetStateAction<bool
 
     <aside className={`hidden md:flex ${setting === 'setting' ? '' : 'translate-x-[-100%]'} z-20 flex flex-col items-center bg-white text-black h-lvh w-1/5 fixed transform duration-300`}>
             <Image width={1000} height={1000} src={'/logo_interest.png'} alt={'logo'} className=' w-52'/>
-            <h1 className='font-semibold text-xl'>Parametre</h1>
+            <h1 className='font-semibold text-xl'>Paramètres</h1>
             <ul className='flex flex-col justify-around items-center h-lvh'>
             
             <li className={`${activePage ==='UpdateProfile'?'underline':''} cursor-pointer`} onClick={()=>{

@@ -63,7 +63,7 @@ const router = useRouter()
             <li className='cursor-pointer' onClick={()=>{
                 router.push('/setting/updateProfile')
                 setIsActive(false)
-            }}>Parametre</li>
+            }}>Paramètres</li>
            <li className='w-4/5'> <hr /></li>
             <li className=' cursor-pointer' onClick={()=>{
                 router.push('/about')
