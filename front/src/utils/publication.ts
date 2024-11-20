@@ -16,5 +16,5 @@ export type CreatePublication={
     file?: File[]
     description:string
     interestId: string[]
-    image: string
+    image?: string
 }

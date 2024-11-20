@@ -170,7 +170,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
         <ul className='flex justify-center'>
         {!publication.image && full === true ?
          interestList && interestList.map((interest)=>{ 
-                const hasCommonInterest = publication.interestId.some(interestId => publication.interestId.includes(interestId))
+                const hasCommonInterest = publication.interestId.some(interestId => interest.id.includes(interestId))
                 if(hasCommonInterest){ 
                 return( 
                 <li key={interest.id} className='text-gray-400 text-center text-xs'><Badge content={true} interest={interest} /></li>

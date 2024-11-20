@@ -6,10 +6,12 @@ import { deletePublication } from '@/services/publication'
 import { toast } from 'react-toastify'
 import { getCurrentUser } from '@/services/user'
 import { UserType } from '@/utils/user'
+import { useRouter } from 'next/navigation'
 
 export const MenuSettingPublication = ({publication}:{publication:PublicationType}) => {
     const[open,setOpen]=useState(false)
     const[user,setUser]=useState<UserType>()
+    const router= useRouter()
     useEffect(() => {
    getCurrentUser().then((res)=>{
     setUser(res.data)
@@ -34,7 +36,7 @@ export const MenuSettingPublication = ({publication}:{publication:PublicationTyp
       deletePublication(publication._id).then((res)=>{
        if(res.status === 200 ){
         toast.success('La publication a bien été supprimé')
-        window.location.reload()
+        router.push('/home')
        }
       })
     }}>Supprimer</p>
