@@ -52,6 +52,14 @@ export const ModalCreatePublication= () => {
                 toast.error("Echec de la creation de publication");
               }
             }
+            createPublication(data).then((res)=>{
+              if(res.status === 201){
+                toast.success("Creation de la publication reussi");
+              }
+            }).catch((e)=>{
+              toast.error("Echec de la creation de publication");
+            })
+    
           };
 
   return (
