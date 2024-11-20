@@ -4,7 +4,7 @@ import ProfileUser from '@/components/ProfileUser'
 import { Publication } from '@/components/Publication'
 import { getConfidentiality } from '@/services/confidentiality'
 import { addFollow, getFollowByUser, unFollow } from '@/services/follow'
-import { getPubliction } from '@/services/publication'
+import { getPublication } from '@/services/publication'
 import { getCurrentUser, getUserByPseudo } from '@/services/user'
 import { ConfidentialityType } from '@/utils/confidentiality'
 import { followType } from '@/utils/follow'
@@ -41,7 +41,7 @@ const Profil = ({params}:ParamsType) => {
       return toast.error(e.response.data.message) 
     })
 
-    getPubliction().then((res)=>{
+    getPublication().then((res)=>{
       setPublication(res.data)
     })
 
@@ -139,7 +139,7 @@ if(userPage){
                   </li>
                 </ul>
 
-                <ul className='hidden md:flex gap-5 text-center'>
+                <ul className='hidden md:flex gap-5 text-center md:flex-wrap'>
                   {userPage.interestId && userPage.interestId.map((interest)=>{
                    return( 
                     <li key={interest.id}>
@@ -167,8 +167,8 @@ if(userPage){
               }}>{isPublication ===false ? 'Voir les publications sauvegardés' : 'Voir mes publications'  }  </button>}
             
         </div>
-        <div className="md:hidden flex justify-between">
-        <ul className='flex text-center'>
+        <div className="md:hidden flex justify-between ">
+        <ul className='flex text-center flex-wrap'>
         {userPage.interestId && userPage.interestId.map((interest)=>{
           return(
             <li key={interest.id}>
@@ -179,7 +179,7 @@ if(userPage){
                 </ul>
                 { userPage.id !== userCurrent.id ? 
                 follow === false?
-                <button className=' bg-primary text-center rounded-md w-1/4 text-white p-1' onClick={()=>{ 
+                <button className=' bg-primary text-center rounded-md w-1/4 h-10 text-white p-1' onClick={()=>{ 
               addFollow(userPage.id).then((res)=>{
                 if(res.status === 201){
                   setFollow(true) }

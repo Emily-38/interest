@@ -10,7 +10,7 @@ import { ModaleUpdateComment } from './ModaleUpdateComment'
 
 
 
-export const MenuSettingComment = ({comment}:{comment:commentType}) => {
+export const MenuSettingComment = ({comment,setIsReload}:{comment:commentType,setIsReload:React.Dispatch<React.SetStateAction<boolean>>}) => {
     const[open,setOpen]=useState(false)
     const[user,setUser]=useState<UserType>()
     useEffect(() => {
@@ -37,6 +37,7 @@ export const MenuSettingComment = ({comment}:{comment:commentType}) => {
       deleteComment(comment.comment._id).then((res)=>{
        if(res.status === 200 ){
         toast.success('Le commentaire a bien été supprimé')
+        setIsReload(true)
        }
       })
     }}>Supprimer</p>

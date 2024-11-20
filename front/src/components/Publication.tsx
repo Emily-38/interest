@@ -12,7 +12,7 @@ import { getAllUser } from '@/services/user'
 import { createComment, getCommentByIdPost } from '@/services/comment'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { likePubliction, savePubliction } from '@/services/publication'
+import { likePublication, savePublication } from '@/services/publication'
 import { useRouter } from 'next/navigation'
 import { getInterest } from '@/services/interest'
 import { InterestType } from '@/utils/interest'
@@ -25,6 +25,8 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
     const[commentList,setCommentList]= useState<commentType[]>()
     const[lastComment,setLastComment]= useState<commentType>()
     const[interestList,setInterestList]= useState<InterestType[]>()
+    const[compteurLike,setCompteurLike]=useState<number>(publication.like.length)
+    const[isReload,setIsReload]=useState(false)
     const date = new Date(publication.createdAt)
     const router= useRouter()
 
@@ -35,6 +37,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             if(res.status ===201){
                 toast.success('Commentaire envoyé')
                 reset()
+                setIsReload(true)
             }
         })
     }
@@ -51,16 +54,34 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
              
             setCommentList(res.data)
           })
-          if(publication.like.includes(publication.user.id)){
-            setIsLike(true)
-          }
+         
           if(publication.favorite.includes(publication.user.id)){
             setIsSave(true)
           }
           
-         
-    }, [publication._id,publication.favorite,publication.like,publication.user.id])
+
+    }, [publication._id,publication.favorite,publication.like,publication.user.id,isReload])
     
+    useEffect(() => {
+        if(publication.like.includes(publication.user.id)){
+            setIsLike(true)
+          }
+    }, [])
+    
+    useEffect(() => {
+        if ( isLike === true && isReload === true ) {
+            setCompteurLike((prev) => {
+              return prev + 1;
+             
+            });
+          } else if(isLike === false && isReload === true) {
+    
+            setCompteurLike((prev) => {
+              return prev - 1;
+            });
+          }
+          setIsReload(false)
+      }, [isLike]);
    
      useEffect(() => {
         if(commentList){  
@@ -95,7 +116,7 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                 )
             }   
         } )}
-            <MenuSettingPublication publication={publication}/>
+            <MenuSettingPublication publication={publication}  />
         </div>
 
 
@@ -109,18 +130,18 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             <div className='flex justify-between p-3'>
                 <div>
                     <ul className='flex gap-5 ml-4 mb-2'>
-                       <li> <MenuLikePublication publication={publication} isLike={isLike}/></li>
+                       <li> <MenuLikePublication publication={publication} isReload={isReload} compteurLike={compteurLike}/></li>
                         <li>{commentList?.length}</li>  
                     </ul>
                 <div className='flex gap-3 ml-3 text-xl'>
-                    <button  aria-label='like' onClick={()=>{ likePubliction(publication._id)
+                    <button  aria-label='like' onClick={()=>{ likePublication(publication._id)
                         setIsLike(!isLike)
-                    
+                        setIsReload(true) 
                     }}>
                         <FaHeart className={`${isLike === true? 'text-red-600': 'text-red-300'}`}  />
                     </button>
                     <BiSolidCommentDetail />
-                    <button aria-label='save' onClick={()=>{savePubliction(publication._id)
+                    <button aria-label='save' onClick={()=>{savePublication(publication._id)
                         setIsSave(!isSave)}}>
                         <FaBookmark className={`${isSave === true? 'text-primary': 'text-sky-300'}`} />
                     </button>
@@ -161,17 +182,18 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             <div className='flex justify-between p-3'>
                 <div>
                     <ul className='flex gap-5 ml-4 mb-2'>
-                       <li> <MenuLikePublication publication={publication} isLike={isLike}/></li>
+                       <li> <MenuLikePublication publication={publication} isReload={isReload} compteurLike={compteurLike}/></li>
                         <li>{commentList?.length}</li>
                     </ul>
                 <div className='flex gap-3 ml-3 text-xl'>
-                    <button  aria-label='like' onClick={()=>{likePubliction(publication._id)
+                    <button  aria-label='like' onClick={()=>{likePublication(publication._id)
                          setIsLike(!isLike)
+                         setIsReload(true)
                     }}>
                         <FaHeart className={`${isLike === true? 'text-red-600': 'text-red-300'}`}  />
                     </button>
                     <BiSolidCommentDetail />
-                    <button  aria-label='save' onClick={()=>{ savePubliction(publication._id)
+                    <button  aria-label='save' onClick={()=>{ savePublication(publication._id)
                         setIsSave(!isSave)}}>
                         <FaBookmark className={`${isSave === true? 'text-primary': 'text-sky-300'}`} />
                     </button>
@@ -193,13 +215,15 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
             const commentDate= new Date(comment.comment.createdAt)
                 if(full === true) { 
                     return(
-                        <>    
-                            <div className=' max-w-full max-h-60'>
+                           
+                            <div key={comment.comment._id} className=' max-w-full max-h-60'>
 
                             <div className='flex justify-between flex-nowrap md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
                                 <div className='flex flex-row items-center gap-2 md:text-base'>
                                 { comment.user[0].profile_image ? <Image src={`https://interest-48022f6f5975.herokuapp.com/image/view/${comment.user[0]?.profile_image}`} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-10 w-10'/> : <Image src={'/default_profile.png'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-10 w-10'/>} 
-                                    <p className='font-semibold'> {comment.user[0].pseudo} </p>
+                                    <p className='font-semibold cursor-pointer' onClick={()=>{
+                                        router.push(`/profil/${comment.user[0].pseudo}`)
+                                    }}> {comment.user[0].pseudo} </p>
                                     <p className='pr-5 text-center w-72'> {comment.comment.description} </p>
                                 </div>
                                 <div className='flex justify-between'>
@@ -210,11 +234,13 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                                     hour: '2-digit',
                                     minute: '2-digit'}) 
                                 }</p>
-                                <MenuSettingComment comment={comment}/>
+                                <MenuSettingComment comment={comment} setIsReload={
+                                    setIsReload
+                                }/>
                                 </div>
                             </div>  
                         </div>
-        </>
+        
         )
     }
        }
@@ -225,7 +251,9 @@ export const Publication = ({full,publication}:{full:boolean, publication:Public
                     <div className='flex justify-between md:items-center gap-2 p-3 flex-col md:flex-row  md:text-base'>
                                 <div className='flex flex-row items-center gap-2 md:text-base'>
                                 { lastComment.user[0].profile_image ? <Image src={`https://interest-48022f6f5975.herokuapp.com/image/view/${lastComment.user[0].profile_image}`} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/> : <Image src={'/default_profile.png'} alt='Profile user' height={50} width={50} className='object-cover rounded-full h-12 w-12'/>} 
-                                    <p className='font-semibold'> {lastComment.user[0].pseudo} </p>
+                                    <p className='font-semibold cursor-pointer' onClick={()=>{
+                                        router.push(`/profil/${lastComment.user[0].pseudo}`)
+                                    }}> {lastComment.user[0].pseudo} </p>
                                     <p className='pr-5 w-[500px] text-center md:text-left truncate ...'> {lastComment.comment.description} </p>
                                 </div>
                             </div>  

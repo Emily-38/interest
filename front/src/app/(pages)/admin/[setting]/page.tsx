@@ -1,6 +1,6 @@
 'use client'
 import { deleteComment, getAllComment } from '@/services/comment'
-import { deletePubliction, getPubliction } from '@/services/publication'
+import { deletePublication, getPublication } from '@/services/publication'
 import { deleteUser, disabledUser, getAllUser } from '@/services/user'
 import { commentAdminType} from '@/utils/comment'
 import { ParamsType } from '@/utils/parametre'
@@ -21,7 +21,7 @@ const Admin = ({params}:ParamsType) => {
     getAllUser().then((res)=>{
         setUserList(res.data)
     }) 
-    getPubliction().then((res)=>{
+    getPublication().then((res)=>{
         setPublicationList(res.data)
     })
     getAllComment().then((res)=>{
@@ -75,7 +75,7 @@ const Admin = ({params}:ParamsType) => {
                                         })}</td>
                             <td className="p-3 px-5 flex justify-center">
                             <button aria-label='view' type="button" className="mr-3 text-xl  py-1 px-2" onClick={()=>{
-                                router.push(`profil/${user.pseudo}`)
+                                router.push(`../profil/${user.pseudo}`)
                             }}><FaEye /></button>
                             <button aria-label='delete' type="button" className="text-xl py-1 px-2" onClick={()=>{
                                 deleteUser().then((res)=>{
@@ -134,10 +134,10 @@ const Admin = ({params}:ParamsType) => {
                                         })}</td>
                             <td className="p-3 px-5 flex justify-center">
                             <button aria-label='view' type="button" className="mr-3 text-xl  py-1 px-2 " onClick={()=>{
-                                router.push(`publication/${publication._id}`)
+                                router.push(`../publication/${publication._id}`)
                             }}><FaEye /></button>
                             <button aria-label='delete' type="button" className="text-xl py-1 px-2" onClick={()=>{
-                                deletePubliction(publication._id).then((res)=>{
+                                deletePublication(publication._id).then((res)=>{
                                     if(res.status === 200){
                                         toast.success('La publication a été supprimer')
                                     }

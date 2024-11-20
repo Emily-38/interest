@@ -21,9 +21,9 @@ export const ModaleUpdatePublication = ({publication}:{publication:PublicationTy
     <div className={`relative flex flex-col items-center p-4 h-4/5 w-full bg-white rounded-md shadow-md mx-auto max-w-xl max-h-full text-center`}> 
     <h1 className='font-semibold text-xl p-4'>Modifier votre publication</h1>
     <p className='text-left'>Description: </p>
-    <textarea maxLength={500} defaultValue={publication.description} placeholder='Ecrivez votre description...' className='border border-black outline-none rounded-md p-2 w-1/2 m-5' onChange={(e)=>{setDescription(e.target.value)}}></textarea>
-    <div className='w-3/4'>
-    <p>Ajouter tout les interets souhaité sur la publications:</p>
+    <textarea maxLength={500} defaultValue={publication.description} placeholder='Ecrivez votre description...' className='border border-black outline-none rounded-md p-2 w-4/5 m-5' onChange={(e)=>{setDescription(e.target.value)}}></textarea>
+    <div className='w-4/5'>
+    <p>Ajouter tout les interets souhaité sur la publication:</p>
     <InterestForm setInterestUser={setInterestUser} publication={publication}/>
     </div>
     <button onClick={()=>{
@@ -34,7 +34,7 @@ export const ModaleUpdatePublication = ({publication}:{publication:PublicationTy
           window.location.reload()
         }
       })
-    }} className='bg-primary rounded-md text-white text-center p-3 w-1/2 mx-auto'> Modifier </button>
+    }} className='bg-primary rounded-md text-white text-center p-3 w-1/2 mx-auto m-5'> Modifier </button>
     </div>
   </div>
    

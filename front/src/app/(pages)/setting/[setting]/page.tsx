@@ -115,7 +115,7 @@ const Setting = ({params}:ParamsType) => {
             <div className='md:w-1/3 w-4/5'>
                 <InterestForm setInterestUser={setInterestUser} user={user}/>
             </div>     
-        <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/3'>Modifier
+        <button type="submit" className='bg-primary rounded-md text-white text-center p-3 mx-auto w-4/5 md:w-1/3 mb-5'>Modifier
         </button>
     </form>:''}
 
@@ -144,7 +144,7 @@ const Setting = ({params}:ParamsType) => {
 
     {params.setting === 'personal'?
     <form className='flex flex-col gap-10 items-center justify-center md:w-1/2 w-full md:h-lvh h-full text-center mx-auto m-5' onSubmit={handleSubmit(onSubmit)}>
-        <p className='font-semibold text-2xl'>Confidentialité du compte</p>
+        <p className='font-semibold text-2xl'>Information personelle</p>
         <p className='text-lg'>Modifier votre email:</p>
         <input {...register('email')}  type="email" placeholder='Ecrire votre Email' className=' border bg-white border-black text-center rounded-md p-2 md:w-1/2 w-4/5'/>
         <p className='text-lg'>Modifier votre genre:</p>
