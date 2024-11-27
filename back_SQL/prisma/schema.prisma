@@ -1,0 +1,88 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+
+  id String @id @default(uuid())
+  email String @unique
+  pseudo String @unique
+  password String @db.VarChar(191)
+  age Int 
+  gender String @db.VarChar(191)
+  profile_image String? @db.VarChar(191)
+  gdpr DateTime @default(now())
+  token  String? @db.VarChar(191)
+  isActive Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  confidentialityId  String @db.VarChar(191)
+  roleId String  @db.VarChar(191)
+
+  followers   followers[] @relation("UserFollowers")
+  
+  following   followers[] @relation("UserFollowing")
+
+  interestId interest[] @relation("InterestId")
+  
+  confidentiality confidentiality @relation(fields: [confidentialityId], references: [id])
+  role role @relation(fields: [roleId], references: [id])
+}
+
+model interest {
+
+  id String  @id @default(uuid())
+  name String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user user[] @relation("InterestId")
+}
+
+model confidentiality {
+
+  id String @id @default(uuid())
+  name String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user user[]
+
+}
+
+model role {
+
+  id String @id @default(uuid())
+  name String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user user[]
+
+}
+
+model followers {
+
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId        String
+  user          user   @relation("UserFollowers", fields: [userId], references: [id])
+
+  followerId    String
+  follower      user   @relation("UserFollowing", fields: [followerId], references: [id])
+  
+
+  @@unique([userId, followerId])
+  
+}
+
